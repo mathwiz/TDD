@@ -4,9 +4,9 @@
 ;(define (sum-sq-3 x y z)
 ;  (... x y z))
 (define (sum-sq-3 x y z)
-  (cond ((and (> x z) (> y z)) (+ (sqr x) (sqr y))))
-  (cond ((and (> x y) (> z y)) (+ (sqr x) (sqr z))))
-  (cond ((and (> y x) (> z x)) (+ (sqr z) (sqr y))))
+  (cond ((and (<= x z) (<= x y)) (+ (sqr z) (sqr y)))
+        ((and (<= y z) (<= y x)) (+ (sqr x) (sqr z)))
+        ((and (<= z x) (<= z y)) (+ (sqr x) (sqr y))))
   )
 
 (sum-sq-3 2 3 4)
@@ -16,3 +16,4 @@
 (sum-sq-3 4 3 2)
 (sum-sq-3 4 2 3)
 (sum-sq-3 5 3 4)
+(sum-sq-3 2 2 2)
