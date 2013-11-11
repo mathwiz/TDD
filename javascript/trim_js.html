@@ -1,0 +1,17 @@
+<script>
+String.prototype.trim = function() {
+	function leftChop(str, test) {
+		if (!str || str.length == 0) {
+			return "";
+		} else {
+			var chopIt = test && /\s/.test(str.charAt(0));
+			return (chopIt ? "" : str.charAt(0)) + 
+				leftChop(str.substring(1), chopIt);
+		}
+	}
+	function reverse(str) {
+		return str.split("").reverse().join("");
+	}
+	return reverse(leftChop(reverse(leftChop(this, true)), true));
+};
+</script>
