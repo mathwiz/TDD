@@ -1,2 +1,4 @@
-(defun getpath() "/Users/Yohan/Documents/GitHub/TDD/lisp/")
-(defun loadfile(file) (+ file file))
+(defun loadfile(file) 
+	(load (concatenate 'string
+		    "/Users/Yohan/Documents/GitHub/TDD/lisp/"
+		    file)))
