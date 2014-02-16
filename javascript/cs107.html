@@ -12,6 +12,13 @@ function log(s) {
     console.log(s);
 }
 
+function flatten(seq) {
+    if (!_.isArray(seq))
+        return [seq];
+    else
+        return _.union.apply(this, _.map(seq, flatten));
+}
+
 $(function() {
 
 $("#msg").html('Ready');
@@ -19,7 +26,10 @@ var messages = [ 'JQuery works', 'Underscore works' ];
 _.each(messages, function(it) { 
     log(it); 
 });
-
+var a = [ [[0, 1]], [[10,20], [[200]], 99], [[[[4000]]]], 98 ];
+log(a);
+log(_.flatten(a));
+log(flatten(a));
 });
 
 </script>
