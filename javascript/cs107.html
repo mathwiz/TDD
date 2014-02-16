@@ -16,7 +16,7 @@ function flatten(seq) {
     if (!_.isArray(seq))
         return [seq];
     else
-        return _.union.apply(this, _.map(seq, flatten));
+        return _.union.apply(flatten, _.map(seq, flatten));
 }
 
 $(function() {
