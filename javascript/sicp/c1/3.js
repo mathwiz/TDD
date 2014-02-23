@@ -10,7 +10,7 @@
   )
 */
 function sum_sq_3 (x, y, z) {
-	if (x <= z && x <= y) 
+	if (x <= z && x <= y)
 		return z*z + y*y;
 	else if (y <= z && x <= x) 
 		return z*z + x*x;
