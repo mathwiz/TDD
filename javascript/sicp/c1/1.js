@@ -24,24 +24,8 @@ p(a == b);
 
 p((b > a) && (b < (a * b)) ? b : a);
 
-p((function() {
-  if (a == 4) 
-    return 6;
-  else if (b == 4)
-    return 6 + 7 + a;
-  else 
-    return 25;
-})());
+p( (function() {if (a == 4) return 6; else if (b == 4) return 6 + 7 + a; else return 25; })() );
 
 p((b > a ? b : a) + 2);
 
-p(
-(function() {
-  if (a > b)
-    return a;
-  else if (a < b)
-    return b;
-  else
-    return -1;
-})() * (a + 1)
-);
+p( (function() {if (a > b) return a; else if (a < b) return b; else return -1; })() * (a + 1) );
