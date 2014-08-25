@@ -7,5 +7,5 @@
 
 (defun loadf (filestring)
   (load (concatenate 'string
-		     "/Users/Yohan/Documents/GitHub/TDD/lisp"  ; edit this!
+		     "/Users/Yohan/Documents/GitHub/TDD/lisp/"  ; edit this!
 		     filestring)))
