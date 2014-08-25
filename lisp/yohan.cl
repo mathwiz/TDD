@@ -1,1 +1,1 @@
-(defun yohan (x) (concatenate 'string "yohan" x))
+(defun yohan (x) (concatenate 'string "Yohan says: " x))
