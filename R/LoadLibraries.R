@@ -2,5 +2,7 @@ LoadLibraries <-
 function() {
 	library(ISLR)
 	library(MASS)
-	print("ISLR and MASS loaded.")
+	library(ggplot2)
+	library(reshape2)
+	print("Libraries loaded.")
 }
