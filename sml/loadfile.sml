@@ -1,2 +1,1 @@
-fun loadfile file = 
-    "/Users/Yohan/Documents/GitHub/TDD/sml/" ^ file
+fun loadfile file = "/Users/Yohan/Documents/GitHub/TDD/sml/" ^ file;
