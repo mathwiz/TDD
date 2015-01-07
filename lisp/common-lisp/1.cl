@@ -1,1 +1,6 @@
 (abs -2)
+(concatenate 'string "f" "-" "oo")
+(defun inc (x) (+ 1 x))
+(inc 434)
+(cons 2 4)
+(cons 2 (cons 1 ()))
