@@ -10,5 +10,5 @@ pyresponse = json.load(response)
 results = pyresponse["results"]
 
 for i in range(10):
-    print "Tweet " + str(i) + ": "+ results[i]["text"]
+    print("Tweet " + str(i) + ": " + results[i]["text"])
 
