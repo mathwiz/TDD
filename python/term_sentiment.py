@@ -34,7 +34,7 @@ def hw(sent, tweet):
 def print_result():
     for key in term_counts.keys():
         val = term_sents[key] / term_counts[key]
-        print key + " " + str(val)
+        print(key + " " + str(val))
          
 def create_sent(fp):
     scores = {} # initialize an empty dictionary
@@ -52,7 +52,7 @@ def get_score(scores, word):
         return score
 
 def lines(fp):
-    print str(len(fp.readlines()))
+    print(str(len(fp.readlines())))
 
 def main():
     sent_file = open(sys.argv[1])
