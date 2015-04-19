@@ -5,11 +5,12 @@ import json
 term_sents = {}
 term_counts = {}
 
+
 def hw(sent, tweet):
     scores = create_sent(sent)
     for line in tweet:
         jdata = json.loads(line)
-        text =  jdata.get("text")
+        text = jdata.get("text")
         if text != None:
             score = 0
             new_terms = []
@@ -20,7 +21,7 @@ def hw(sent, tweet):
                     new_terms.append(word)
                 score = score + sent_score
 
-            #print text.encode('utf-8')
+            # print text.encode('utf-8')
             #print score
             #print new_terms
             for new in new_terms:
@@ -30,20 +31,23 @@ def hw(sent, tweet):
                 else:
                     term_counts[new] = term_counts[new] + 1
                     term_sents[new] = term_sents[new] + score
-                    
+
+
 def print_result():
     for key in term_counts.keys():
         val = term_sents[key] / term_counts[key]
         print(key + " " + str(val))
-         
+
+
 def create_sent(fp):
-    scores = {} # initialize an empty dictionary
+    scores = {}  # initialize an empty dictionary
     for line in fp:
-        term, score  = line.split("\t")
+        term, score = line.split("\t")
         scores[term] = int(score)  # Convert the score to an integer.
-        
+
     return scores
-   
+
+
 def get_score(scores, word):
     score = scores.get(word)
     if score == None:
@@ -51,14 +55,17 @@ def get_score(scores, word):
     else:
         return score
 
+
 def lines(fp):
     print(str(len(fp.readlines())))
+
 
 def main():
     sent_file = open(sys.argv[1])
     tweet_file = open(sys.argv[2])
     hw(sent_file, tweet_file)
     print_result()
+
 
 if __name__ == '__main__':
     main()
