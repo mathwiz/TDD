@@ -1,4 +1,3 @@
-a=4
-b=6
-print("The value is ")
-print(a+b)
+a = int(input("Enter length> "))
+b = int(input("Enter width> "))
+print("The area is", (a * b))
