@@ -1,1 +1,10 @@
+# Backups #
+*.bak
 *.rkt~
+# Compiled source #
+*.exe
+*.err
+*.out
+*.o
+# Paths #
+python/.idea/
