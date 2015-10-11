@@ -1,2 +1,2 @@
 (* filename: hello.fs *)
-let _ = printf "Hello world"
+let _ = printf "Hello world\n"
