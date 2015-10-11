@@ -8,3 +8,4 @@
 *.o
 # Paths #
 python/.idea/
+scala/.idea/
