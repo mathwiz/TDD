@@ -8,3 +8,5 @@ function c1_2() {
     var e2 = 3 * (6 - 2) * (2 - 7);
     return e1 / e2;
 }
+
+print(c1_2());
