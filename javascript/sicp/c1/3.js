@@ -17,3 +17,7 @@ function sum_sq_3 (x, y, z) {
 	else 
 		return x*x + y*y;
 }
+
+
+print(sum_sq_3(1,2,3));
+print(sum_sq_3(1,1,3));
