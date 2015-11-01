@@ -6,6 +6,7 @@
 *.err
 *.out
 *.o
+*.class
 # Paths #
 python/.idea/
 scala/.idea/
