@@ -1,3 +1,3 @@
-﻿let pi = 3.14
+﻿let pi = 3.14159
 printf "What is pi?\n"
-let x = 3
+let x = 7
