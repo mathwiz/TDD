@@ -36,3 +36,24 @@ end
 
 {Browse {FastPascal 6}}
 {Browse {FastPascal 30}}
+
+declare
+fun lazy {PascalList Row}
+   Row | {PascalList {AddList {ShiftLeft Row} {ShiftRight Row}}}
+end
+
+declare
+L={PascalList [1]}
+{Browse L}
+{Browse L.1}
+{Browse L.2.1}
+
+declare
+fun {PascalList2 N Row}
+   if N==1 then [Row]
+   else
+      Row | {PascalList2 N-1 {AddList {ShiftLeft Row} {ShiftRight Row}}}
+   end
+end
+
+{Browse {PascalList2 10 [1]}}
