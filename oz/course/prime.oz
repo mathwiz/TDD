@@ -7,7 +7,7 @@ fun {Prime N}
    local DoPrime in 
       fun {DoPrime N F}
 	 if N==F then true
-	 elseif N mod F == 0 then false
+	 elseif {Or (N < F) (N mod F == 0)} then false
 	 else {DoPrime N F+1}
 	 end
       end
@@ -15,4 +15,4 @@ fun {Prime N}
    end
 end
 
-{Browse {Prime 11}}
+{Browse {Prime 1}}
