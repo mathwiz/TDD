@@ -1,6 +1,6 @@
 # Backups #
 *.bak
-*.rkt~
+*~
 # Compiled source #
 *.exe
 *.err
