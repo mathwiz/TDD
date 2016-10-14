@@ -8,5 +8,6 @@
 *.o
 *.class
 # Paths #
+__pycache__
 python/.idea/
 scala/.idea/
