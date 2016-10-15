@@ -3,16 +3,16 @@
 ;;; This file uses Scheme features we don't talk about in _Simply_Scheme_.
 ;;; Read at your own risk.
 
-(if (equal? 'foo (symbol->string 'foo))
+(if (equal? 'foo (symbol-&gt;string 'foo))
     (error "Simply.scm already loaded!!")
     #f)
 
-;; Make number->string remove leading "+" if necessary
+;; Make number-&gt;string remove leading "+" if necessary
 
-(if (char=? #\+ (string-ref (number->string 1.0) 0))
-    (let ((old-ns number->string) (char=? char=?) (string-ref string-ref)
+(if (char=? #\+ (string-ref (number-&gt;string 1.0) 0))
+    (let ((old-ns number-&gt;string) (char=? char=?) (string-ref string-ref)
 	  (substring substring) (string-length string-length))
-      (set! number->string
+      (set! number-&gt;string
 	    (lambda args
 	      (let ((result (apply old-ns args)))
 		(if (char=? #\+ (string-ref result 0))
@@ -20,8 +20,8 @@
 		    result)))))
     'no-problem)
 
-(define number->string
-  (let ((old-ns number->string) (string? string?))
+(define number-&gt;string
+  (let ((old-ns number-&gt;string) (string? string?))
     (lambda args
       (if (string? (car args))
 	  (car args)
@@ -45,26 +45,26 @@
 ;; (It matters because some Schemes print inexact integers as "+1.0".)
 ;; The (exact 1) test is for PC Scheme, in which nothing is exact.
 (if (and (inexact? (round (sqrt 2))) (exact? 1))
-    (let ((old-round round) (inexact->exact inexact->exact))
+    (let ((old-round round) (inexact-&gt;exact inexact-&gt;exact))
       (set! round
 	    (lambda (number)
-	      (inexact->exact (old-round number)))))
+	      (inexact-&gt;exact (old-round number)))))
     'no-problem)
 
 ;; Remainder and quotient blow up if their argument isn't an integer.
 ;; Unfortunately, in SCM, (* 365.25 24 60 60) *isn't* an integer.
 
 (if (inexact? (* .25 4))
-    (let ((rem remainder) (quo quotient) (inexact->exact inexact->exact)
+    (let ((rem remainder) (quo quotient) (inexact-&gt;exact inexact-&gt;exact)
 	  (integer? integer?))
       (set! remainder
 	    (lambda (x y)
-	      (rem (if (integer? x) (inexact->exact x) x)
-		   (if (integer? y) (inexact->exact y) y))))
+	      (rem (if (integer? x) (inexact-&gt;exact x) x)
+		   (if (integer? y) (inexact-&gt;exact y) y))))
       (set! quotient
 	    (lambda (x y)
-	      (quo (if (integer? x) (inexact->exact x) x)
-		   (if (integer? y) (inexact->exact y) y)))))
+	      (quo (if (integer? x) (inexact-&gt;exact x) x)
+		   (if (integer? y) (inexact-&gt;exact y) y)))))
     'done)
 
 
@@ -73,12 +73,12 @@
 ;; (It gives the same sequence of random numbers every time.) 
 
 (define random
-  (let ((*seed* 1) (quotient quotient) (modulo modulo) (+ +) (- -) (* *) (> >))
+  (let ((*seed* 1) (quotient quotient) (modulo modulo) (+ +) (- -) (* *) (&gt; &gt;))
     (lambda (x)
       (let* ((hi (quotient *seed* 127773))
 	     (low (modulo *seed* 127773))
 	     (test (- (* 16807 low) (* 2836 hi))))
-	(if (> test 0)
+	(if (&gt; test 0)
 	    (set! *seed* test)
 	    (set! *seed* (+ test 2147483647))))
       (modulo *seed* x))))
@@ -114,33 +114,33 @@
   ;; 3 Letter in bad case or weird character
   (let ((*the-char-ranks* (make-vector 256 3))
 	(= =) (+ +) (string-ref string-ref) (string-length string-length)
-	(vector-set! vector-set!) (char->integer char->integer)
-	(symbol->string symbol->string) (vector-ref vector-ref))
+	(vector-set! vector-set!) (char-&gt;integer char-&gt;integer)
+	(symbol-&gt;string symbol-&gt;string) (vector-ref vector-ref))
     (define (rank-string str rank)
       (define (helper i len)
 	(if (= i len)
 	    'done
 	    (begin (vector-set! *the-char-ranks*
-				(char->integer (string-ref str i))
+				(char-&gt;integer (string-ref str i))
 				rank)
 		   (helper (+ i 1) len))))
       (helper 0 (string-length str)))
-    (rank-string (symbol->string 'abcdefghijklmnopqrstuvwxyz) 0)
-    (rank-string "!$%&*/:<=>?~_^" 0)
+    (rank-string (symbol-&gt;string 'abcdefghijklmnopqrstuvwxyz) 0)
+    (rank-string "!$%&amp;*/:&lt;=&gt;?~_^" 0)
     (rank-string "+-." 1)
     (rank-string "0123456789" 2)
     (lambda (char)		    ;; value of char-rank
-      (vector-ref *the-char-ranks* (char->integer char)))))
+      (vector-ref *the-char-ranks* (char-&gt;integer char)))))
 
-(define string->word
-  (let ((= =) (<= <=) (+ +) (- -) (char-rank char-rank) (string-ref string-ref)
+(define string-&gt;word
+  (let ((= =) (&lt;= &lt;=) (+ +) (- -) (char-rank char-rank) (string-ref string-ref)
 	(string-length string-length) (string=? string=?) (not not)
-	(char=? char=?) (string->number string->number)
-	(string->symbol string->symbol))
+	(char=? char=?) (string-&gt;number string-&gt;number)
+	(string-&gt;symbol string-&gt;symbol))
     (lambda (string)
       (define (subsequents? string i length)
 	(cond ((= i length) #t)
-	      ((<= (char-rank (string-ref string i)) 2)
+	      ((&lt;= (char-rank (string-ref string i)) 2)
 	       (subsequents? string (+ i 1) length))
 	      (else #f)))
       (define (special-id? string)
@@ -189,48 +189,48 @@
 			   (else #f)))
 		    (else (nn-helper string start len #f)))))) 
 
-      ;; The body of string->word:
-      (cond ((narrow-number? string) (string->number string))
-	    ((ok-symbol? string) (string->symbol string))
+      ;; The body of string-&gt;word:
+      (cond ((narrow-number? string) (string-&gt;number string))
+	    ((ok-symbol? string) (string-&gt;symbol string))
 	    (else string)))))
 
-(define char->word
+(define char-&gt;word
   (let ((= =) (char-rank char-rank) (make-string make-string) (char=? char=?)
-        (string->symbol string->symbol) (string->number string->number))
+        (string-&gt;symbol string-&gt;symbol) (string-&gt;number string-&gt;number))
     (lambda (char)
       (let ((rank (char-rank char))
 	    (string (make-string 1 char)))
-	(cond ((= rank 0) (string->symbol string))
-	      ((= rank 2) (string->number string))
+	(cond ((= rank 0) (string-&gt;symbol string))
+	      ((= rank 2) (string-&gt;number string))
 	      ((char=? char #\+) '+)
 	      ((char=? char #\-) '-)
 	      (else string))))))
 
-(define word->string
-  (let ((number? number?) (string? string?) (number->string number->string)
-	(symbol->string symbol->string))
+(define word-&gt;string
+  (let ((number? number?) (string? string?) (number-&gt;string number-&gt;string)
+	(symbol-&gt;string symbol-&gt;string))
     (lambda (wd)
       (cond ((string? wd) wd)
-	    ((number? wd) (number->string wd))
-	    (else (symbol->string wd))))))
+	    ((number? wd) (number-&gt;string wd))
+	    (else (symbol-&gt;string wd))))))
 
 (define count
   (let ((word? word?) (string-length string-length)
-	(word->string word->string) (length length))
+	(word-&gt;string word-&gt;string) (length length))
     (lambda (stuff)
       (if (word? stuff)
-	  (string-length (word->string stuff))
+	  (string-length (word-&gt;string stuff))
 	  (length stuff)))))
 
 (define word
-  (let ((string->word string->word) (apply apply) (string-append string-append)
-	(map map) (word? word?) (word->string word->string) (whoops whoops))
+  (let ((string-&gt;word string-&gt;word) (apply apply) (string-append string-append)
+	(map map) (word? word?) (word-&gt;string word-&gt;string) (whoops whoops))
     (lambda x
-      (string->word
+      (string-&gt;word
        (apply string-append
 	      (map (lambda (arg)
 		     (if (word? arg)
-			 (word->string arg)
+			 (word-&gt;string arg)
 			 (whoops "Invalid argument to WORD: " arg)))
 		   x))))))
 
@@ -259,11 +259,11 @@
 (define sentence se)
 
 (define first
-  (let ((pair? pair?) (char->word char->word) (string-ref string-ref)
-	(word->string word->string) (car car) (empty? empty?)
+  (let ((pair? pair?) (char-&gt;word char-&gt;word) (string-ref string-ref)
+	(word-&gt;string word-&gt;string) (car car) (empty? empty?)
 	(whoops whoops) (word? word?))
     (define (word-first wd)
-      (char->word (string-ref (word->string wd) 0)))
+      (char-&gt;word (string-ref (word-&gt;string wd) 0)))
     (lambda (x)
       (cond ((pair? x) (car x))
 	    ((empty? x) (whoops "Invalid argument to FIRST: " x))
@@ -271,12 +271,12 @@
 	    (else (whoops "Invalid argument to FIRST: " x))))))
 
 (define last
-  (let ((pair? pair?) (- -) (word->string word->string) (char->word char->word)
+  (let ((pair? pair?) (- -) (word-&gt;string word-&gt;string) (char-&gt;word char-&gt;word)
 	(string-ref string-ref) (string-length string-length) (empty? empty?)
 	(cdr cdr) (car car) (whoops whoops) (word? word?))
     (define (word-last wd)
-      (let ((s (word->string wd)))
-	(char->word (string-ref s (- (string-length s) 1)))))
+      (let ((s (word-&gt;string wd)))
+	(char-&gt;word (string-ref s (- (string-length s) 1)))))
     (define (list-last lst)      
       (if (empty? (cdr lst))
 	  (car lst)
@@ -289,13 +289,13 @@
 
 (define bf
   (let ((pair? pair?) (substring substring) (string-length string-length)
-	(string->word string->word) (word->string word->string) (cdr cdr)
+	(string-&gt;word string-&gt;word) (word-&gt;string word-&gt;string) (cdr cdr)
 	(empty? empty?) (whoops whoops) (word? word?))
     (define string-bf
       (lambda (s)
       (substring s 1 (string-length s))))
     (define (word-bf wd)
-      (string->word (string-bf (word->string wd))))
+      (string-&gt;word (string-bf (word-&gt;string wd))))
     (lambda (x)
       (cond ((pair? x) (cdr x))
 	    ((empty? x) (whoops "Invalid argument to BUTFIRST: " x))
@@ -306,8 +306,8 @@
 
 (define bl
   (let ((pair? pair?) (- -) (cdr cdr) (cons cons) (car car) (substring substring)
-	(string-length string-length) (string->word string->word)
-	(word->string word->string) (empty? empty?) (whoops whoops) (word? word?))
+	(string-length string-length) (string-&gt;word string-&gt;word)
+	(word-&gt;string word-&gt;string) (empty? empty?) (whoops whoops) (word? word?))
     (define (list-bl list)
       (if (null? (cdr list))
 	  '()
@@ -315,7 +315,7 @@
     (define (string-bl s)
       (substring s 0 (- (string-length s) 1)))  
     (define (word-bl wd)
-      (string->word (string-bl (word->string wd))))
+      (string-&gt;word (string-bl (word-&gt;string wd))))
     (lambda (x)
       (cond ((pair? x) (list-bl x))
 	    ((empty? x) (whoops "Invalid argument to BUTLAST: " x))
@@ -325,20 +325,20 @@
 (define butlast bl)
 
 (define item
-  (let ((> >) (- -) (< <) (integer? integer?) (list-ref list-ref)
-	(char->word char->word) (string-ref string-ref)
-	(word->string word->string) (not not) (whoops whoops)
+  (let ((&gt; &gt;) (- -) (&lt; &lt;) (integer? integer?) (list-ref list-ref)
+	(char-&gt;word char-&gt;word) (string-ref string-ref)
+	(word-&gt;string word-&gt;string) (not not) (whoops whoops)
 	(count count) (word? word?) (list? list?))
     (define (word-item n wd)
-      (char->word (string-ref (word->string wd) (- n 1))))
+      (char-&gt;word (string-ref (word-&gt;string wd) (- n 1))))
     (lambda (n stuff)
       (cond ((not (integer? n))
 	     (whoops "Invalid first argument to ITEM (must be an integer): "
 		     n))
-	    ((< n 1)
+	    ((&lt; n 1)
 	     (whoops "Invalid first argument to ITEM (must be positive): "
 		     n))
-	    ((> n (count stuff))
+	    ((&gt; n (count stuff))
 	     (whoops "No such item: " n stuff))
 	    ((word? stuff) (word-item n stuff))
 	    ((list? stuff) (list-ref stuff (- n 1)))
@@ -350,8 +350,8 @@
   (let ((vector-length vector-length) (= =) (vector-ref vector-ref)
 	(+ +) (string? string?) (symbol? symbol?) (null? null?) (pair? pair?)
 	(car car) (cdr cdr) (eq? eq?) (string=? string=?)
-	(symbol->string symbol->string) (number? number?)
-	(string->word string->word) (vector? vector?) (eqv? eqv?))
+	(symbol-&gt;string symbol-&gt;string) (number? number?)
+	(string-&gt;word string-&gt;word) (vector? vector?) (eqv? eqv?))
     (define (vector-equal? v1 v2)
       (let ((len1 (vector-length v1))
 	    (len2 (vector-length v2)))
@@ -373,18 +373,18 @@
 	    ((pair? y) #f)
 	    ((symbol? x)
 	     (or (and (symbol? y) (eq? x y))
-		 (and (string? y) (string=? (symbol->string x) y))))
+		 (and (string? y) (string=? (symbol-&gt;string x) y))))
 	    ((symbol? y)
-	     (and (string? x) (string=? x (symbol->string y))))
+	     (and (string? x) (string=? x (symbol-&gt;string y))))
 	    ((number? x)
 	     (or (and (number? y) (= x y))
 		 (and (string? y)
-		      (let ((possible-num (string->word y)))
+		      (let ((possible-num (string-&gt;word y)))
 			(and (number? possible-num)
 			     (= x possible-num))))))
 	    ((number? y)
 	     (and (string? x)
-		  (let ((possible-num (string->word x)))
+		  (let ((possible-num (string-&gt;word x)))
 		    (and (number? possible-num)
 			 (= possible-num y)))))
 	    ((string? x) (and (string? y) (string=? x y)))
@@ -394,9 +394,9 @@
 	    (else (eqv? x y))))))
 
 (define member?
-  (let ((> >) (- -) (< <) (null? null?) (symbol? symbol?) (eq? eq?) (car car)
-	(not not) (symbol->string symbol->string) (string=? string=?)
-	(cdr cdr) (equal? equal?) (word->string word->string)
+  (let ((&gt; &gt;) (- -) (&lt; &lt;) (null? null?) (symbol? symbol?) (eq? eq?) (car car)
+	(not not) (symbol-&gt;string symbol-&gt;string) (string=? string=?)
+	(cdr cdr) (equal? equal?) (word-&gt;string word-&gt;string)
 	(string-length string-length) (whoops whoops) (string-ref string-ref)
 	(char=? char=?) (list? list?) (number? number?) (empty? empty?)
 	(word? word?) (string? string?))
@@ -406,7 +406,7 @@
 		  (eq? symbol (car lst))))
 	    ((string? (car lst))
 	     (cond ((not string)
-		    (symbol-in-list? symbol (symbol->string symbol) lst))
+		    (symbol-in-list? symbol (symbol-&gt;string symbol) lst))
 		   ((string=? string (car lst)) #t)
 		   (else (symbol-in-list? symbol string (cdr lst)))))
 	    (else (symbol-in-list? symbol string (cdr lst)))))
@@ -415,15 +415,15 @@
 	    ((equal? wd (car lst)) #t)
 	    (else (word-in-list? wd (cdr lst)))))
     (define (word-in-word? small big)
-      (let ((one-letter-str (word->string small)))
-	(if (> (string-length one-letter-str) 1)
+      (let ((one-letter-str (word-&gt;string small)))
+	(if (&gt; (string-length one-letter-str) 1)
 	    (whoops "Invalid arguments to MEMBER?: " small big)
-	    (let ((big-str (word->string big)))
+	    (let ((big-str (word-&gt;string big)))
 	      (char-in-string? (string-ref one-letter-str 0)
 			       big-str
 			       (- (string-length big-str) 1))))))
     (define (char-in-string? char string i)
-      (cond ((< i 0) #f)
+      (cond ((&lt; i 0) #f)
 	    ((char=? char (string-ref string i)) #t)
 	    (else (char-in-string? char string (- i 1)))))
     (lambda (x stuff)
@@ -438,13 +438,13 @@
 
 (define before?
   (let ((not not) (word? word?) (whoops whoops) (string<!--? string<?)
-	(word--->string word->string))
+	(word--->string word-&gt;string))
     (lambda (wd1 wd2)
       (cond ((not (word? wd1))
 	     (whoops "Invalid first argument to BEFORE? (not a word): " wd1))
 	    ((not (word? wd2))
 	     (whoops "Invalid second argument to BEFORE? (not a word): " wd2))
-	    (else (string<!--? (word--->string wd1) (word->string wd2)))))))
+	    (else (string<!--? (word--->string wd1) (word-&gt;string wd2)))))))
 
 
 ;;; Higher Order Functions
@@ -468,22 +468,22 @@
 
 (define keep
   (let ((+ +) (= =) (pair? pair?) (substring substring)
-	(char->word char->word) (string-ref string-ref)
-	(string-set! string-set!) (word->string word->string)
-	(string-length string-length) (string->word string->word)
+	(char-&gt;word char-&gt;word) (string-ref string-ref)
+	(string-set! string-set!) (word-&gt;string word-&gt;string)
+	(string-length string-length) (string-&gt;word string-&gt;word)
 	(make-string make-string) (procedure? procedure?)
 	(whoops whoops) (word? word?) (null? null?))
     (lambda (pred w-or-s)
       (define (keep-string in i out out-len len)
 	(cond ((= i len) (substring out 0 out-len))
-	      ((pred (char->word (string-ref in i)))
+	      ((pred (char-&gt;word (string-ref in i)))
 	       (string-set! out out-len (string-ref in i))
 	       (keep-string in (+ i 1) out (+ out-len 1) len))
 	      (else (keep-string in (+ i 1) out out-len len))))
       (define (keep-word wd)
-	(let* ((string (word->string wd))
+	(let* ((string (word-&gt;string wd))
 	       (len (string-length string)))
-	  (string->word
+	  (string-&gt;word
 	   (keep-string string 0 (make-string len) 0 len))))
       (cond ((not (procedure? pred))
 	     (whoops "Invalid first argument to KEEP (not a procedure): "
@@ -501,15 +501,15 @@
       (count (keep (lambda (element) (equal? item element)) aggregate)))))
 
 (define every
-  (let ((= =) (+ +) (se se) (char->word char->word) (string-ref string-ref)
+  (let ((= =) (+ +) (se se) (char-&gt;word char-&gt;word) (string-ref string-ref)
 	(empty? empty?) (first first) (bf bf) (not not) (procedure? procedure?)
-	(whoops whoops) (word? word?) (word->string word->string)
+	(whoops whoops) (word? word?) (word-&gt;string word-&gt;string)
 	(string-length string-length))
     (lambda (fn stuff)
       (define (string-every string i length)
 	(if (= i length)
 	    '()
-	    (se (fn (char->word (string-ref string i)))
+	    (se (fn (char-&gt;word (string-ref string i)))
 		(string-every string (+ i 1) length))))
       (define (sent-every sent)
 	;; This proc. can't be optimized or else it will break the
@@ -523,7 +523,7 @@
 	     (whoops "Invalid first argument to EVERY (not a procedure):"
 		     fn))
 	    ((word? stuff)
-	     (let ((string (word->string stuff)))
+	     (let ((string (word-&gt;string stuff)))
 	       (string-every string 0 (string-length string))))
 	    (else (sent-every stuff))))))
 
@@ -592,12 +592,12 @@
        (else (whoops "Incorrect number of arguments to procedure SHOW"))))))
 
 (define show-line
-  (let ((>= >=) (length length) (whoops whoops) (null? null?)
+  (let ((&gt;= &gt;=) (length length) (whoops whoops) (null? null?)
 	(current-output-port current-output-port) (car car) (not not)
 	(list? list?) (display display) (for-each for-each) (cdr cdr)
 	(newline newline))
     (lambda (line . args)
-      (if (>= (length args) 2)
+      (if (&gt;= (length args) 2)
 	  (whoops "Too many arguments to show-line")
 	  (let ((port (if (null? args) (current-output-port) (car args))))
 	    (cond ((not (list? line))
@@ -612,7 +612,7 @@
 (define read-string
   (let ((read-char read-char) (eqv? eqv?) (apply apply)
 	(string-append string-append) (substring substring) (reverse reverse)
-	(cons cons) (>= >=) (+ +) (string-set! string-set!) (length length)
+	(cons cons) (&gt;= &gt;=) (+ +) (string-set! string-set!) (length length)
 	(whoops whoops) (null? null?) (current-input-port current-input-port)
 	(car car) (cdr cdr) (eof-object? eof-object?) (list list)
 	(make-string make-string) (peek-char peek-char))
@@ -625,7 +625,7 @@
 		       (cons
 			(substring (car chars) 0 chunk-length)
 			(cdr chars)))))
-	      ((>= chunk-length 80)
+	      ((&gt;= chunk-length 80)
 	       (let ((newstring (make-string 80)))
 		 (string-set! newstring 0 char)
 		 (read-string-helper (cons newstring chars)
@@ -639,7 +639,7 @@
 				   (+ chunk-length 1)
 				   port)))))
     (lambda args
-      (if (>= (length args) 2)
+      (if (&gt;= (length args) 2)
 	  (whoops "Too many arguments to read-string")
 	  (let ((port (if (null? args) (current-input-port) (car args))))
 	    (if (eof-object? (peek-char port))
@@ -647,7 +647,7 @@
 		(read-string-helper (list (make-string 80)) 0 0 port)))))))
 
 (define read-line
-  (let ((= =) (list list) (string->word string->word) (substring substring)
+  (let ((= =) (list list) (string-&gt;word string-&gt;word) (substring substring)
 	(char-whitespace? char-whitespace?) (string-ref string-ref)
 	(+ +) (string-length string-length) (apply apply)
 	(read-string read-string))
@@ -657,11 +657,11 @@
 	  (cond ((= i len)
 		 (if (= i start)
 		     '()
-		     (list (string->word (substring string start i)))))
+		     (list (string-&gt;word (substring string start i)))))
 		((char-whitespace? (string-ref string i))
 		 (if (= i start)
 		     (helper (+ i 1) (+ i 1) len)
-		     (cons (string->word (substring string start i))
+		     (cons (string-&gt;word (substring string start i))
 			   (helper (+ i 1) (+ i 1) len))))
 		(else (helper (+ i 1) start len))))
         (if (eof-object? string)
@@ -673,21 +673,21 @@
 (define *the-open-outports* '())
 
 (define align
-  (let ((< <) (abs abs) (* *) (expt expt) (>= >=) (- -) (+ +) (= =)
-	(null? null?) (car car) (round round) (number->string number->string)
+  (let ((&lt; &lt;) (abs abs) (* *) (expt expt) (&gt;= &gt;=) (- -) (+ +) (= =)
+	(null? null?) (car car) (round round) (number-&gt;string number-&gt;string)
 	(string-length string-length) (string-append string-append)
 	(make-string make-string) (substring substring)
 	(string-set! string-set!) (number? number?)
-	(word->string word->string))
+	(word-&gt;string word-&gt;string))
     (lambda (obj width . rest)
       (define (align-number obj width rest)
-	(let* ((sign (< obj 0))
+	(let* ((sign (&lt; obj 0))
 	       (num (abs obj))
 	       (prec (if (null? rest) 0 (car rest)))
 	       (big (round (* num (expt 10 prec))))
-	       (cvt0 (number->string big))
-	       (cvt (if (< num 1) (string-append "0" cvt0) cvt0))
-	       (pos-str (if (>= (string-length cvt0) prec)
+	       (cvt0 (number-&gt;string big))
+	       (cvt (if (&lt; num 1) (string-append "0" cvt0) cvt0))
+	       (pos-str (if (&gt;= (string-length cvt0) prec)
 			    cvt
 			    (string-append
 			     (make-string (- prec (string-length cvt0)) #\0)
@@ -703,7 +703,7 @@
 			    "."
 			    (substring string left (- length 1))))))
 	  (cond ((= length width) result)
-		((< length width)
+		((&lt; length width)
 		 (string-append (make-string (- width length) #\space) result))
 		(else (let ((new (substring result 0 width)))
 			(string-set! new (- width 1) #\+)
@@ -711,14 +711,14 @@
       (define (align-word string)
 	(let ((length (string-length string)))
 	  (cond ((= length width) string)
-		((< length width)
+		((&lt; length width)
 		 (string-append string (make-string (- width length) #\space)))
 		(else (let ((new (substring string 0 width)))
 			(string-set! new (- width 1) #\+)
 			new)))))
       (if (number? obj)
 	  (align-number obj width rest)
-	  (align-word (word->string obj))))))
+	  (align-word (word-&gt;string obj))))))
 
 (define open-output-file
   (let ((oof open-output-file) (cons cons))
@@ -770,10 +770,10 @@
 
 ;; Make arithmetic work on numbers in string form:
 (define maybe-num
-  (let ((string? string?) (string->number string->number))
+  (let ((string? string?) (string-&gt;number string-&gt;number))
     (lambda (arg)
       (if (string? arg)
-	  (let ((num (string->number arg)))
+	  (let ((num (string-&gt;number arg)))
 	    (if num num arg))
 	  arg))))
 
@@ -796,8 +796,8 @@
 
 (define strings-are-numbers
   (let ((are-they? #f)
-        (real-* *) (real-+ +) (real-- -) (real-/ /) (real-< <)
-        (real-<= <=) (real-= =) (real-> >) (real->= >=) (real-abs abs)
+        (real-* *) (real-+ +) (real-- -) (real-/ /) (real-&lt; &lt;)
+        (real-&lt;= &lt;=) (real-= =) (real-&gt; &gt;) (real-&gt;= &gt;=) (real-abs abs)
         (real-acos acos) (real-asin asin) (real-atan atan)
         (real-ceiling ceiling) (real-cos cos) (real-even? even?)
         (real-exp exp) (real-expt expt) (real-floor floor) (real-align align)
@@ -810,7 +810,7 @@
         (real-repeated repeated) (real-round round) (real-sin sin)
         (real-sqrt sqrt) (real-tan tan) (real-truncate truncate)
         (real-vector-ref vector-ref) (real-vector-set! vector-set!)
-        (real-zero? zero?) (maybe-num maybe-num) (number->string number->string)
+        (real-zero? zero?) (maybe-num maybe-num) (number-&gt;string number-&gt;string)
 	(cons cons) (car car) (cdr cdr) (eq? eq?) (show show) (logoize logoize)
 	(logoize-1 logoize-1) (logoize-2 logoize-2) (not not) (whoops whoops))
 
@@ -823,11 +823,11 @@
 	     (set! + (logoize real-+))
 	     (set! - (logoize real--))
 	     (set! / (logoize real-/))
-	     (set! < (logoize real-<))
-	     (set! <= (logoize real-<=))
+	     (set! &lt; (logoize real-&lt;))
+	     (set! &lt;= (logoize real-&lt;=))
 	     (set! = (logoize real-=))
-	     (set! > (logoize real->))
-	     (set! >= (logoize real->=))
+	     (set! &gt; (logoize real-&gt;))
+	     (set! &gt;= (logoize real-&gt;=))
 	     (set! abs (logoize-1 real-abs))
 	     (set! acos (logoize-1 real-acos))
 	     (set! asin (logoize-1 real-asin))
@@ -881,9 +881,9 @@
 	     (show "Strings are already not numbers"))
 	    ((not yesno)
 	     (set! are-they? #f) (set! * real-*) (set! + real-+)
-	     (set! - real--) (set! / real-/) (set! < real-<)
-	     (set! <= real-<=) (set! = real-=) (set! > real->)
-	     (set! >= real->=) (set! abs real-abs) (set! acos real-acos)
+	     (set! - real--) (set! / real-/) (set! &lt; real-&lt;)
+	     (set! &lt;= real-&lt;=) (set! = real-=) (set! &gt; real-&gt;)
+	     (set! &gt;= real-&gt;=) (set! abs real-abs) (set! acos real-acos)
 	     (set! asin real-asin) (set! atan real-atan)
 	     (set! ceiling real-ceiling) (set! cos real-cos)
 	     (set! even? real-even?)
