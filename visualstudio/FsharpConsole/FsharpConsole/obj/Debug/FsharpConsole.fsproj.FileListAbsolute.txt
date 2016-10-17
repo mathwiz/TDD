@@ -1,0 +1,8 @@
+C:\Users\Yohan\Documents\GitHub\TDD\visualstudio\FsharpConsole\FsharpConsole\bin\Debug\FsharpConsole.exe.config
+C:\Users\Yohan\Documents\GitHub\TDD\visualstudio\FsharpConsole\FsharpConsole\bin\Debug\FsharpConsole.XML
+C:\Users\Yohan\Documents\GitHub\TDD\visualstudio\FsharpConsole\FsharpConsole\bin\Debug\FsharpConsole.exe
+C:\Users\Yohan\Documents\GitHub\TDD\visualstudio\FsharpConsole\FsharpConsole\bin\Debug\FsharpConsole.pdb
+C:\Users\Yohan\Documents\GitHub\TDD\visualstudio\FsharpConsole\FsharpConsole\bin\Debug\FSharp.Core.dll
+C:\Users\Yohan\Documents\GitHub\TDD\visualstudio\FsharpConsole\FsharpConsole\bin\Debug\FSharp.Core.xml
+C:\Users\Yohan\Documents\GitHub\TDD\visualstudio\FsharpConsole\FsharpConsole\obj\Debug\FsharpConsole.exe
+C:\Users\Yohan\Documents\GitHub\TDD\visualstudio\FsharpConsole\FsharpConsole\obj\Debug\FsharpConsole.pdb
