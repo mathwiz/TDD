@@ -13,7 +13,7 @@
 (define (appendlists xs ys)
   (cond
     ((empty? xs) ys)
-    (else (cons (car xs) (append (cdr xs) ys)))
+    (else (cons (car xs) (appendlists (cdr xs) ys)))
     )
   )
 
