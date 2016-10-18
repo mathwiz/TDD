@@ -31,9 +31,9 @@ end
 declare
 fun {Fact N}
    local FactAux Rev in
-      fun {FactAux X Acc Acc2}
+      fun {FactAux X Acc}
 	 if X==N then Acc
-	 else {FactAux X+1 (X+1)*Acc.1|Acc Acc2*(X+1)}
+	 else {FactAux X+1 (X+1)*Acc.1|Acc}
 	 end
       end
       fun {Rev L Acc}
@@ -43,6 +43,8 @@ fun {Fact N}
 	    {Rev L.2 L.1|Acc}
 	 end
       end      
-      {Rev {FactAux 1 [1] 1} nil}
+      {Rev {FactAux 1 [1]} nil}
    end
 end
+
+{Browse {Fact 5}}
