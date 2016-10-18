@@ -1,21 +1,20 @@
 declare
-fun {Flatten L}
-   local FlattenAux in
-   fun {FlattenAux L R Acc}
-      if L==nil then Acc
-      else
-	 case L of H|T then
-	    {FlattenAux H T|R Acc}
-	 else
-	    {FlattenAux R nil L|Acc}   
+fun {FlattenList L}
+   local AppendLists in
+      fun {AppendLists L1 L2}
+	 case L1
+	 of nil then L2
+	 [] H|T then H|{AppendLists T L2}
 	 end
       end
-   end
-   {FlattenAux L nil nil}
+      case L
+      of nil then nil
+      [] H|T then {AppendLists {FlattenList H} {FlattenList T}}
+      [] E then [E]
+      end
    end
 end
 
-{Browse {Flatten [[1] 2 [3 4] [5 [6]]]}}
-{Browse {Flatten [[0 0] 1]}}
-{Browse {Flatten [1]}}
-{Browse nil|[1 2]}
+{Browse {FlattenList [[1] 2 [3 4] [5 [6]]]}}
+{Browse {FlattenList [[0 0] 1]}}
+{Browse {FlattenList [1]}}
