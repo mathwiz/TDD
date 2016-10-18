@@ -7,4 +7,4 @@ fun {AppendList L1 L2}
 end
 
 {Browse {AppendList [1 3 [8 9]] [4 5 6]}}
-{Browse nil}
+{Browse {AppendList [1] nil}}
