@@ -36,4 +36,24 @@ Is = [10 11 12 13]
 declare
 SolL = [20 121 6 1]
 
-{Browse {Test Fs Is SolL}}
+{Test Fs Is SolL}
+
+declare
+fun {Build D C}
+   fun {$ X}   
+
+      local BuildAux in
+	 fun {BuildAux Ds Cs}
+	    case Ds
+	    of nil then bottom
+	    [] HD|TD then
+	       if HD==X then Cs.1 else {BuildAux TD Cs.2} end
+	    end
+	 end
+	 {BuildAux D C}
+      end
+   
+   end
+end
+
+{Browse {{Build [1 2 3] [~1 ~2 ~3]} 4}}
