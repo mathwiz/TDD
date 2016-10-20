@@ -9,7 +9,7 @@ Vals=[100 101 110 111 1000]
 
 declare Keys1 Vals1
 Keys1=[s t v u w]
-Vals1=[100 101 110 111 [inner [a b c] [1 2 3]]]
+Vals1=[100 101 110 111 [inner [a b c] [[inner2 [x y] [~1 ~2]] 2 3]]]
 
 declare
 fun {Transform L}

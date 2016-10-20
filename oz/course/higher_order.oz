@@ -37,11 +37,11 @@ declare
 SolL = [20 121 6 1]
 
 {Test Fs Is SolL}
+   
 
 declare
 fun {Build D C}
    fun {$ X}   
-
       local BuildAux in
 	 fun {BuildAux Ds Cs}
 	    case Ds
@@ -52,8 +52,7 @@ fun {Build D C}
 	 end
 	 {BuildAux D C}
       end
-   
    end
 end
 
-{Browse {{Build [1 2 3] [~1 ~2 ~3]} 4}}
+{Browse {{Build [1 2 3] [~1 ~2 ~3]} ~1}}
