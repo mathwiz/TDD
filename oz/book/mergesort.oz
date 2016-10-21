@@ -2,6 +2,7 @@ declare
 L=[ 65 5 43 7 23 88 3 323 67 99 3 22 70 5 24 6]
 {Browse L}
 
+declare MergeSort
 local
    fun {Merge Xs Ys}
       case Xs # Ys
