@@ -19,3 +19,13 @@ Y={Insert {Insert {Insert X 1} 2} 3}
 {Browse Y}
 local A in Z={Delete Y A} {Browse A} end
 {Browse Z}
+
+declare Q1 Q2 Q3 Q4 Q5 Q6 in
+Q1={NewQueue}
+Q2={Insert Q1 peter}
+Q3={Insert Q2 paul}
+Q4={Insert Q2 mary}
+local X in Q5={Delete Q3 X} {Browse X} end
+local X in Q6={Delete Q4 X} {Browse X} end
+{Browse Q5}
+{Browse Q6}
