@@ -1,4 +1,4 @@
-declare Lookup Insert Delete RemoveSmallest in
+declare Lookup Insert Delete RemoveSmallest DFSAccLoop DFSAcc DFSAccLoop2 DFSAcc2 in
 fun {Lookup X T}
    case T
    of leaf then notfound
@@ -38,6 +38,30 @@ fun {Delete X T}
    [] tree(Y W T1 T2) andthen X>Y then
       tree(Y W T1 {Delete X T2})
    end
+end
+proc {DFSAccLoop T S1 ?Sn}
+   case T
+   of leaf then Sn=S1
+   [] tree(Key Val L R) then S2 S3 in
+      S2=Key#Val|S1
+      {DFSAccLoop L S2 S3}
+      {DFSAccLoop R S3 Sn}
+   end
+end
+fun {DFSAcc T}
+   {Reverse {DFSAccLoop T nil $}}
+end
+proc {DFSAccLoop2 T ?S1 Sn}
+   case T
+   of leaf then S1=Sn
+   [] tree(Key Val L R) then S2 S3 in
+      S1=Key#Val|S2
+      {DFSAccLoop2 L S2 S3}
+      {DFSAccLoop2 R S3 Sn}
+   end
+end
+fun {DFSAcc2 T}
+   {Reverse {DFSAccLoop2 T $ nil}}
 end
 
 
