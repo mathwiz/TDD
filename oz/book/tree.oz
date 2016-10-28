@@ -2,17 +2,17 @@ declare Lookup Insert Delete RemoveSmallest DFSAccLoop DFSAcc DFSAccLoop2 DFSAcc
 fun {Lookup X T}
    case T
    of leaf then notfound
-   [] tree(Y V T1 T2) andthen X==Y then found(V)
-   [] tree(Y V T1 T2) andthen X<Y then {Lookup X T1}
-   [] tree(Y V T1 T2) andthen X>Y then {Lookup X T2}
+   [] tree(key:Y value:V left:T1 right:T2) andthen X==Y then found(V)
+   [] tree(key:Y value:V left:T1 right:T2) andthen X<Y then {Lookup X T1}
+   [] tree(key:Y value:V left:T1 right:T2) andthen X>Y then {Lookup X T2}
    end
 end
 fun {Insert X V T}
    case T
-   of leaf then tree(X V leaf leaf)
-   [] tree(Y W T1 T2) andthen X==Y then tree(X V T1 T2)
-   [] tree(Y W T1 T2) andthen X<Y then tree(Y W {Insert X V T1} T2)
-   [] tree(Y W T1 T2) andthen X>Y then tree(Y W T1 {Insert X V T2})
+   of leaf then tree(key:X value:V left:leaf right:leaf)
+   [] tree(key:Y value:W left:T1 right:T2) andthen X==Y then tree(key:Y value:W left:T1 right:T2)
+   [] tree(key:Y value:W left:T1 right:T2) andthen X<Y then tree(key:Y value:W left:{Insert X V T1} right:T2)
+   [] tree(key:Y value:W left:T1 right:T2) andthen X>Y then tree(key:Y value:W left:T1 right:{Insert X V T2})
    end
 end
 fun {RemoveSmallest T}
@@ -80,3 +80,17 @@ T6={Insert 6 six T4}
 {Browse T6}
 T7={Insert 7 seven T6}
 {Browse T7}
+
+declare
+X=tree(key:horse value:cheval
+       left:tree(key:dog value:chien
+		 left:tree(key:cat value:chat left:leaf right:leaf)
+		 right:tree(key:elephant value:elephant left:leaf right:leaf))
+       right:tree(key:mouse value:souris
+		  left:tree(key:monkey value:singe left:leaf right:leaf)
+		  right:tree(key:tiger value:tigre left:leaf right:leaf))
+      )
+Y=tree(key:otter value:nasty left:leaf right:leaf)
+{Browse {Lookup mouse X}}
+{Browse Y}
+{Browse {Insert rabbit bunny Y}} 
