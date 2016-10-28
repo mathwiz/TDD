@@ -2,5 +2,15 @@ TDD
 ===========
 Languages:
 C
+Clojure
+FSharp
+Javascript
+Lisp
+Octave
+Oz
+Pascal
 Python
+R
 Racket
+Scala
+Scheme
