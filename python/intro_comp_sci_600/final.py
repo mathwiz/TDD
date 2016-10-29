@@ -28,11 +28,11 @@ class Lecturer(Person):
 
 class Professor(Lecturer):
     def say(self, stuff):
-        return self.name + ' says: ' + self.lecture(stuff)
+        return 'Prof. ' + self.name + ' says: ' + self.lecture(stuff)
 
 class ArrogantProfessor(Professor):
     def lecture(self, stuff):
-        return 'It is obvious that ' + Person.say(self, stuff)
+        return 'It is obvious that ' + Lecturer.lecture(self, stuff)
 
 e = Person('eric')
 le = Lecturer('eric')
@@ -43,7 +43,7 @@ print(e.say('the sky is blue'))
 print(le.say('the sky is blue'))
 print(le.lecture('the sky is blue'))
 print(pe.say('the sky is blue'))
-print(le.lecture('the sky is blue'))
+print(pe.lecture('the sky is blue'))
 print(ae.say('the sky is blue'))
 print(ae.lecture('the sky is blue'))
 
