@@ -1,3 +1,52 @@
+print("#7")
+def general_poly (L):
+    """ L, a list of numbers (n0, n1, n2, ... nk)
+    Returns a function, which when applied to a value x, returns the value
+    n0 * x^k + n1 * x^(k-1) + ... nk * x^0 """
+    def func(x):
+        result = 0
+        k = len(L) - 1
+        for i in range(k + 1):
+            result += L[i] * x**(k-i)
+        return result
+    return func
+
+print(general_poly([0, 2, 3, 4])(10))
+
+print("#6")
+class Person(object):
+    def __init__(self, name):
+        self.name = name
+    def say(self, stuff):
+        return self.name + ' says: ' + stuff
+    def __str__(self):
+        return self.name
+
+class Lecturer(Person):
+    def lecture(self, stuff):
+        return 'I believe that ' + Person.say(self, stuff)
+
+class Professor(Lecturer):
+    def say(self, stuff):
+        return self.name + ' says: ' + self.lecture(stuff)
+
+class ArrogantProfessor(Professor):
+    def lecture(self, stuff):
+        return 'It is obvious that ' + Person.say(self, stuff)
+
+e = Person('eric')
+le = Lecturer('eric')
+pe = Professor('eric')
+ae = ArrogantProfessor('eric')
+
+print(e.say('the sky is blue'))
+print(le.say('the sky is blue'))
+print(le.lecture('the sky is blue'))
+print(pe.say('the sky is blue'))
+print(le.lecture('the sky is blue'))
+print(ae.say('the sky is blue'))
+print(ae.lecture('the sky is blue'))
+
 print("#4")
 def longest_run(L):
     longestIncreasing = []
