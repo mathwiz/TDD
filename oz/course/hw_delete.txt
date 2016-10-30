@@ -1,0 +1,7 @@
+T = tree(key:horse value:cheval
+              left:tree(key:dog value:chien
+                            left:tree(key:cat value:chat left:leaf right:leaf)
+                            right:tree(key:elephant value:elephant left:leaf right:leaf))
+              right:tree(key:mouse value:souris
+                               left:tree(key:monkey value:singe left:leaf right:leaf)
+                               right:tree(key:tiger value:tigre left:leaf right:leaf)))

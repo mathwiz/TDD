@@ -53,4 +53,5 @@ Y=btree(
      )
 Z=btree(4 left:leaf right:leaf)
 
-{Browse {Delete 24 Y}}
+{Browse X}
+{Browse {Delete 4 X}}
