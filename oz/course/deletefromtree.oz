@@ -13,7 +13,7 @@ fun {Delete K T}
    fun {DeleteAux K T}
       case T
       of leaf then leaf
-      [] btree(1:X left:L right:R) andthen K==X then
+      [] btree(X left:L right:R) andthen K==X then
 	 case {RemoveSmallest R}
 	 of none then L
 	 [] pair(Tp Vp) then btree(Vp left:L right:Tp)
@@ -54,4 +54,4 @@ Y=btree(
 Z=btree(4 left:leaf right:leaf)
 
 {Browse X}
-{Browse {Delete 4 X}}
+{Browse {Delete 2 {Delete 4 X}}}
