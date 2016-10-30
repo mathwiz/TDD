@@ -123,4 +123,5 @@ X=tree(key:horse value:cheval
 Y=tree(key:otter value:nasty left:leaf right:leaf)
 {Browse {Lookup mouse X}}
 {Browse Y}
-{Browse {Insert rabbit bunny Y}} 
+{Browse {Insert rabbit bunny Y}}
+{Browse {Delete horse X}}
