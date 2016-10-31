@@ -24,14 +24,14 @@ declare GetRefTime in GetRefTime = {Link ['x-oz://boot/Time']}.1.getReferenceTim
 
 declare Measure
 fun {Measure N}
-   proc {RunIt F K}
-      {F K}
+   proc {RunIt F K ?T}
+      T={F K}
    end
    fun {TimeIt F}
       0
    end
 in
-   {RunIt Rabbit N}
+   {RunIt Rabbit N $}
 end
 
 {Browse {Measure 20}}
