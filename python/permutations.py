@@ -4,4 +4,4 @@ def getPermutation(s, prefix=''):
         for i in range(len(s)):
                 getPermutation(s[0:i]+s[i+1:len(s)],prefix+s[i] )
 
-getPermutation('abed','')
+getPermutation('abcd','')
