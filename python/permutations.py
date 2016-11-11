@@ -1,10 +1,24 @@
 def getPermutation(s, prefix=''):
+    #print("start on '" + s + "' with prefix '" + prefix + "'")
     if len(s) == 0:
         print(prefix)
     for i in range(len(s)):
         getPermutation(s[0:i] + s[i + 1:len(s)], prefix + s[i])
+    #print("finish of '" + s + "' with prefix '" + prefix + "'")
 
-getPermutation('abcd')
+
+getPermutation('abc')
+
+def perm(s, prefix='', acc=[]):
+    #print("start on '" + s + "' with prefix '" + prefix + "'")
+    if len(s) == 0:
+        acc.append(prefix)
+    for i in range(len(s)):
+        perm(s[0:i] + s[i + 1:len(s)], prefix + s[i], acc)
+    #print("finish of '" + s + "' with prefix '" + prefix + "'")
+    return acc
+
+print(perm('abc'))
 
 def generatePerm(s):
     perms = []
@@ -20,4 +34,4 @@ def generatePerm(s):
     return perms
 
 
-print(generatePerm('abcd'))
+#print(generatePerm('abcd'))
