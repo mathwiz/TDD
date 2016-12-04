@@ -1,0 +1,7 @@
+(define (card-val card) 
+  (let ((rank (butfirst card))) 
+    (cond ((equal? rank 'a) 4) 
+          ((equal? rank 'k) 3) 
+          ((equal? rank 'q) 2) 
+          ((equal? rank 'j) 1) 
+          (else 0))))
