@@ -34,7 +34,7 @@
 ;; move-circle: number circle -> circle
 (define (move-circle delta c)
   (cond
-    [(draw-and-clear-circle c) (translate-circle delta c)]
+    [(draw-and-clear-circle c) (translate-circle c delta)]
     [else c]))
 
 ;; TESTs
@@ -45,8 +45,8 @@
 (start 300 300)
 (define C1 (make-circle (make-posn 50 50) 30 'green))
 (define C2 (make-circle (make-posn 50 100) 30 'blue))
-(draw-a-circle C1)
-(draw-a-circle (translate-circle C1 100))
-(clear-a-circle C1)
-(draw-and-clear-circle C2)
-;(draw-a-circle (move-circle 10 (move-circle 10 (move-circle 10 (move-circle 10 C2)))))
+;(draw-a-circle C1)
+;(draw-a-circle (translate-circle C1 100))
+;(clear-a-circle C1)
+;(draw-and-clear-circle C2)
+(draw-a-circle (move-circle 20 (move-circle 20 (move-circle 20 (move-circle 20 C2)))))
