@@ -1,5 +1,6 @@
 ;; Object -> Boolean
 ;; Return true if object is an atom
-(define (atom? o)
-  (not (list? o)))
+(define atom?
+lambda (x)
+(and (not (pair? x)) (not (null? x))))
 
