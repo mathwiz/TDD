@@ -1,16 +1,21 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-reader.ss" "lang")((modname moving-circles-rectangles) (read-case-sensitive #t) (teachpacks ((lib "draw.rkt" "teachpack" "htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "draw.rkt" "teachpack" "htdp")))))
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname moving-shapes) (read-case-sensitive #t) (teachpacks ((lib "draw.rkt" "teachpack" "htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "draw.rkt" "teachpack" "htdp")))))
 (define-struct circle (center radius color))
 (define-struct rectangle (corner width height color))
+(define-struct shape (name loc width height color))
 
 ;; fun-for-circle: circle -> ???
 (define (fun-for-circle circle) 
   (draw-a-circle circle))
 
-;; fun-for-rectangle: circle -> ???
+;; fun-for-rectangle: rectangle -> ???
 (define (fun-for-rectangle rect) 
   (draw-a-rectangle rect))
+
+;; fun-for-shape: shape -> ???
+(define (fun-for-shape s) 
+  (draw-shape s))
 
 ;; draw-a-circle: circle -> boolean
 (define (draw-a-circle c)
@@ -19,6 +24,13 @@
 ;; draw-a-rectangle: rectangle -> boolean
 (define (draw-a-rectangle r)
   (draw-solid-rect (rectangle-corner r) (rectangle-width r) (rectangle-height r) (rectangle-color r)))
+
+;; draw-shape: shape -> boolean
+(define (draw-shape s)
+  (cond 
+    ((symbol=? (shape-name s) 'circle) (draw-a-circle (make-circle (shape-loc s) (shape-width s) (shape-color s))))
+    ((symbol=? (shape-name s) 'rectangle) (draw-a-rectangle (make-rectangle (shape-loc s) (shape-width s) (shape-height s) (shape-color s))))
+    (else false)))
 
 ;; distance: posn posn -> number
 (define (distance a b)
@@ -92,11 +104,14 @@
 (define C2 (make-circle (make-posn 50 50) 50 'blue))
 (define R1 (make-rectangle (make-posn 30 30) 10 20 'blue))
 (define R2 (make-rectangle (make-posn 60 30) 10 20 'blue))
-;(draw-a-circle C1)
+(define S1 (make-shape 'rectangle (make-posn 60 30) 10 20 'blue))
+(define S2 (make-shape 'circle (make-posn 50 50) 30 30 'green))
+(draw-shape S1)
+(draw-shape S2)
 ;(draw-a-circle (translate-circle C1 100))
 ;(clear-a-circle C1)
 ;(draw-and-clear-circle C2)
 (define MOVE 20)
-(draw-a-rectangle (move-rectangle MOVE (move-rectangle MOVE (move-rectangle MOVE (move-rectangle MOVE R1)))))
-(draw-a-rectangle (move-rectangle MOVE (move-rectangle MOVE (move-rectangle MOVE (move-rectangle MOVE R2)))))
-(draw-a-circle (move-circle MOVE (move-circle MOVE (move-circle MOVE (move-circle MOVE C2)))))
+;(draw-a-rectangle (move-rectangle MOVE (move-rectangle MOVE (move-rectangle MOVE (move-rectangle MOVE R1)))))
+;(draw-a-rectangle (move-rectangle MOVE (move-rectangle MOVE (move-rectangle MOVE (move-rectangle MOVE R2)))))
+;(draw-a-circle (move-circle MOVE (move-circle MOVE (move-circle MOVE (move-circle MOVE C2)))))
