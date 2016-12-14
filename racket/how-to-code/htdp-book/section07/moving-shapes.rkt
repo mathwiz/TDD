@@ -7,15 +7,15 @@
 
 ;; fun-for-circle: circle -> ???
 (define (fun-for-circle circle) 
-  (draw-a-circle circle))
+  (... circle))
 
 ;; fun-for-rectangle: rectangle -> ???
 (define (fun-for-rectangle rect) 
-  (draw-a-rectangle rect))
+  (... rect))
 
 ;; fun-for-shape: shape -> ???
 (define (fun-for-shape s) 
-  (draw-shape s))
+  (... s))
 
 ;; draw-a-circle: circle -> boolean
 (define (draw-a-circle c)
@@ -32,27 +32,6 @@
     ((symbol=? (shape-name s) 'rectangle) (draw-a-rectangle (make-rectangle (shape-loc s) (shape-width s) (shape-height s) (shape-color s))))
     (else false)))
 
-;; distance: posn posn -> number
-(define (distance a b)
-  (sqrt (+ (sqr (- (posn-x b) (posn-x a))) (sqr (- (posn-y b) (posn-y a))))))
-
-;; in-circle?: circle posn -> boolean
-(define (in-circle? c p)
-  (< (distance (circle-center c) p) (circle-radius c)))
-
-;; in-rectangle?: circle posn -> boolean
-(define (in-rectangle? r p)
-  (and (< (h-distance p (rectangle-corner r)) (rectangle-width r))
-       (> (h-distance p (rectangle-corner r)) 0)
-       (< (v-distance p (rectangle-corner r)) (rectangle-height r))
-       (> (v-distance p (rectangle-corner r)) 0)))
-
-(define (h-distance p1 p2)
-  (- (posn-x p1) (posn-x p2)))
-
-(define (v-distance p1 p2)
-  (- (posn-y p1) (posn-y p2)))
-
 ;; translate-circle: circle number -> circle
 (define (translate-circle c delta)
   (make-circle (make-posn (+ delta (posn-x (circle-center c))) (posn-y (circle-center c))) (circle-radius c) (circle-color c)))
@@ -60,6 +39,10 @@
 ;; translate-rectangle: rectangle number -> rectangle
 (define (translate-rectangle r delta)
   (make-rectangle (make-posn (+ delta (posn-x (rectangle-corner r))) (posn-y (rectangle-corner r))) (rectangle-width r) (rectangle-height r) (rectangle-color r)))
+
+;; translate-shape: shape number -> shape
+(define (translate-shape s delta)
+  (make-shape (shape-name s) (make-posn (+ delta (posn-x (shape-loc s))) (posn-y (shape-loc s))) (shape-width s) (shape-height s) (shape-color s)))
 
 ;; clear-a-circle: circle -> boolean
 (define (clear-a-circle c)
@@ -69,6 +52,13 @@
 (define (clear-a-rectangle r)
   (clear-solid-rect (rectangle-corner r) (rectangle-width r) (rectangle-height r) (rectangle-color r)))
 
+;; clear-shape: shape -> boolean
+(define (clear-shape s)
+  (cond 
+    ((symbol=? (shape-name s) 'circle) (clear-a-circle (make-circle (shape-loc s) (shape-width s) (shape-color s))))
+    ((symbol=? (shape-name s) 'rectangle) (clear-a-rectangle (make-rectangle (shape-loc s) (shape-width s) (shape-height s) (shape-color s))))
+    (else false)))
+
 ;; draw-and-clear-circle: circle -> boolean
 (define (draw-and-clear-circle c)
   (and (draw-a-circle c) (sleep-for-a-while 1) (clear-a-circle c)))
@@ -76,6 +66,10 @@
 ;; draw-and-clear-rectangle: rectangle -> boolean
 (define (draw-and-clear-rectangle r)
   (and (draw-a-rectangle r) (sleep-for-a-while 1) (clear-a-rectangle r)))
+
+;; draw-and-clear-shape: shape -> boolean
+(define (draw-and-clear-shape s)
+  (and (draw-shape s) (sleep-for-a-while 1) (clear-shape s)))
 
 ;; move-circle: number circle -> circle
 (define (move-circle delta c)
@@ -89,29 +83,20 @@
     [(draw-and-clear-rectangle r) (translate-rectangle r delta)]
     [else r]))
 
+;; move-shape: number shape -> shape
+(define (move-shape delta s)
+  (cond
+    [(draw-and-clear-shape s) (translate-shape s delta)]
+    [else s]))
+
 ;; TESTs
-(check-expect (distance (make-posn 1 1) (make-posn 4 5)) 5)
-(check-expect (distance (make-posn 0 0) (make-posn 12 5)) 13)
-(check-expect (in-circle? (make-circle (make-posn 6 2) 1 'red) (make-posn 6 1.5)) true)
-(check-expect (in-circle? (make-circle (make-posn 6 2) 1 'red) (make-posn 8 6)) false)
-(check-expect (in-rectangle? (make-rectangle (make-posn 2 3) 3 2 'red) (make-posn 4 4)) true)
-(check-expect (in-rectangle? (make-rectangle (make-posn 2 3) 3 2 'red) (make-posn 4 6)) false)
-(check-expect (in-rectangle? (make-rectangle (make-posn 2 3) 3 2 'red) (make-posn 6 4)) false)
-(check-expect (in-rectangle? (make-rectangle (make-posn 2 3) 3 2 'red) (make-posn 1 1)) false)
-(check-expect (in-rectangle? (make-rectangle (make-posn 2 3) 3 2 'red) (make-posn 8 6)) false)
-(start 300 300)
 (define C1 (make-circle (make-posn 50 50) 30 'green))
 (define C2 (make-circle (make-posn 50 50) 50 'blue))
 (define R1 (make-rectangle (make-posn 30 30) 10 20 'blue))
 (define R2 (make-rectangle (make-posn 60 30) 10 20 'blue))
 (define S1 (make-shape 'rectangle (make-posn 60 30) 10 20 'blue))
 (define S2 (make-shape 'circle (make-posn 50 50) 30 30 'green))
-(draw-shape S1)
-(draw-shape S2)
-;(draw-a-circle (translate-circle C1 100))
-;(clear-a-circle C1)
-;(draw-and-clear-circle C2)
+(start 300 300)
 (define MOVE 20)
-;(draw-a-rectangle (move-rectangle MOVE (move-rectangle MOVE (move-rectangle MOVE (move-rectangle MOVE R1)))))
-;(draw-a-rectangle (move-rectangle MOVE (move-rectangle MOVE (move-rectangle MOVE (move-rectangle MOVE R2)))))
-;(draw-a-circle (move-circle MOVE (move-circle MOVE (move-circle MOVE (move-circle MOVE C2)))))
+(draw-shape (move-shape MOVE (move-shape MOVE (move-shape MOVE (move-shape MOVE S1)))))
+(draw-shape (move-shape MOVE (move-shape MOVE (move-shape MOVE (move-shape MOVE S2)))))
