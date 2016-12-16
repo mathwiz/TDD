@@ -27,8 +27,18 @@
        (= (appearances (opponent me) triple) 0)))
 
 (define (i-can-win? triples me) 
-  (cond (#f 1) 
-        (#t 2)))
+  (choose-win (keep 
+               (lambda (triple) 
+                 (my-pair? triple me))
+               triples)))
+
+(define (opponent-can-win? triples me)
+  (i-can-win? triples (opponent me)))
+
+(define (choose-win winning-triples) 
+  (if (empty? winning-triples) 
+      #f
+      (keep number? (first winning-triples))))
 
 (define (ttt-choose triples me) 
   (cond (#f (+ 1)) 
@@ -43,6 +53,11 @@
 (define board2 'x_____oxo)
 (substitute-triple 123 board)
 (find-triples board2)
+(find-triples board)
 (opponent 'o)
 (my-pair? 'oox 'o)
 (my-pair? 'oo3 'o)
+(choose-win '(003))
+(i-can-win? (find-triples board2) 'x)
+(i-can-win? (find-triples board) 'x)
+(opponent-can-win? (find-triples board) 'o)
