@@ -111,7 +111,9 @@
           preferences)))
 
 (define (ttt-choose triples me) 
-  (cond ((i-can-win? triples me)) 
+  (cond ((already-won? triples me) 'you-are-the-winner) 
+        ((tie-game? triples me) 'game-is-tied)
+        ((i-can-win? triples me)) 
         ((opponent-can-win? triples me)) 
         ((i-can-fork? triples me)) 
         ((i-can-advance? triples me)) 
@@ -119,6 +121,26 @@
 
 (define (ttt position me) 
   (ttt-choose (find-triples position) me))
+
+(define (already-won? triples me) 
+  (first-if-any (keep 
+                 (lambda (triple) 
+                   (my-win? triple me))
+                 triples)))
+
+(define (my-win? triple me) 
+  (= (appearances me triple) 3))
+
+(define (tie-game? triples me) 
+  (empty? (keep 
+           (lambda (triple) 
+             (or (not (zero-freedom? triple)))
+                 (my-pair? triple me)) 
+           triples)))
+
+(define (zero-freedom? triple) 
+  (= (+ (appearances 'x triple) 
+        (appearances 'o triple)) 3))
 
 ;; TESTS
 (restart 1)
@@ -137,7 +159,6 @@
 (i-can-win? (find-triples board) 'x)
 (opponent-can-win? (find-triples board) 'o)
 (repeated-numbers (find-triples board3))
-(find-triples board2)
 (extract-digit 7 "4x6x473x7")
 (ttt '_________ 'x)
 (ttt '____x____ '0)
@@ -148,4 +169,8 @@
 (ttt 'o_ooxxx__ 'x)
 (ttt 'oxooxxx__ 'o)
 (ttt 'oxooxxxo_ 'x)
-
+(ttt 'oxooxxxox 'o)
+;; Already a winner
+(ttt 'oooxxo_xx 'x)
+(my-win? 'ooo 'x)
+(tie-game? (find-triples 'oxooxxx__) 'x)
