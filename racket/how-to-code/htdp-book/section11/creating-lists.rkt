@@ -51,7 +51,7 @@
 
 ;; Natural -> (list Number)
 ;; Produce list of prices that are n increments of dimes starting from $.10 and no greater than $10.00
-;; Refinement: make the list ordered up from #.10
+;; Refinement: make the list ordered up from $.10
 (check-expect (length (create-prices 0)) 0)
 (check-expect (length (create-prices 10)) 10)
 
@@ -69,6 +69,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Student Riot Program
 ;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Natural Natural -> Boolean
 ;; Show a balloon at a random position within canvas bounds
 ;(define (throw-balloon canvas-x canvas-y) false) ; stub
