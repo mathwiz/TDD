@@ -3,4 +3,13 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname rearranging-words) (read-case-sensitive #t) (teachpacks ((lib "draw.rkt" "teachpack" "htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "draw.rkt" "teachpack" "htdp")))))
 ;; word -> list-of-words
 ;; Produce a list of all rearrangements of the letters in a-word
-(define (arrangements a-word) empty) ; stub
+;(define (arrangements a-word) empty) ; stub
+#;
+(define (arrangements a-word)
+  (cond ((empty? a-word) ...)
+        (else ... (first a-word) ... (arrangements (rest a-word)) ...)))
+
+(define (arrangements a-word)
+  (cond ((empty? a-word) ...)
+        (else ... (first a-word) ... (arrangements (rest a-word)) ...)))
+
