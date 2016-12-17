@@ -51,6 +51,7 @@
 
 ;; Natural -> (list Number)
 ;; Produce list of prices that are n increments of dimes starting from $.10 and no greater than $10.00
+;; Refinement: make the list ordered up from #.10
 (check-expect (length (create-prices 0)) 0)
 (check-expect (length (create-prices 10)) 10)
 
@@ -89,5 +90,6 @@
   (cond ((zero? n) true)
         (else (and (throw-balloon (random-n-m 0 300) (random-n-m 0 300)) (student-riot (sub1 n))))))
 
+;TODO: make the canvas a grid with boxes representing seats
 (start 300 300)
 (student-riot 40)
