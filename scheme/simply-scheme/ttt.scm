@@ -42,7 +42,7 @@
 
 (define (my-single? triple me) 
   (and (= (appearances me triple) 1) 
-       (= (appearances (opponent me)) 0)))
+       (= (appearances (opponent me) triple) 0)))
 
 (define (extract-digit desired-digit wd) 
   (keep 
@@ -140,3 +140,12 @@
 (find-triples board2)
 (extract-digit 7 "4x6x473x7")
 (ttt '_________ 'x)
+(ttt '____x____ '0)
+(ttt 'o___x____ 'x)
+(ttt 'o___xx___ 'o)
+(ttt 'o__oxx___ 'x)
+(ttt 'o__oxxx__ 'o)
+(ttt 'o_ooxxx__ 'x)
+(ttt 'oxooxxx__ 'o)
+(ttt 'oxooxxxo_ 'x)
+
