@@ -1,0 +1,21 @@
+(define (explode wd) 
+  (cond ((empty? wd) 
+         ()) 
+        (else (se (first wd) 
+                  (explode (bf wd))))))
+
+(explode ())
+(explode 'dynamite)
+
+(define (letter-pairs wd) 
+  (cond ((empty? wd) 
+         ()) 
+        ((< (count wd) 2) 
+         ()) 
+        (else (se (word (first wd) 
+                        (first (bf wd))) 
+                  (letter-pairs (bf wd))))))
+
+(letter-pairs ())
+(letter-pairs 'a)
+(letter-pairs 'george)
