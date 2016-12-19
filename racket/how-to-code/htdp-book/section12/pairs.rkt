@@ -4,14 +4,20 @@
 ;; list-of-letters -> list-of-pairs
 ;; Produce a list of all of the pairs given a list of symbols
 
-(define (pairs xs)
+(define (pairs letters)
+  (pairer letters letters))
+
+(define (pairer xs orig)
   (cond ((empty? xs) empty)
-        (else (cons (first xs) (pairs (rest xs))))))
+        (else (append (make-pairs (first xs) orig) (pairer (rest xs) orig)))))
 
 (define (make-pairs x xs)
   (cond ((empty? xs) empty)
         (else (cons (list x (first xs)) (make-pairs x (rest xs))))))
 
-(make-pairs 'a (list 'b 'c))
+;(make-pairs 'a (list 'a 'b 'c))
 
 (pairs (list 'a 'b 'c))
+
+(check-expect (cons (cons 'a (cons 'a empty)) (cons (cons 'a (cons 'b empty)) (cons (cons 'a (cons 'c empty)) empty))) 
+              (list (list 'a 'a) (list 'a 'b) (list 'a 'c)))
