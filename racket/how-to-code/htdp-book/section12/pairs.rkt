@@ -15,9 +15,22 @@
   (cond ((empty? xs) empty)
         (else (cons (list x (first xs)) (make-pairs x (rest xs))))))
 
+(define (insert x loc xs front)
+  (cond ((or (empty? xs) (= loc 0)) (append front (list x) xs))
+        (else (insert x (- loc 1) (rest xs) (append front (list (first xs)))))))
+
 ;(make-pairs 'a (list 'a 'b 'c))
 
-(pairs (list 'a 'b 'c))
+;(pairs (list 'a 'b 'c))
 
 (check-expect (cons (cons 'a (cons 'a empty)) (cons (cons 'a (cons 'b empty)) (cons (cons 'a (cons 'c empty)) empty))) 
               (list (list 'a 'a) (list 'a 'b) (list 'a 'c)))
+
+(define (all-locations x xs orig acc)
+  (cond ((empty? xs) acc)
+        (else (all-locations x (rest xs) orig (cons acc (insert x 0 orig empty))))))
+
+(define X1 (list 'a 'b 'c))
+(all-locations 'z X1 X1 empty)
+
+;(insert 'x 0 (list 'a 'b 'c) empty)
