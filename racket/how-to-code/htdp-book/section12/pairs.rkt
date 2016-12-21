@@ -3,6 +3,7 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname pairs) (read-case-sensitive #t) (teachpacks ((lib "draw.rkt" "teachpack" "htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "draw.rkt" "teachpack" "htdp")))))
 ;; list-of-letters -> list-of-pairs
 ;; Produce a list of all of the pairs given a list of symbols
+(check-expect (pairs (list 'a 'b 'c)) (list (list 'a 'a) (list 'a 'b) (list 'a 'c) (list 'b 'a) (list 'b 'b) (list 'b 'c) (list 'c 'a) (list 'c 'b) (list 'c 'c)))
 
 (define (pairs letters)
   (pairer letters letters))
@@ -15,22 +16,35 @@
   (cond ((empty? xs) empty)
         (else (cons (list x (first xs)) (make-pairs x (rest xs))))))
 
-(define (insert x loc xs front)
-  (cond ((or (empty? xs) (= loc 0)) (append front (list x) xs))
-        (else (insert x (- loc 1) (rest xs) (append front (list (first xs)))))))
-
 ;(make-pairs 'a (list 'a 'b 'c))
-
 ;(pairs (list 'a 'b 'c))
 
-(check-expect (cons (cons 'a (cons 'a empty)) (cons (cons 'a (cons 'b empty)) (cons (cons 'a (cons 'c empty)) empty))) 
-              (list (list 'a 'a) (list 'a 'b) (list 'a 'c)))
 
-(define (all-locations x xs orig acc)
-  (cond ((empty? xs) acc)
-        (else (all-locations x (rest xs) orig (cons acc (insert x 0 orig empty))))))
+;; Symbol List -> List
+;; Permute a list with a symbol. Keep the original list in order but each permutation has symbol
+;; at each location from before start to after end (N+1 permutations where N is list length).
+(check-expect (do-inserts 'z (list 'a 'b) 2) 
+              (cons (cons 'a (cons 'b (cons 'z empty))) (cons (cons 'a (cons 'z (cons 'b empty))) (cons (cons 'z (cons 'a (cons 'b empty))) empty))))
 
-(define X1 (list 'a 'b 'c))
-(all-locations 'z X1 X1 empty)
+(define (insert x loc xs acc)
+  (cond ((empty? xs) (if (= loc (length acc)) (append acc (list x)) acc))
+        ((= loc (length acc)) (insert x loc (rest xs) (append acc (list x (first xs)))))
+        (else (insert x loc (rest xs) (append acc (list (first xs)))))))
 
-;(insert 'x 0 (list 'a 'b 'c) empty)
+(define (do-inserts x xs n)
+  (cond ((< n 0) empty)
+        (else (cons (insert x n xs empty) (do-inserts x xs (- n 1))))))
+
+(define (all-locations x xs)
+  (cons (do-inserts x xs (length xs)) empty))
+
+(define X1 (list 'a 'b))
+(all-locations 'z X1)
+
+(check-expect (insert 'x 0 (list 'a 'b 'c) empty) (cons 'x (cons 'a (cons 'b (cons 'c empty)))))
+(check-expect (insert 'x 1 (list 'a 'b 'c) empty) (cons 'a (cons 'x (cons 'b (cons 'c empty)))))
+(check-expect (insert 'x 2 (list 'a 'b 'c) empty) (cons 'a (cons 'b (cons 'x (cons 'c empty)))))
+(check-expect (insert 'x 3 (list 'a 'b 'c) empty) (cons 'a (cons 'b (cons 'c (cons 'x empty)))))
+
+(check-expect (list  (cons 'a (cons 'b (cons 'z empty))) (cons 'a (cons 'b (cons 'z empty))))
+              (cons (cons 'a (cons 'b (cons 'z empty))) (cons (cons 'a (cons 'b (cons 'z empty))) empty)))
