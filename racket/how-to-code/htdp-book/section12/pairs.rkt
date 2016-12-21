@@ -36,7 +36,7 @@
         (else (cons (insert x n xs empty) (do-inserts x xs (- n 1))))))
 
 (define (all-locations x xs)
-  (cons (do-inserts x xs (length xs)) empty))
+  (do-inserts x xs (length xs)))
 
 (define X1 (list 'a 'b))
 (all-locations 'z X1)
