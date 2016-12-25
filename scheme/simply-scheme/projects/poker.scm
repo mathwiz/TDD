@@ -9,8 +9,15 @@
         (full-house (fh-value (compute-ranks hand))) 
         (straight (straight? hand)) 
         (flush (flush? hand))) 
-    (cond (#f 1) 
-          ((and flush straight) (se 'straight 'flush '- (word straight '-high) 'of flush)) 
+    (cond ((and 
+            flush
+            straight
+            (eq? (high-card ranked) 'ace)) 
+           (se 'royal 'flush '- flush)) 
+          ((and 
+            flush
+            straight) 
+           (se 'straight 'flush '- (word straight '-high) 'of flush)) 
           ((quads? ranked) 
            (se 'four 'of 'a 'kind '- (word (quads? ranked) 's))) 
           (full-house) 
@@ -170,4 +177,4 @@
 (straight? RF)
 (high-card (compute-ranks X9))
 (trips? (compute-ranks X3))
-(poker-value X1)
+(poker-value X3)
