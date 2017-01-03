@@ -9,10 +9,13 @@
 
 ;; ListOfListOrAtom -> ListOfAtom
 ;;(define (flatten xs) '()) ; stub
-(define (flatten xs)
-  (cond ((empty? xs) '())
-        ((word? xs) (cons xs ()))
-        (else (cons (flatten (car xs)) (flatten (cdr xs))))))
+(define (flatten xs) 
+  (cond ((empty? xs) 
+         '()) 
+        ((word? xs) 
+         (cons xs ())) 
+        (else (append (flatten (car xs)) 
+                      (flatten (cdr xs))))))
 
 
 (restart 1)
