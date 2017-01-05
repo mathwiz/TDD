@@ -14,3 +14,12 @@
 ;; Produce number one less than input
 
 (define (sub1 n) (- n 1))
+
+;; List -> Boolean
+;; produce true if all elements of a list a atoms
+(define lat? 
+  (lambda (l) 
+    (cond ((null? l) #t) 
+          ((atom? (car l)) 
+           (lat? (cdr l))) 
+          (else #f))))
