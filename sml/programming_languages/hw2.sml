@@ -8,6 +8,20 @@ fun same_string(s1 : string, s2 : string) =
 
 (* put your solutions for problem 1 here *)
 
+fun all_except_option (s, ss) = 
+let
+fun remove_all xs = 
+  case xs 
+   of [] => []
+   | h :: t => if same_string (s, h)
+               then remove_all t
+               else h :: remove_all t
+in
+    case ss 
+     of [] => NONE
+     | aList => SOME (remove_all aList)
+end
+
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
 datatype suit = Clubs | Diamonds | Hearts | Spades
