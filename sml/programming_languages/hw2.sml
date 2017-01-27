@@ -71,3 +71,48 @@ datatype move = Discard of card | Draw
 exception IllegalMove
 
 (* put your solutions for problem 2 here *)
+
+fun card_color (s, r) =
+  case s of
+      Clubs => Black
+    | Spades => Black
+    | Hearts => Red
+    | Diamonds => Red
+
+
+fun card_value (s, r) =
+  case r of
+      Ace => 11
+    | Num i => i
+    | King => 10
+    | Queen => 10
+    | Jack => 10
+
+
+fun remove_card ([], c, e) = raise e
+  | remove_card (h :: t, c, e) = 
+    if h = c then t else h :: remove_card (t, c, e)
+
+
+fun all_same_color [] = true
+  | all_same_color (_ :: []) = true
+  | all_same_color (c1 :: c2 :: t) = 
+    card_color c1 = card_color c2 andalso all_same_color (c2 :: t)
+    
+
+fun sum_cards cards = 
+let
+    fun helper ([], acc) = acc
+      | helper (h :: t, acc) = 
+        helper (t, acc + card_value h)
+in
+    helper (cards, 0)
+end
+
+
+fun score (held, goal) =
+let
+val x = 0
+in
+x
+end
