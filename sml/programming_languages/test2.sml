@@ -8,18 +8,30 @@ use "hw2.sml";
 val test1 = all_except_option ("string", ["string"]) = SOME []
 val test1_1 = all_except_option ("string", []) = NONE
 val test1_2 = all_except_option ("string", ["string","other"]) = SOME ["other"]
-val test1_3 = all_except_option ("foo", ["string","other"]) = SOME ["string","other"]
+val test1_3 = all_except_option ("foo", ["string","other"]) = NONE
 val test1_4 = all_except_option ("string", ["string","other","string"]) = SOME ["other"]
+val test1_5 = all_except_option ("string", ["other"]) = NONE
 
-(*
 val test2 = get_substitutions1 ([["foo"],["there"]], "foo") = []
+val test2_1 = get_substitutions1 ([], "foo") = []
+val test2_2 = get_substitutions1 ([["foo","foosball"],["foo","there"]], "foo") = ["foosball","there"]
+val test2_3 = get_substitutions1 ([["foo","foosball"],["there"]], "foo") = ["foosball"]
+val test2_4 = get_substitutions1 ([["foo","foosball","foobar"],["there","foo","foosball"]], "foo") = ["foosball","foobar","there","foosball"]
 
 val test3 = get_substitutions2 ([["foo"],["there"]], "foo") = []
+val test3_1 = get_substitutions2 ([], "foo") = []
+val test3_2 = get_substitutions2 ([["foo","foosball"],["foo","there"]], "foo") = ["foosball","there"]
+val test3_3 = get_substitutions2 ([["foo","foosball"],["there"]], "foo") = ["foosball"]
+val test3_4 = get_substitutions2 ([["foo","foosball","foobar"],["there","foo","foosball"]], "foo") = ["foosball","foobar","there","foosball"]
+
 
 val test4 = similar_names ([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]], {first="Fred", middle="W", last="Smith"}) =
 	    [{first="Fred", last="Smith", middle="W"}, {first="Fredrick", last="Smith", middle="W"},
 	     {first="Freddie", last="Smith", middle="W"}, {first="F", last="Smith", middle="W"}]
+val test4_1 = similar_names ([], {first="Fred", middle="W", last="Smith"}) = [{first="Fred", middle="W", last="Smith"}]
+val test4_2 = similar_names ([["Fred","Fredrick"],["Bill","William"]], {first="Fred", middle="W", last="Smith"}) = [{first="Fred", middle="W", last="Smith"},{first="Fredrick", middle="W", last="Smith"}]
 
+(*
 val test5 = card_color (Clubs, Num 2) = Black
 
 val test6 = card_value (Clubs, Num 2) = 2

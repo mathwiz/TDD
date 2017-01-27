@@ -10,17 +10,54 @@ fun same_string(s1 : string, s2 : string) =
 
 fun all_except_option (s, ss) = 
 let
-fun remove_all xs = 
-  case xs 
-   of [] => []
-   | h :: t => if same_string (s, h)
-               then remove_all t
-               else h :: remove_all t
+    fun contains xs =
+      case xs of 
+          [] => false
+        | h :: t => same_string (s, h) orelse contains t
+
+    fun remove xs = 
+      case xs of 
+          [] => []
+        | h :: t => if same_string (s, h)
+                    then remove t
+                    else h :: remove t
 in
-    case ss 
-     of [] => NONE
-     | aList => SOME (remove_all aList)
+  if contains ss
+  then SOME (remove ss)
+  else NONE
 end
+
+
+fun get_substitutions1 ([], s) = []
+  | get_substitutions1 (h :: t, s) = 
+  case all_except_option (s, h) of 
+      NONE => get_substitutions1 (t, s)
+    | SOME result => result @ get_substitutions1 (t, s)
+
+
+fun get_substitutions2 (subs, s) =
+let
+    fun helper ([], acc) = acc
+      | helper (h :: t, acc) =
+        case all_except_option (s, h) of
+            NONE => helper (t, acc)
+          | SOME result => helper (t, acc @ result)
+in
+    helper (subs, [])
+end
+
+
+fun similar_names (subs, full) = 
+let
+    val {first=f, middle=m, last=l} = full
+
+    fun new_names [] = []
+      | new_names (h :: t) = 
+        {first=h, middle=m, last=l} :: new_names t
+in
+    [full] @ new_names (get_substitutions2 (subs, f))
+end
+
 
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
