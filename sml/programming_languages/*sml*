@@ -1,0 +1,1976 @@
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- true;
+val it = true : bool
+- 3;
+val it = 3 : int
+- use "first.sml";
+[opening first.sml]
+val x = 33 : int
+val y = 18 : int
+val z = 71 : int
+val abs_of_z = 71 : int
+val abs_of_z2 = 71 : int
+val it = () : unit
+- q;
+stdIn:4.1 Error: unbound variable or constructor: q
+- x;
+val it = 33 : int
+- ();
+val it = () : unit
+- use "first.sml";
+[opening first.sml]
+val x = 33 : int
+val y = 18 : int
+val z = 71 : int
+val abs_of_z = 71 : int
+val abs_of_z2 = 71 : int
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- ~5;
+val it = ~5 : int
+- use "hw1.sml";
+[opening hw1.sml]
+val is_older = fn : int * int * int -> bool
+val it = () : unit
+- is_older (1, 2, 1);
+val it = false : bool
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "hw1.sml";
+[opening hw1.sml]
+val is_older = fn : 'a * 'b -> bool
+val number_in_month = fn : 'a * 'b -> int
+val number_in_months = fn : 'a * 'b -> int
+val dates_in_month = fn : 'a * 'b -> int
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+test1.sml:7.1-7.4 Error: syntax error: replacing  VAL with  EQUALOP
+
+uncaught exception Compile [Compile: "syntax error"]
+  raised at: ../compiler/Parse/main/smlfile.sml:15.24-15.46
+             ../compiler/TopLevel/interact/evalloop.sml:44.55
+             ../compiler/TopLevel/interact/evalloop.sml:296.17-296.20
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "hw1.sml";
+[opening hw1.sml]
+hw1.sml:1.2-2.40 Error: unresolved flex record
+   (can't tell what fields there are besides #1)
+hw1.sml:1.2-2.40 Error: unresolved flex record
+   (can't tell what fields there are besides #1)
+
+uncaught exception Error
+  raised at: ../compiler/TopLevel/interact/evalloop.sml:66.19-66.27
+             ../compiler/TopLevel/interact/evalloop.sml:44.55
+             ../compiler/TopLevel/interact/evalloop.sml:296.17-296.20
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "hw1.sml";
+[opening hw1.sml]
+hw1.sml:1.18 Error: syntax error: replacing  COLON with  AS
+hw1.sml:1.39 Error: syntax error: replacing  COLON with  AS
+
+uncaught exception Compile [Compile: "syntax error"]
+  raised at: ../compiler/Parse/main/smlfile.sml:15.24-15.46
+             ../compiler/TopLevel/interact/evalloop.sml:44.55
+             ../compiler/TopLevel/interact/evalloop.sml:296.17-296.20
+- use "hw1.sml";
+[opening hw1.sml]
+hw1.sml:1.18 Error: syntax error: replacing  COLON with  AS
+hw1.sml:1.39 Error: syntax error: replacing  COLON with  AS
+
+uncaught exception Compile [Compile: "syntax error"]
+  raised at: ../compiler/Parse/main/smlfile.sml:15.24-15.46
+             ../compiler/TopLevel/interact/evalloop.sml:44.55
+             ../compiler/TopLevel/interact/evalloop.sml:296.17-296.20
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "hw1.sml";
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : 'a * 'b -> int
+val number_in_months = fn : 'a * 'b -> int
+val dates_in_month = fn : 'a * 'b -> int
+val dates_in_months = fn : 'a * 'b -> int
+val it = () : unit
+- 1::[2,3];
+val it = [1,2,3] : int list
+- null [];
+val it = true : bool- null [1];
+val it = false : bool
+- tl [1];
+val it = [] : int list
+- fun x (a: (int * int) list) = true;
+val x = fn : (int * int) list -> bool
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- tl;
+val it = fn : 'a list -> 'a list
+- "";
+val it = "" : string
+- use "hw1.sml";
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : 'a * 'b -> int
+val number_in_months = fn : 'a * 'b -> int
+val dates_in_month = fn : 'a * 'b -> int
+val dates_in_months = fn : 'a * 'b -> int
+val get_nth = fn : 'a * 'b -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : 'a -> int
+val month_range = fn : int * int -> 'a list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "hw1.sml";
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : 'a -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "hw1.sml";
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : 'a -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+- 
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "hw1.sml";
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+test1.sml:7.1-7.4 Error: syntax error: replacing  VAL with  EQUALOP
+
+uncaught exception Compile [Compile: "syntax error"]
+  raised at: ../compiler/Parse/main/smlfile.sml:15.24-15.46
+             ../compiler/TopLevel/interact/evalloop.sml:44.55
+             ../compiler/TopLevel/interact/evalloop.sml:296.17-296.20
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+test1.sml:7.1-7.4 Error: syntax error: replacing  VAL with  EQUALOP
+
+uncaught exception Compile [Compile: "syntax error"]
+  raised at: ../compiler/Parse/main/smlfile.sml:15.24-15.46
+             ../compiler/TopLevel/interact/evalloop.sml:44.55
+             ../compiler/TopLevel/interact/evalloop.sml:296.17-296.20
+- val test = 1 = 1;
+val test = true : bool
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+test1.sml:7.1-7.4 Error: syntax error: replacing  VAL with  EQUALOP
+
+uncaught exception Compile [Compile: "syntax error"]
+  raised at: ../compiler/Parse/main/smlfile.sml:15.24-15.46
+             ../compiler/TopLevel/interact/evalloop.sml:44.55
+             ../compiler/TopLevel/interact/evalloop.sml:296.17-296.20
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- is_older ((1,2,3), (1,2,4))
+= ;
+stdIn:1.2-1.10 Error: unbound variable or constructor: is_older
+- use "hw1.sml";
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+- is_older ((1,2,3), (1,2,4));
+val it = true : bool
+- is_older ((1,2,3), (1,2,3));
+val it = false : bool
+- val test1 = is_older ((1,2,3), (1,2,4)) = true;
+val test1 = true : bool
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "hw1.sml";
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+- number_in_month ([(1,2,3), (1,1,1), (1,2,4)], 2);
+val it = 2 : int
+- number_in_month ([(1,2,3), (1,1,1), (1,2,4), (1,2,6)], 2);
+val it = 3 : int
+- number_in_month ([(1,2,3), (1,1,1), (1,2,4)], 1);
+val it = 1 : int
+- number_in_month ([(1,2,3), (1,1,1), (1,2,4)], 5);
+val it = 0 : int
+- number_in_month ([], 23);
+val it = 0 : int
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test2 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val it = () : unit
+- is_older ((2000, 11, 30), (2001, 11, 20));
+val it = true : bool
+- is_older ((2002, 11, 10), (2001, 11, 20));
+val it = true : bool
+- is_older ((2001, 12, 10), (2001, 11, 20));
+val it = true : bool
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- is_older ((2000, 11, 30), (2001, 11, 20));
+stdIn:1.2-1.10 Error: unbound variable or constructor: is_older
+- use "hw1.sml";
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+- is_older ((2000, 11, 30), (2001, 11, 20));
+val it = true : bool
+- is_older ((2002, 11, 10), (2001, 11, 20));
+val it = false : bool
+- is_older ((2001, 12, 10), (2001, 11, 20));
+val it = false : bool
+- val it = false : boolval it = false : bool
+
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = false : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+test1.sml:22.87 Error: syntax error: inserting  RPAREN
+
+uncaught exception Compile [Compile: "syntax error"]
+  raised at: ../compiler/Parse/main/smlfile.sml:15.24-15.46
+             ../compiler/TopLevel/interact/evalloop.sml:44.55
+             ../compiler/TopLevel/interact/evalloop.sml:296.17-296.20
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = false : bool
+val test5_1 = false : bool
+val test5_2 = false : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+test1.sml:21.5-21.128 Error: operator and operand don't agree [tycon mismatch]
+  operator domain: (int * int * int) list list * (int * int * int) list list
+  operand:         (int * int * int) list list * (int * int * int) list
+  in expression:
+    dates_in_months
+      ((<exp>,<exp>,<exp>) :: <exp> :: <exp>,2 :: <exp> :: <exp>) =
+      (2012,2,28) :: (2011,3,31) :: (<exp>,<exp>,<exp>) :: nil
+test1.sml:22.5-22.103 Error: operator and operand don't agree [tycon mismatch]
+  operator domain: (int * int * int) list list * (int * int * int) list list
+  operand:         (int * int * int) list list * (int * int * int) list
+  in expression:
+    dates_in_months ((<exp>,<exp>,<exp>) :: <exp> :: <exp>,12 :: nil) =
+      (2013,12,1) :: nil
+
+uncaught exception Error
+  raised at: ../compiler/TopLevel/interact/evalloop.sml:66.19-66.27
+             ../compiler/TopLevel/interact/evalloop.sml:44.55
+             ../compiler/TopLevel/interact/evalloop.sml:296.17-296.20
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+val append = fn : 'a list * 'a list -> 'a list
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+hw1.sml:22.9 Error: syntax error: inserting  RPAREN
+
+uncaught exception Compile [Compile: "syntax error"]
+  raised at: ../compiler/Parse/main/smlfile.sml:15.24-15.46
+             ../compiler/TopLevel/interact/evalloop.sml:44.55
+             ../compiler/TopLevel/interact/evalloop.sml:296.17-296.20
+- [1] @ [2];
+val it = [1,2] : int list
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml":
+= ;
+= ;
+= stdIn:2.1 Error: syntax error found at SEMICOLON
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = false : bool
+val test7_1 = false : bool
+val test7_2 = false : bool
+val test7_3 = false : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+hw1.sml:45.7-45.72 Error: operator and operand don't agree [tycon mismatch]
+  operator domain: string list * int
+  operand:         {2:'Y; 'Z} -> 'Y
+  in expression:
+    get_nth (fn {2=2,...} => 2)
+hw1.sml:45.7-45.72 Error: operator and operand don't agree [tycon mismatch]
+  operator domain: int
+  operand:         {3:'Y; 'Z} -> 'Y
+  in expression:
+    Int.toString (fn {3=3,...} => 3)
+hw1.sml:45.7-45.72 Error: operator and operand don't agree [tycon mismatch]
+  operator domain: int
+  operand:         {1:'Y; 'Z} -> 'Y
+  in expression:
+    Int.toString (fn {1=1,...} => 1)
+
+uncaught exception Error
+  raised at: ../compiler/TopLevel/interact/evalloop.sml:66.19-66.27
+             ../compiler/TopLevel/interact/evalloop.sml:44.55
+             ../compiler/TopLevel/interact/evalloop.sml:296.17-296.20
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+hw1.sml:45.7-45.78 Error: operator and operand don't agree [tycon mismatch]
+  operator domain: string list * int
+  operand:         int
+  in expression:
+    get_nth ((fn {2=<pat>,...} => 2) d)
+
+uncaught exception Error
+  raised at: ../compiler/TopLevel/interact/evalloop.sml:66.19-66.27
+             ../compiler/TopLevel/interact/evalloop.sml:44.55
+             ../compiler/TopLevel/interact/evalloop.sml:296.17-296.20
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+hw1.sml:51.8-52.55 Error: operator and operand don't agree [tycon mismatch]
+  operator domain: 'Z list
+  operand:         'Y list -> 'Y list
+  in expression:
+    hd tl
+
+uncaught exception Error
+  raised at: ../compiler/TopLevel/interact/evalloop.sml:66.19-66.27
+             ../compiler/TopLevel/interact/evalloop.sml:44.55
+             ../compiler/TopLevel/interact/evalloop.sml:296.17-296.20
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+
+uncaught exception Empty
+  raised at: smlnj/init/pervasive.sml:209.19-209.24
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+
+uncaught exception Empty
+  raised at: smlnj/init/pervasive.sml:209.19-209.24
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val test8 = false : bool
+val test8_1 = true : bool
+val test8_3 = false : bool
+val test8_4 = false : bool
+val test8_5 = false : bool
+val test8_6 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val test8 = false : bool
+val test8_1 = false : bool
+val test8_3 = true : bool
+val test8_4 = true : bool
+val test8_5 = false : bool
+val test8_6 = true : bool
+val it = () : unit
+- number_before_reaching_sum (10, [1,2,3,4,5]);
+val it = 4 : int
+- 1 >= 1;
+val it = true : bool
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val test8 = true : bool
+val test8_1 = true : bool
+val test8_3 = true : bool
+val test8_4 = true : bool
+val test8_5 = true : bool
+val test8_6 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val test8 = true : bool
+val test8_1 = true : bool
+val test8_3 = true : bool
+val test8_4 = true : bool
+val test8_5 = true : bool
+val test8_6 = true : bool
+val test9 = false : bool
+val test9_1 = false : bool
+val test9_2 = false : bool
+val test9_3 = false : bool
+val test9_4 = false : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+
+uncaught exception Empty
+  raised at: smlnj/init/pervasive.sml:211.19-211.24
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val test8 = true : bool
+val test8_1 = true : bool
+val test8_3 = true : bool
+val test8_4 = true : bool
+val test8_5 = true : bool
+val test8_6 = true : bool
+val test9 = false : bool
+val test9_1 = false : bool
+val test9_2 = false : bool
+val test9_3 = false : bool
+val test9_4 = false : bool
+val test9_5 = false : bool
+val test9_6 = false : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val test8 = true : bool
+val test8_1 = true : bool
+val test8_3 = true : bool
+val test8_4 = true : bool
+val test8_5 = true : bool
+val test8_6 = true : bool
+val test9 = false : bool
+val test9_1 = false : bool
+val test9_2 = false : bool
+val test9_3 = false : bool
+val test9_4 = false : bool
+val test9_5 = false : bool
+val test9_6 = false : bool
+val it = () : unit
+- what_month 1;
+val it = 0 : int
+- what_month 70;
+val it = 2 : int
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val test8 = true : bool
+val test8_1 = true : bool
+val test8_3 = true : bool
+val test8_4 = true : bool
+val test8_5 = true : bool
+val test8_6 = true : bool
+val test9 = true : bool
+val test9_1 = true : bool
+val test9_2 = true : bool
+val test9_3 = true : bool
+val test9_4 = true : bool
+val test9_5 = true : bool
+val test9_6 = true : bool
+val it = () : unit
+- what_month 335;
+val it = 12 : int
+- what_month 334;
+val it = 11 : int
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val test8 = true : bool
+val test8_1 = true : bool
+val test8_3 = true : bool
+val test8_4 = true : bool
+val test8_5 = true : bool
+val test8_6 = true : bool
+val test9 = true : bool
+val test9_1 = true : bool
+val test9_2 = true : bool
+val test9_3 = true : bool
+val test9_4 = true : bool
+val test9_5 = true : bool
+val test9_6 = true : bool
+val test10 = <hidden-value> : bool
+val test10 = <hidden-value> : bool
+val test10 = <hidden-value> : bool
+val test10 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> int * int * int
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val test8 = true : bool
+val test8_1 = true : bool
+val test8_3 = true : bool
+val test8_4 = true : bool
+val test8_5 = true : bool
+val test8_6 = true : bool
+val test9 = true : bool
+val test9_1 = true : bool
+val test9_2 = true : bool
+val test9_3 = true : bool
+val test9_4 = true : bool
+val test9_5 = true : bool
+val test9_6 = true : bool
+val test10 = true : bool
+val test10_1 = true : bool
+val test10_2 = true : bool
+val test10_3 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "hw1.sml";
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> (int * int * int) option
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> (int * int * int) option
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val test8 = true : bool
+val test8_1 = true : bool
+val test8_3 = true : bool
+val test8_4 = true : bool
+val test8_5 = true : bool
+val test8_6 = true : bool
+val test9 = true : bool
+val test9_1 = true : bool
+val test9_2 = true : bool
+val test9_3 = true : bool
+val test9_4 = true : bool
+val test9_5 = true : bool
+val test9_6 = true : bool
+val test10 = true : bool
+val test10_1 = true : bool
+val test10_2 = true : bool
+val test10_3 = true : bool
+val test11 = true : bool
+val test11_1 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> (int * int * int) option
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val test8 = true : bool
+val test8_1 = true : bool
+val test8_3 = true : bool
+val test8_4 = true : bool
+val test8_5 = true : bool
+val test8_6 = true : bool
+val test9 = true : bool
+val test9_1 = true : bool
+val test9_2 = true : bool
+val test9_3 = true : bool
+val test9_4 = true : bool
+val test9_5 = true : bool
+val test9_6 = true : bool
+val test10 = true : bool
+val test10_1 = true : bool
+val test10_2 = true : bool
+val test10_3 = true : bool
+val test11 = <hidden-value> : bool
+val test11_1 = true : bool
+val test11 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> (int * int * int) option
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val test8 = true : bool
+val test8_1 = true : bool
+val test8_3 = true : bool
+val test8_4 = true : bool
+val test8_5 = true : bool
+val test8_6 = true : bool
+val test9 = true : bool
+val test9_1 = true : bool
+val test9_2 = true : bool
+val test9_3 = true : bool
+val test9_4 = true : bool
+val test9_5 = true : bool
+val test9_6 = true : bool
+val test10 = true : bool
+val test10_1 = true : bool
+val test10_2 = true : bool
+val test10_3 = true : bool
+val test11 = true : bool
+val test11_1 = true : bool
+val test11_2 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> (int * int * int) option
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val test8 = true : bool
+val test8_1 = true : bool
+val test8_3 = true : bool
+val test8_4 = true : bool
+val test8_5 = true : bool
+val test8_6 = true : bool
+val test9 = true : bool
+val test9_1 = true : bool
+val test9_2 = true : bool
+val test9_3 = true : bool
+val test9_4 = true : bool
+val test9_5 = true : bool
+val test9_6 = true : bool
+val test10 = true : bool
+val test10_1 = true : bool
+val test10_2 = true : bool
+val test10_3 = true : bool
+val test11 = true : bool
+val test11_1 = true : bool
+val test11_2 = true : bool
+val it = () : unit
+- + (1, 3);
+stdIn:2.1 Error: expression or pattern begins with infix identifier "+"
+- Cons (1, Empty);
+stdIn:1.2-1.6 Error: unbound variable or constructor: Cons
+- datatype int_list = Empty | Cons of int * int_list;
+datatype int_list = Cons of int * int_list | Empty
+- Cons (1, Empty);
+val it = Cons (1,Empty) : int_list
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1_pat.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> (int * int * int) option
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val test8 = true : bool
+val test8_1 = true : bool
+val test8_3 = true : bool
+val test8_4 = true : bool
+val test8_5 = true : bool
+val test8_6 = true : bool
+val test9 = true : bool
+val test9_1 = true : bool
+val test9_2 = true : bool
+val test9_3 = true : bool
+val test9_4 = true : bool
+val test9_5 = true : bool
+val test9_6 = true : bool
+val test10 = true : bool
+val test10_1 = true : bool
+val test10_2 = true : bool
+val test10_3 = true : bool
+val test11 = true : bool
+val test11_1 = true : bool
+val test11_2 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1_pat.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+hw1_pat.sml:18.15-18.64 Error: operator and operand don't agree [tycon mismatch]
+  operator domain: (int * int * int) list * int
+  operand:         int list * int
+  in expression:
+    number_in_month (t,m)
+hw1_pat.sml:16.3-18.64 Error: case object and rules don't agree [tycon mismatch]
+  rule domain: int list
+  object: (int * int * int) list
+  in expression:
+    (case ds
+      of nil => 0
+       | :: (h,t) =>
+           (if <exp> = <exp> then 1 else 0) + number_in_month (<exp>,<exp>))
+
+uncaught exception Error
+  raised at: ../compiler/TopLevel/interact/evalloop.sml:66.19-66.27
+             ../compiler/TopLevel/interact/evalloop.sml:44.55
+             ../compiler/TopLevel/interact/evalloop.sml:296.17-296.20
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "test1.sml";
+[opening test1.sml]
+[opening hw1_pat.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> (int * int * int) option
+val it = () : unit
+val test1 = true : bool
+val test1_1 = true : bool
+val test1_2 = true : bool
+val test1_3 = true : bool
+val test2 = true : bool
+val test3 = true : bool
+val test4 = true : bool
+val test4_1 = true : bool
+val test4_2 = true : bool
+val test4_3 = true : bool
+val test5 = true : bool
+val test5_1 = true : bool
+val test5_2 = true : bool
+val test6 = true : bool
+val test6_1 = true : bool
+val test6_2 = true : bool
+val test6_3 = true : bool
+val test6_4 = true : bool
+val test7 = true : bool
+val test7_1 = true : bool
+val test7_2 = true : bool
+val test7_3 = true : bool
+val test8 = true : bool
+val test8_1 = true : bool
+val test8_3 = true : bool
+val test8_4 = true : bool
+val test8_5 = true : bool
+val test8_6 = true : bool
+val test9 = true : bool
+val test9_1 = true : bool
+val test9_2 = true : bool
+val test9_3 = true : bool
+val test9_4 = true : bool
+val test9_5 = true : bool
+val test9_6 = true : bool
+val test10 = true : bool
+val test10_1 = true : bool
+val test10_2 = true : bool
+val test10_3 = true : bool
+val test11 = true : bool
+val test11_1 = true : bool
+val test11_2 = true : bool
+val it = () : unit
+- 
+
+Process sml finished
+Standard ML of New Jersey v110.76 [built: Mon Jul  7 23:25:08 2014]
+- use "hw1_pat.sml";
+[opening hw1_pat.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[autoloading done]
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> (int * int * int) option
+val it = () : unit
+- number_before_reaching_sum (4, [1,2,3,4,5]);
+val it = 3 : int
+- number_before_reaching_sum (1, [1,2,3,4,5]);
+val it = 2 : int
+- number_before_reaching_sum (2, [1,2,3,4,5]);
+val it = 2 : int
+- number_before_reaching_sum (3, [1,2,3,4,5]);
+val it = 3 : int
+- number_before_reaching_sum (5, [1,2,3,4,5]);
+val it = 3 : int
+- 
+
+Process sml finished
