@@ -112,7 +112,35 @@ end
 
 fun score (held, goal) =
 let
-val x = 0
+    val sum = sum_cards held
+    fun final prelim = 
+      if all_same_color held
+      then prelim div 2
+      else prelim
 in
-x
+    final (if sum > goal then 3 * (sum - goal) else goal - sum)
+end
+
+
+fun officiate (cards, moves, goal) =
+let
+    val ex = IllegalMove
+
+    fun play ([], held, _) = score (held, goal)
+      | play (m :: ms, held, []) = 
+        (case m of
+             Draw => score (held, goal)
+           | Discard d => play (ms, 
+                                remove_card (held, d, ex), 
+                                []))
+      | play (m :: ms, held, c :: cs) =
+        (case m of
+             Draw => if sum_cards (c :: held) > goal
+                     then score ((c :: held), goal)
+                     else play (ms, c :: held, cs)
+           | Discard d => play (ms, 
+                                remove_card (held, d, ex), 
+                                c :: cs))
+in
+    play (moves, [], cards)
 end

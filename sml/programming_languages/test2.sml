@@ -66,7 +66,7 @@ val test10_1 = score ([(Hearts, Num 2),(Hearts, Num 4)],10) = (10 - 6) div 2
 val test10_2 = score ([(Hearts, Num 2),(Clubs, Num 10)],10) = 3 * (12 - 10)
 val test10_3 = score ([(Hearts, Num 2),(Hearts, Num 10)],10) = ((12 - 10) * 3) div 2
 
-(*
+
 val test11 = officiate ([(Hearts, Num 2),(Clubs, Num 4)],[Draw], 15) = 6
 
 val test12 = officiate ([(Clubs,Ace),(Spades,Ace),(Clubs,Ace),(Spades,Ace)],
@@ -80,4 +80,4 @@ val test13 = ((officiate([(Clubs,Jack),(Spades,Num(8))],
                false) 
               handle IllegalMove => true)
              
-*)
+
