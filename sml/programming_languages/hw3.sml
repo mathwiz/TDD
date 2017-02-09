@@ -88,17 +88,27 @@ val count_wild_and_variable_lengths = g (fn it => 1) (fn it => String.size it)
 
 
 fun count_some_var (v, p) =
-let
-    val f = g (fn it => 0) (fn it => if it = v then 1 else 0)
-in
-    f p
-end
+    (g (fn it => 0) (fn it => if it = v then 1 else 0)) p
 
 
 fun check_pat p =
 let
-    val x = false
-    fun all_vars p = []
+    fun flatten [] = []
+      | flatten (h :: t) = 
+        (case h of  
+            TupleP [] => []
+          | TupleP (h'::t') => (flatten [h']) @ (flatten t')
+          | ConstructorP (_,p) => flatten [p]
+          | p => [p]
+        ) @ (flatten t)
+
+    fun any_dup [] = false
+      | any_dup (h :: t) = List.exists (fn it => it = h) t
+                           orelse any_dup t
+
+    val find_vars = List.filter (fn it => case it of Variable _ => true | _ => false)
 in
-x
+    not (any_dup (find_vars (flatten [p])))
 end
+
+

@@ -58,10 +58,23 @@ val test9c_2 = count_some_var ("x", ConstructorP ("x", Variable("x"))) = 1
 val test9c_3 = count_some_var ("x", TupleP [Variable("x"),Variable("x"),Variable("y")]) = 2
 val test9c_4 = count_some_var ("x", UnitP) = 0
 
+val test10 = check_pat (TupleP []) = true
 val test10_1 = check_pat (Variable("x")) = true
 val test10_2 = check_pat (TupleP [Variable("x"),Variable("x")]) = false
 val test10_3 = check_pat (TupleP [Variable("x"),Variable("y"),Variable("x")]) = false
 val test10_4 = check_pat (TupleP [Variable("x"),Variable("y"),Variable("z")]) = true
+val test10_5 = check_pat (ConstructorP ("foo", TupleP [Variable("x"),Variable("y"),Variable("z")])) = true
+val test10_6 = check_pat (ConstructorP ("foo", TupleP [Variable("x"),Variable("y"),Variable("x")])) = false
+val test10_7 = check_pat (ConstructorP ("foo", TupleP [TupleP [Wildcard, Variable("x")], UnitP])) = true
+val test10_8 = check_pat Wildcard = true
+val test10_9 = check_pat (TupleP [UnitP, TupleP [TupleP [Variable("x"), Wildcard], TupleP [Variable("y"), Variable("z")]], Variable("a")]) = true
+
+(*
+val f1 = flatten test10
+val f2 = flatten test10_9
+val f3 = flatten test10_1
+val f4 = flatten test10_2
+*)
 
 (*
 val test11 = match (Const(1), UnitP) = NONE
