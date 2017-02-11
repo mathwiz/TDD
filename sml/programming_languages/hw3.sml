@@ -112,29 +112,16 @@ end
 
 
 fun match (v, p) = 
-    case p of
-        Wildcard => SOME []
-      | Variable s => SOME [(s,v)]
-      | UnitP => if v = Unit then SOME [] else NONE
-      | ConstP i => 
-        (case v of
-             Const c => if c = i then SOME [] else NONE
-           | _ => NONE)
-      | TupleP [] => 
-        (case v of 
-             Tuple [] => SOME []
-           | _ => NONE)
-      | TupleP pats => 
-        (case v of 
-             Tuple [] => NONE
-           | Tuple vals => all_answers match (ListPair.zip (vals,pats))
-           | _ => NONE)
-      | ConstructorP (s,p) =>
-        (case v of
-             Constructor (name,vl) => if name = s 
-                                      then match (vl,p)
-                                      else NONE
-           | _ => NONE)
+    case (v, p) of
+        (_, Wildcard) => SOME []
+      | (_, Variable s) => SOME [(s,v)]
+      | (Unit, UnitP) => SOME []
+      | (Const c, ConstP i) => if c = i then SOME [] else NONE
+      | (Tuple vals, TupleP pats) => if List.length vals = List.length pats
+                                     then all_answers match (ListPair.zip (vals,pats))
+                                     else NONE
+      | (Constructor (name, vl), ConstructorP (s,p)) => if name = s then match (vl,p) else NONE
+      | _ => NONE
 
 
 fun first_match v ps =
