@@ -99,16 +99,52 @@ let
             TupleP [] => []
           | TupleP (h'::t') => (flatten [h']) @ (flatten t')
           | ConstructorP (_,p) => flatten [p]
-          | p => [p]
+          | Variable x => [Variable x]
+          | p => []
         ) @ (flatten t)
 
     fun any_dup [] = false
       | any_dup (h :: t) = List.exists (fn it => it = h) t
                            orelse any_dup t
-
-    val find_vars = List.filter (fn it => case it of Variable _ => true | _ => false)
 in
-    not (any_dup (find_vars (flatten [p])))
+    not (any_dup (flatten [p]))
 end
 
 
+fun match (v, p) = 
+let
+    fun get_matches (v, p) = 
+    case p of
+        Wildcard => SOME []
+      | Variable s => SOME [(s,v)]
+      | UnitP => if v = Unit then SOME [] else NONE
+      | ConstP i => 
+        (case v of
+             Const c => if c = i then SOME [] else NONE
+           | _ => NONE)
+      | TupleP [] => 
+        (case v of 
+             Tuple [] => SOME []
+           | _ => NONE)
+      | TupleP pats => 
+        (case v of 
+             Tuple [] => NONE
+           | Tuple vals => all_answers match (ListPair.zip (vals,pats))
+           | _ => NONE)
+      | ConstructorP (s,p) =>
+        (case v of
+             Constructor (name,vl) => if name = s 
+                                      then get_matches (vl,p)
+                                      else NONE
+           | _ => NONE)
+
+    val ms = get_matches (v, p)
+in
+    ms
+end
+
+
+(*
+fun first_match v ps =
+  fn x => first_answer 
+*)
