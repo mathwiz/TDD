@@ -112,8 +112,6 @@ end
 
 
 fun match (v, p) = 
-let
-    fun get_matches (v, p) = 
     case p of
         Wildcard => SOME []
       | Variable s => SOME [(s,v)]
@@ -134,17 +132,11 @@ let
       | ConstructorP (s,p) =>
         (case v of
              Constructor (name,vl) => if name = s 
-                                      then get_matches (vl,p)
+                                      then match (vl,p)
                                       else NONE
            | _ => NONE)
 
-    val ms = get_matches (v, p)
-in
-    ms
-end
 
-
-(*
 fun first_match v ps =
-  fn x => first_answer 
-*)
+  SOME (first_answer (fn it => match (v,it)) ps)
+  handle NoAnswer => NONE

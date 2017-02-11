@@ -95,14 +95,12 @@ val test11_24 = match (Tuple [Const(1),Const(2),Const(3)], TupleP [Variable("a")
 (*
 val test11 = all_answers match (ListPair.zip ([Const(1),Const(2),Const(3)], [Variable("a"),Variable("b"),Variable("c")]) )
 *)
-(*
+
 val test12_0 = first_match Unit [UnitP] = SOME []
 val test12_1 = first_match Unit [TupleP [], UnitP] = SOME []
-val test12_2 = first_match Const(1) [UnitP, Variable("x")] = SOME [("x",Const(1))]
-val test12_3 = first_match Const(1) [UnitP, Variable("x")] = SOME [("x",Const(1))]
-val test12_2 = first_match Const(1) [UnitP, Variable("x")] = SOME [("x",Const(1))]
-val test12_2 = first_match Const(1) [UnitP, Variable("x")] = SOME [("x",Const(1))]
-val test12_2 = first_match Const(1) [UnitP, Variable("x")] = SOME [("x",Const(1))]
-val test12_10 = first_match Const(1) [UnitP, Constructor("x",Const(1))] = NONE
-val test12_11 = first_match Const(1) [] = NONE
-*)
+val test12_2 = first_match (Const(1)) [UnitP, Variable("x")] = SOME [("x",Const(1))]
+val test12_3 = first_match (Tuple [Unit, Unit]) [UnitP, Variable("x")] = SOME [("x",Tuple [Unit,Unit])]
+val test12_4 = first_match (Constructor("foo",Const(1))) [UnitP, Variable("x")] = SOME [("x",Constructor("foo",Const(1)))]
+val test12_10 = first_match (Const(1)) [UnitP, ConstructorP("x",ConstP(1))] = NONE 
+val test12_11 = first_match (Const(1)) [] = NONE
+
