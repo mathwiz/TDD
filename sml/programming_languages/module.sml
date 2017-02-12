@@ -102,8 +102,8 @@ struct
    exception TestFail of string
 
    fun test e expectf failure = 
-     if expectf e then true
-     else raise TestFail failure
+     if expectf e then e
+     else raise TestFail (failure ^ ": found [" ^ (toString e) ^ "]")
 
    val test1 = test (make_frac (2,1)) 
                     (fn it => it = Whole 2) 
@@ -112,5 +112,9 @@ struct
    val test2 = test (make_frac (2,0) handle BadFrac => Whole 0) 
                     (fn it => it = Whole 0) 
                     "Zero denom should cause BadFrac"
+
+   val test3 = test (add (make_frac (1,4), make_frac (3,7)))
+                    (fn it => it = Frac (19,28))
+                    "add test of 2 fracs"
 end
        
