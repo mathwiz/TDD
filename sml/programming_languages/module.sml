@@ -111,6 +111,6 @@ struct
 
    val test2 = test (make_frac (2,0) handle BadFrac => Whole 0) 
                     (fn it => it = Whole 0) 
-                    "Should throw BadFrac"
+                    "Zero denom should cause BadFrac"
 end
        
