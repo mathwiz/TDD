@@ -112,7 +112,6 @@ struct
 	 | Frac(a,b) => (Int.toString a) ^ "/" ^ (Int.toString b)
 
 (* how to make test cases part of module? *)
-   open TestRational
    val test = TestRational.test
                                       
    val test1 = test (make_frac (2,1)) 
