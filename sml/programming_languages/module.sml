@@ -43,6 +43,19 @@ val add : rational * rational -> rational
 val toString : rational -> string
 end 
 
+
+(* Module for tests.  *)
+structure TestRational =
+struct
+   exception TestFail of string
+
+   fun test e expectf failure = 
+     if expectf e then e
+     else raise TestFail failure 
+end
+
+
+
 (* this structure provides a small library 
    for rational numbers -- same code as in previous 
    segment, but now we give it a signature *)
@@ -99,12 +112,9 @@ struct
 	 | Frac(a,b) => (Int.toString a) ^ "/" ^ (Int.toString b)
 
 (* how to make test cases part of module? *)
-   exception TestFail of string
-
-   fun test e expectf failure = 
-     if expectf e then e
-     else raise TestFail (failure ^ ": found [" ^ (toString e) ^ "]")
-
+   open TestRational
+   val test = TestRational.test
+                                      
    val test1 = test (make_frac (2,1)) 
                     (fn it => it = Whole 2) 
                     "Whole should not have denom"
@@ -115,6 +125,102 @@ struct
 
    val test3 = test (add (make_frac (1,4), make_frac (3,7)))
                     (fn it => it = Frac (19,28))
-                    "add test of 2 fracs"
+                    "add should produce good Frac"
 end
+
+
+
+(* this structure can have all three signatures we gave
+   Rationa1 in previous segments, and/but it is 
+   /equivalent/ under signatures RATIONAL_B and RATIONAL_C 
+
+   this structure does not reduce fractions until printing
+*)
        
+structure Rational2 :> RATIONAL_A (* or B or C *) =
+struct
+  datatype rational = Whole of int | Frac of int*int
+  exception BadFrac
+
+   fun make_frac (x,y) =
+       if y = 0
+       then raise BadFrac
+       else if y < 0
+       then Frac(~x,~y)
+       else Frac(x,y)
+
+   fun add (r1,r2) = 
+       case (r1,r2) of
+	   (Whole(i),Whole(j))   => Whole(i+j)
+	 | (Whole(i),Frac(j,k))  => Frac(j+k*i,k)
+	 | (Frac(j,k),Whole(i))  => Frac(j+k*i,k)
+	 | (Frac(a,b),Frac(c,d)) => Frac(a*d + b*c, b*d)
+
+   fun toString r =
+       let fun gcd (x,y) =
+	       if x=y
+	       then x
+	       else if x < y
+	       then gcd(x,y-x)
+	       else gcd(y,x)
+
+	   fun reduce r =
+	       case r of
+		   Whole _ => r
+		 | Frac(x,y) => 
+		   if x=0
+		   then Whole 0
+		   else
+		       let val d = gcd(abs x,y) in 
+			   if d=y 
+			   then Whole(x div d) 
+			   else Frac(x div d, y div d) 
+		       end
+       in 
+	   case reduce r of
+	       Whole i   => Int.toString i
+	     | Frac(a,b) => (Int.toString a) ^ "/" ^ (Int.toString b)
+       end
+end
+
+
+
+(* this structure uses a different abstract type.  
+   It does not even have signature RATIONAL_A.  
+   For RATIONAL_C, we need a function Whole.  
+*) 
+structure Rational3 :> RATIONAL_B (* or C *)= 
+struct 
+   type rational = int * int
+   exception BadFrac
+	     
+   fun make_frac (x,y) = 
+       if y = 0
+       then raise BadFrac
+       else if y < 0
+       then (~x,~y)
+       else (x,y)
+
+   fun Whole i = (i,1)
+
+   fun add ((a,b),(c,d)) = (a*d + c*b, b*d)
+
+   fun toString (x,y) =
+       if x=0
+       then "0"
+       else
+	   let fun gcd (x,y) =
+		   if x=y
+		   then x
+		   else if x < y
+		   then gcd(x,y-x)
+		   else gcd(y,x)
+	       val d = gcd (abs x,y)
+	       val num = x div d
+	       val denom = y div d
+	   in
+	       Int.toString num ^ (if denom=1 
+				   then "" 
+				   else "/" ^ (Int.toString denom))
+	   end
+end
