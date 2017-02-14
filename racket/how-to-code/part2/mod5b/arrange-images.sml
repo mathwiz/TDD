@@ -1,3 +1,7 @@
+(* ======================================
+Data definitions
+========================================= *)
+
 type listofimage = string list
 
 val loi1: listofimage = []
@@ -17,11 +21,12 @@ val loiA6 = Cons ("10_jh_15.jpg", loiA5)
 val loiA7 = Cons ("13_jh_01.jpg", loiA6)
 val loiA8 = Cons ("13_jh_20.jpg", loiA7)
 
+(* ======================================
+Functions
+========================================= *)
+
 fun arrange f loi = 
   List.map f 
-
-fun arrangeA Empty = Empty
-  | arrangeA (Cons (h,t)) = Cons (h, arrangeA t)
 
 fun insert (i, Empty) = Cons (i, Empty)
   | insert (i, (Cons (h, t))) = if i < h
@@ -31,14 +36,25 @@ fun insert (i, Empty) = Cons (i, Empty)
 fun sort Empty = Empty
   | sort (Cons (h, t)) = insert (h, sort t)
 
-fun layout Empty = Empty
-  | layout (Cons (h, t)) = (Cons (h, t))
+fun layout Empty = ""
+  | layout (Cons (s, Empty)) = s
+  | layout (Cons (h, t)) = h ^ "," ^ (layout t)
+
+fun arrangeA l = layout (sort l)
 
 
-val shortlist = (Cons ("c", Cons ("b", Cons ("a", Empty))))
+(* ======================================
+Tests
+========================================= *)
 
-val test1_1 = sort loiA8
-val test1_2 = sort shortlist
+val shortlist = Cons ("c", Cons ("b", Cons ("a", Empty)))
+val sortedshort = Cons ("a", Cons ("b", Cons ("c", Empty)))
+val sorted = Cons ("08_jh_11.jpg", Cons ("08_jh_17.jpg", Cons ("08_jh_18.jpg", Cons ("10_jh_15.jpg", Cons ("13_jh_01.jpg", Cons ("13_jh_07.jpg", Cons ("13_jh_20.jpg", Empty)))))))
 
-val test2_1 = layout loiA8
-val test2_2 = layout shortlist
+val test1_1 = sort loiA8 = sorted
+val test1_2 = sort shortlist = sortedshort
+
+val test2_1 = arrangeA loiA8 = "08_jh_11.jpg,08_jh_17.jpg,08_jh_18.jpg,10_jh_15.jpg,13_jh_01.jpg,13_jh_07.jpg,13_jh_20.jpg"
+val test2_2 = arrangeA shortlist = "a,b,c"
+val test2_3 = arrangeA Empty = ""
+val test2_4 = arrangeA (Cons ("z", Empty)) = "z"
