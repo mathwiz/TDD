@@ -1,0 +1,1 @@
+﻿let _ = printf "Test of scripting\n";; // alt-enter to evaluate
