@@ -1,0 +1,35 @@
+(load "simply.scm")
+
+(define X1 '(x d y k e d o l s e l c r t d w q m p i o a))
+
+(define (one-half xs) 
+  (cond ((<= (count xs) 1) xs) 
+        (else (se (first xs) 
+                  (one-half (bf (bf xs)))))))
+
+(define (other-half xs) 
+  (cond ((<= (count xs) 1) 
+         ()) 
+        (else (se (first (bf xs)) 
+                  (other-half (bf (bf xs)))))))
+
+(define (merge xs ys) 
+  (cond ((empty? xs) ys) 
+        ((empty? ys) xs) 
+        ((before? (first xs) 
+                  (first ys)) 
+         (se (first xs) 
+             (merge (bf xs) ys))) 
+        (else (se (first ys) 
+                  (merge xs (bf ys))))))
+
+(define (mergesort xs) 
+  (cond ((<= (count xs) 1) xs) 
+        (else (merge (mergesort (one-half xs)) 
+                     (mergesort (other-half xs))))))
+
+(merge '(c l m) 
+       '(a f h))
+(one-half X1)
+(other-half X1)
+(mergesort X1)
