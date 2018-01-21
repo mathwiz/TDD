@@ -1,0 +1,6 @@
+(+ 2 6)
+(apply #'+ '(2 6))
+(apply (symbol-function '+) '(2 6))
+(apply #'(lambda (x y) (+ x y)) '(2 6))
+(apply #'+ 2 '(1 2 3))
+(funcall #'+ 2 1 2 3)
