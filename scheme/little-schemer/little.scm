@@ -301,3 +301,50 @@
 
 
 
+;; Atom Atom -> Boolean
+;; produce true if a and b are the same atom or number
+(define (eqan? a b) 
+  (cond ((and 
+          (number? a) 
+          (number? b)) 
+         (= a b)) 
+        ((or 
+          (number? a) 
+          (number? b)) #f) 
+        (else (eq? a b))))
+
+
+
+
+;; S-exp S-exp -> Boolean
+;; produce true if a and b are the same S-expression
+(define (equal? a b) 
+  (cond ((and 
+          (atom? a) 
+          (atom? b)) 
+         (eqan? a b)) 
+        ((or 
+          (atom? a) 
+          (atom? b))
+         #f) 
+        (else (eqlist? a b))))
+
+
+
+;; (listof X) (listof X) -> Boolean
+;; produce true if a and b are the same list
+(define (eqlist? a b) 
+  (cond ((and 
+          (null? a) 
+          (null? b)) #t) 
+        ((or 
+          (null? a) 
+          (null? b)) #f) 
+        (else (and (equal? (car a) 
+                           (car b)) 
+                   (eqlist? (cdr a) 
+                            (cdr b))))))
+
+
+
+
