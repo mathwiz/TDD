@@ -73,3 +73,38 @@
 
 
 
+;; Natural Natural -> Natural
+;; version of binary - using sub1 and add1
+(define o- 
+  (lambda (n m) 
+    (cond ((zero? m) n) 
+          (else
+           (sub1 (o- n (sub1 m)))))))
+
+
+
+;; Natural Natural -> Natural
+;; alternative to multiply
+(define (o* n m)
+  (cond ((zero? m) 0)
+        (else
+         (o+ n (o* n (sub1 m))))))
+
+
+
+
+;; Tuple Tuple -> Tuple
+;; produce the pairwise addition of 2 tuples of the same length
+(define (tup+ a b) 
+  (cond ((and 
+          (null? a) 
+          (null? b)) 
+         (quote ())) 
+        (else (cons
+               (o+ (car a) 
+                   (car b))
+               (tup+ (cdr a) 
+                     (cdr b))))))
+
+
+
