@@ -45,3 +45,31 @@
                       (rember a (cdr lat)))))))
 
 
+;; Natural Natural -> Natural
+;; version of binary + using sub1 and add1
+(define o+ 
+  (lambda (n m) 
+    (cond ((zero? m) n) 
+          (else
+           (add1 (o+ n (sub1 m)))))))
+
+
+;; Natural Natural -> Natural
+;; version of binary - using sub1 and add1
+(define o- 
+  (lambda (n m) 
+    (cond ((zero? m) n) 
+          (else
+           (sub1 (o- n (sub1 m)))))))
+
+
+;; (listof Natural) -> Natural
+;; add the elements of the tuple
+(define (addtup tup) 
+  (cond ((null? tup) 0) 
+        (else
+         (o+ (car tup) 
+             (addtup (cdr tup))))))
+
+
+
