@@ -154,3 +154,26 @@
 
 
 
+;; (listof X) -> Natural
+;; produce the length of lox
+(define (len lox)
+  (cond ((null? lox) 0)
+        (else
+         (add1 (len (cdr lox))))))
+
+
+
+;; Natural (listof X) -> X
+;; produce the element at pos (starting at 1) or false
+(define (pick pos lox) 
+  (cond ((or 
+          (= 0 pos) 
+          (null? lox)) false) 
+        ((= 1 pos) 
+         (car lox))
+        (else 
+(pick (sub1 pos) (cdr lox)))))
+
+
+
+
