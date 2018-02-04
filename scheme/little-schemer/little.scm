@@ -8,12 +8,14 @@
 ;; Natural -> Natural
 ;; Produce new natural number one larger than input
 
-(define (add1 n) (+ n 1))
+(define (add1 n) 
+  (+ n 1))
 
 ;; Natural -> Natural
 ;; Produce number one less than input
 
-(define (sub1 n) (- n 1))
+(define (sub1 n) 
+  (- n 1))
 
 ;; List -> Boolean
 ;; produce true if all elements of a list a atoms
@@ -40,7 +42,7 @@
     (cond ((null? lat) 
            (quote ())) 
           ((eq? (car lat) a) 
-           (cdr lat))
+           (cdr lat)) 
           (else (cons (car lat) 
                       (rember a (cdr lat)))))))
 
@@ -50,8 +52,7 @@
 (define o+ 
   (lambda (n m) 
     (cond ((zero? m) n) 
-          (else
-           (add1 (o+ n (sub1 m)))))))
+          (else (add1 (o+ n (sub1 m)))))))
 
 
 ;; Natural Natural -> Natural
@@ -59,17 +60,15 @@
 (define o- 
   (lambda (n m) 
     (cond ((zero? m) n) 
-          (else
-           (sub1 (o- n (sub1 m)))))))
+          (else (sub1 (o- n (sub1 m)))))))
 
 
 ;; (listof Natural) -> Natural
 ;; add the elements of the tuple
 (define (addtup tup) 
   (cond ((null? tup) 0) 
-        (else
-         (o+ (car tup) 
-             (addtup (cdr tup))))))
+        (else (o+ (car tup) 
+                  (addtup (cdr tup))))))
 
 
 
@@ -78,24 +77,22 @@
 (define o- 
   (lambda (n m) 
     (cond ((zero? m) n) 
-          (else
-           (sub1 (o- n (sub1 m)))))))
+          (else (sub1 (o- n (sub1 m)))))))
 
 
 
 ;; Natural Natural -> Natural
 ;; alternative to multiply
-(define (o* n m)
-  (cond ((zero? m) 0)
-        (else
-         (o+ n (o* n (sub1 m))))))
+(define (o* n m) 
+  (cond ((zero? m) 0) 
+        (else (o+ n (o* n (sub1 m))))))
 
 
 
 ;; Tuple Tuple -> Tuple
 ;; produce the pairwise addition of 2 tuples of the same length
 (define (tup+ a b) 
-  (cond ((null? a) b)
+  (cond ((null? a) b) 
         ((null? b) a) 
         (else (cons (o+ (car a) 
                         (car b)) 
@@ -106,34 +103,32 @@
 
 ;; Natural Natural -> Boolean
 ;; produce true if n > m
-(define (o> n m)
-  (cond ((zero? n) #f)
-        ((zero? m) #t)
-        (else
-         (o> (sub1 n)
-             (sub1 m)))))
+(define (o> n m) 
+  (cond ((zero? n) #f) 
+        ((zero? m) #t) 
+        (else (o> (sub1 n) 
+                  (sub1 m)))))
 
 
 
 ;; Natural Natural -> Boolean
 ;; produce true if n < m
-(define (o< n m)
-  (cond ((zero? m) #f)
-        ((zero? n) #t)
-        (else
-         (o< (sub1 n)
-             (sub1 m)))))
+(define (o< n m) 
+  (cond ((zero? m) #f) 
+        ((zero? n) #t) 
+        (else (o< (sub1 n) 
+                  (sub1 m)))))
 
 
 
 ;; Natural Natural -> Boolean
 ;; produce true if n = m
-(define (o= n m)
-  (cond ((zero? m) (zero? n))
-        ((zero? n) #f)
-        (else
-         (o= (sub1 n)
-             (sub1 m)))))
+(define (o= n m) 
+  (cond ((zero? m) 
+         (zero? n)) 
+        ((zero? n) #f) 
+        (else (o= (sub1 n) 
+                  (sub1 m)))))
 
 
 
@@ -141,8 +136,7 @@
 ;; produce the value of n ^ m
 (define (o^ n m) 
   (cond ((zero? m) 1) 
-        (else
-         (o* n (o^ n (sub1 m))))))
+        (else (o* n (o^ n (sub1 m))))))
 
 
 
@@ -156,10 +150,9 @@
 
 ;; (listof X) -> Natural
 ;; produce the length of lox
-(define (len lox)
-  (cond ((null? lox) 0)
-        (else
-         (add1 (len (cdr lox))))))
+(define (len lox) 
+  (cond ((null? lox) 0) 
+        (else (add1 (len (cdr lox))))))
 
 
 
@@ -170,9 +163,10 @@
           (= 0 pos) 
           (null? lox)) false) 
         ((= 1 pos) 
-         (car lox))
-        (else 
-(pick (sub1 pos) (cdr lox)))))
+         (car lox)) 
+        (else
+         (pick (sub1 pos) 
+               (cdr lox)))))
 
 
 
@@ -183,7 +177,7 @@
   (cond ((null? lox) 
          (quote ())) 
         ((number? (car lox)) 
-         (no-nums (cdr lox)))  
+         (no-nums (cdr lox))) 
         (else (cons (car lox) 
                     (no-nums (cdr lox))))))
 
@@ -199,6 +193,38 @@
          (cons (car lox) 
                (all-nums (cdr lox)))) 
         (else (all-nums (cdr lox)))))
+
+
+
+
+;; Atom (listof X) -> Natural
+;; produce the number of times a appears in lox
+(define (occurs a lox)
+  (cond ((null? lox) 0)
+        ((eq? a (car lox)) 
+         (add1 (occurs a (cdr lox))))
+        (else
+         (occurs a (cdr lox)))))
+
+
+
+
+;; Natural -> Boolean
+;; produce true if the argument is 1
+(define (one? n)
+  (= n 1))
+
+
+
+
+;; Natural (listof X) -> (listof X)
+;; produce a list that removes the nth element of lox
+(define (rempick n lox) 
+  (cond ((one? n) 
+         (cdr lox)) 
+        (else (cons (car lox) 
+                    (rempick (sub1 n) 
+                             (cdr lox))))))
 
 
 

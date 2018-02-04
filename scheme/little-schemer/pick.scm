@@ -5,10 +5,7 @@
           (= 0 pos) 
           (null? lox)) false) 
         ((= 1 pos) 
-         (car lox))
-        (else 
-(pick (sub1 pos) (cdr lox)))))
-
-
-
-
+         (car lox)) 
+        (else
+         (pick (sub1 pos) 
+               (cdr lox)))))
