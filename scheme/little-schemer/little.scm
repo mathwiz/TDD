@@ -276,3 +276,28 @@
 
 
 
+;; Atom (listof X) -> Boolean
+;; produce true if a is an element of any sublist of l
+(define (member* a l) 
+  (cond ((null? l) 
+         #f) 
+        ((atom? (car l)) 
+         (or (eq? a (car l)) 
+             (member* a (cdr l)))) 
+        (else (or (member* a (car l)) 
+                  (member* a (cdr l))))))
+
+
+
+
+;; (listof X) -> Atom
+;; produce the leftmost element of a non-empty list
+;; (which also does not contain empty lists)
+(define (leftmost l) 
+  (cond ((atom? (car l)) 
+         (car l)) 
+        (else (leftmost (car l)))))
+
+
+
+
