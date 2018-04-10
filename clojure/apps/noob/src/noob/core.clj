@@ -1,9 +1,6 @@
 (ns noob.core 
   (:gen-class))
 
-(defn -main "I don't do a whole lot ... yet." [& args] 
-  (println (greeting (str (stringify args) "!"))))
-
 (defn train [] 
   (println "Choo choo!"))
 
@@ -14,3 +11,6 @@
   (cond (empty? args) "" 
         :else (str (first args) " " 
                    (stringify (rest args)))))
+
+(defn -main "I don't do a whole lot ... yet." [& args] 
+  (println (greeting (str (stringify args) "!"))))
