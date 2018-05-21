@@ -348,3 +348,187 @@
 
 
 
+;; (listof X) -> Boolean
+;; Produce true if the list is a set
+(define 
+  (set? l) 
+  (cond ((null? l) #t)
+        ((member? (car l) (cdr l)) #f)
+        (else (set? (cdr l)))))
+
+
+
+
+;; (listof X) -> (listof X)
+;; Produce version of l with no repeats
+(define (makeset l) 
+  (cond ((null? l) 
+         '()) 
+        ((member? (car l) 
+                  (cdr l)) 
+         (makeset (cdr l))) 
+        (else (cons (car l) 
+                    (makeset (cdr l))))))
+
+
+
+
+;; (listof X) (listof X) -> Boolean
+;; Produce true if all members of a are in b
+(define (subset? a b) 
+  (cond ((null? a) #t) 
+        (else (and (member? (car a) b) 
+                   (subset? (cdr a) b)))))
+
+
+
+
+;; (listof X) (listof X) -> Boolean
+;; Produce true if a and b are equal sets
+(define (eqset? a b) 
+  (and (subset? a b) 
+       (subset? b a)))
+
+
+
+
+;; (listof X) (listof X) -> Boolean
+;; Produce true if any members of a are in b
+(define (intersect? a b) 
+  (cond ((null? a) #f) 
+        (else (or (member? (car a) b) 
+                  (intersect? (cdr a) b)))))
+
+
+
+
+;; (listof X) (listof X) -> (listof X)
+;; Produce interection of a and b
+(define (intersection a b) 
+  (cond ((null? a) 
+         '()) 
+        ((member? (car a) b) 
+         (cons (car a) 
+               (intersection (cdr a) b))) 
+        (else (intersection (cdr a) b))))
+
+
+
+
+;; (listof X) (listof X) -> (listof X)
+;; Produce new set with all members of a and b
+(define (union a b) 
+  (cond ((null? a) b) 
+        ((member? (car a) b) 
+         (union (cdr a) b)) 
+        (else (cons (car a) 
+                    (union (cdr a) b)))))
+
+
+
+;; (listof X) (listof X) -> (listof X)
+;; Produce new set with all members of a not in b
+(define (difference a b) 
+  (cond ((null? a) '()) 
+        ((member? (car a) b) 
+         (difference (cdr a) b)) 
+        (else (cons (car a) 
+                    (difference (cdr a) b)))))
+
+
+
+
+;; (listof (listof X) -> (listof X)
+;; Produce set that is intersection of all sets in l-set
+(define (intersectall l-set) 
+  (cond ((null? (cdr l-set)) 
+         (car l-set)) 
+        (else (intersection (car l-set) 
+                            (intersectall (cdr l-set))))))
+
+
+
+
+;; (listof X) -> Boolean
+;; Produce true iff l has exactly 2 s-exp
+(define (a-pair? l) 
+  (cond ((atom? l) #f) 
+        ((null? l) #f) 
+        ((null? (cdr l)) #f) 
+        ((null? (cdr (cdr l)))) 
+        (else #f)))
+
+
+
+
+;; (listof X) -> X
+;; Produce the first element of l
+(define (first l)
+  (car l))
+
+
+
+
+;; (listof X) -> X
+;; Produce the second element of l
+(define (second l)
+  (car (cdr l)))
+
+
+
+;; A B -> (A B)
+;; Produce pair consisting of a and b
+(define (build a b)
+  (cons a (cons b '())))
+
+
+
+;; (listof X) -> X
+;; Produce the third element of l
+(define (third l)
+  (car (cdr (cdr l))))
+
+
+
+;; (listof (listof X)) -> (listof X)
+;; Produce list of the first elements of a list of lists
+(define (firsts l) 
+  (cond ((null? l) 
+         '()) 
+        (else (cons (car (car l)) 
+                    (firsts (cdr l))))))
+
+
+
+;; (listof Pair) -> Boolean
+;; Produce true if rel is a function
+(define (fun? rel)
+  (set? (firsts rel)))
+
+
+
+;; Pair -> Pair
+;; Produce new pair from p with the elements swapped
+(define (revpair p)
+  (build (second p) (first p)))
+
+
+
+;; (listof Pair) -> (listof Pair)
+;; Produce a new relation where each existing pair is reversed
+(define (revrel rel) 
+  (cond ((null? rel) 
+         '()) 
+        (else (cons (revpair (car rel)) 
+                    (revrel (cdr rel))))))
+
+
+
+;; (listof Pair) -> Boolean
+;; Produce true if rel is a one-to-one function
+(define (one-to-one? rel) 
+  (and (fun? rel) 
+       (fun? (revrel rel))))
+
+
+
