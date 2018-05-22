@@ -532,3 +532,100 @@
 
 
 
+
+;; Predicate -> Function
+;; Produce function that produces the list that removes
+;; the first instance of sexp by using test? to decide
+(define (rember-f test?) 
+  (lambda (sexp l) 
+    (cond ((null? l) 
+           '()) 
+          ((test? sexp (car l)) 
+           (cdr l)) 
+          (else (cons (car l) 
+                      ((rember-f test?) sexp (cdr l)))))))
+
+
+
+
+
+;; Sexp (listof X) -> (listof X)
+;; Do rember using eq? to test
+(define (rember-eq? sexp l) 
+  ((rember-f eq?) sexp l))
+
+
+
+
+;; Sexp (listof X) -> (listof X)
+;; Do rember using equal? to test
+(define (rember-equal? sexp l) 
+  ((rember-f equal?) sexp l))
+
+
+
+
+;; Sexp Sexp Sexp -> Sexp
+;; Build a sequence a b c
+(define (seqL a b c)
+  (cons a (cons b c)))
+
+
+
+
+;; Sexp Sexp Sexp -> Sexp
+;; Build a sequence b a c
+(define (seqR a b c)
+  (cons b (cons a c)))
+
+
+
+
+;; Predicate Function -> Function
+;; Produce function that does insert using test? to decide
+;; location and seqfun to put new item to left or right in l
+(define (insert-f test? seqfun) 
+  (lambda (old new l) 
+    (cond ((null? l) 
+           '()) 
+          ((test? (car l) old) 
+           (seqfun new (car l) 
+                   (cdr l))) 
+          (else (cons (car l) 
+                      ((insert-f test? seqfun) old new (cdr l)))))))
+
+
+
+
+;; Sexp Sexp (listof X) -> (listof X)
+;; Do insert left with eq?
+(define (insertL-eq? old new l) 
+  ((insert-f eq? seqL) old new l))
+
+
+
+
+;; Sexp Sexp (listof X) -> (listof X)
+;; Do insert right with eq?
+(define (insertR-eq? old new l) 
+  ((insert-f eq? seqR) old new l))
+
+
+
+
+;; Sexp Sexp (listof X) -> (listof X)
+;; Do insert right with equal?
+(define (insertR-equal? old new l) 
+  ((insert-f equal? seqR) old new l))
+
+
+
+
+;; Sexp Sexp (listof X) -> (listof X)
+;; Do insert left with equal?
+(define (insertL-equal? old new l) 
+  ((insert-f equal? seqL) old new l))
+
+
+
+
