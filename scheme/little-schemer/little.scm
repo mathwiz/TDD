@@ -629,3 +629,256 @@
 
 
 
+;; Sexp Sexp (listof X) -> (listof X)
+;; Produce list where old is replaced by new
+(define (subst-eq? old new l) 
+  ((insert-f eq? 
+             (lambda (new old l) 
+               (cons new l))) old new l))
+
+
+
+
+;; Sexp Sexp (listof X) -> (listof X)
+;; Produce list where old is replaced by new
+(define (subst-equal? old new l) 
+  ((insert-f equal? 
+             (lambda (new old l) 
+               (cons new l))) old new l))
+
+
+
+
+;; Sexp (listof X) -> (listof X)
+;; Produce list where first instance of a is removed from l
+(define (rember2-eq? a l) 
+  ((insert-f eq? 
+             (lambda (new old l) 
+               l)) a #f l))
+
+
+
+
+;; Sexp (listof X) -> (listof X)
+;; Produce list where first instance of a is removed from l
+(define (rember2-equal? a l) 
+  ((insert-f equal? 
+             (lambda (new old l) 
+               l)) a #f l))
+
+
+
+
+;; Atom -> Function
+;; Produce a function that compares its arg to a
+(define (eq?-c a)
+  (lambda (arg) (eq? arg a)))
+
+
+
+
+;; Atom -> Function
+;; Produce a function that compares its arg to a
+(define (equal?-c a)
+  (lambda (arg) (equal? arg a)))
+
+
+
+
+;; Predicate -> Function
+;; Produce the function that removes all occurrences of a from l
+(define (multirember-f test?) 
+  (lambda (a l) 
+    (cond ((null? l) 
+           '()) 
+          ((test? a (car l)) 
+           ((multirember-f test?) a (cdr l))) 
+          (else (cons (car l) 
+                      ((multirember-f test?) a (cdr l)))))))
+
+
+
+
+;; Sexp (listof X) -> (listof X)
+;; Remove all occurrences of a from l using eq?
+(define (multirember-eq? a l) 
+  ((multirember-f eq?) a l))
+
+
+
+
+;; Sexp (listof X) -> (listof X)
+;; Remove all occurrences of a from l using equal?
+(define (multirember-equal? a l) 
+  ((multirember-f equal?) a l))
+
+
+
+
+;; For convenience
+(define multirember multirember-equal?)
+
+
+
+
+;; Predicate (listof X) -> (listof X)
+;; Produce list where all occurrences of an S-exp are removed
+;; from l using pred to match
+(define (multiremberT pred l) 
+  (cond ((null? l) 
+         '()) 
+        ((pred (car l)) 
+         (multiremberT pred (cdr l))) 
+        (else (cons (car l) 
+                    (multiremberT pred (cdr l))))))
+
+
+
+
+;; Pred Function -> Function
+;; Produce a function that inserts multiple times
+(define (multiinsert-f pred seqfun) 
+  (lambda (old new l) 
+    (cond ((null? l) 
+           '()) 
+          ((pred (car l)) 
+           (seqfun new old ((multiinsert-f pred seqfun) old new (cdr l)))) 
+          (else (cons (car l) 
+                      ((multiinsert-f pred seqfun) old new (cdr l)))))))
+
+
+
+
+;; S-exp S-exp (listof X) -> (listof X)
+;; Produce a new list where every instance of old has new added
+;; to its left
+(define (multiinsertL old new l) 
+  ((multiinsert-f (equal?-c old) seqL) old new l))
+
+
+
+
+
+;; S-exp S-exp (listof X) -> (listof X)
+;; Produce a new list where every instance of old has new added
+;; to its right
+(define (multiinsertR old new l) 
+  ((multiinsert-f (equal?-c old) seqR) old new l))
+
+
+
+
+;; S-exp S-exp (listof X) -> (listof X)
+;; Produce a new list where every instance of old
+;; is substituted with new
+(define (multisubst old new l) 
+  ((multiinsert-f (equal?-c old) 
+                  (lambda (a b c) 
+                    (cons a c))) old new l))
+
+
+
+
+
+;; Sexp Sexp Sexp (listof X) -> (listof X)
+;; Produce list where
+;; each instance of oldL has new inserted to the left
+;; and each instanace of oldR has new inserted to the right
+(define (multiinsertLR oldL oldR new l) 
+  (multiinsertR oldR new (multiinsertL oldL new l)))
+
+
+
+
+;; Sexp Sexp Sexp (listof X) Function
+;; -> (Function (listof X) Number Number)
+;; Do the same thing but collect the number of L and R insertions
+(define (multiinsertLR&co oldL oldR new l col) 
+  (cond ((null? l) 
+         (col '() 0 0)) 
+        ((equal? (car l) oldL) 
+         (multiinsertLR&co oldL oldR new (cdr l) 
+                           (lambda (newl L R) 
+                             (col (cons new (cons oldL newl)) 
+                                  (add1 L) R)))) 
+        ((equal? (car l) oldR) 
+         (multiinsertLR&co oldL oldR new (cdr l) 
+                           (lambda (newl L R) 
+                             (col (cons oldR (cons new newl)) L (add1 R))))) 
+        (else 
+         (let ((head (car l))) 
+           (multiinsertLR&co oldL oldR new (cdr l) 
+                             (lambda (newl L R) 
+                               (col (cons head newl) L R)))))))
+
+
+
+
+
+;; Sexp Sexp Sexp (listof X) -> (listof (listof X) Number Number)
+;; Do left and right insertion and return the number of each performed
+(define (multiinsertLRwithCount oldL oldR new l) 
+  (multiinsertLR&co oldL oldR new l 
+                    (lambda (newl L R) 
+                      (list newl L R))))
+
+
+
+
+;; (listof Sexp) -> (listof Sexp)
+;; Produce the nested list with odd numbers removed
+(define (evens-only* l) 
+  (cond ((null? l) 
+         '()) 
+        ((atom? (car l)) 
+         (cond ((even? (car l)) 
+                (cons (car l) 
+                      (evens-only* (cdr l)))) 
+               (else (evens-only* (cdr l))))) 
+        (else (cons (evens-only* (car l)) 
+                    (evens-only* (cdr l))))))
+
+
+
+
+;; (listof Sexp) -> (Function (listof Sexp) Number Number)
+;; Do evens-only* and apply function to resultlist,
+;; product of evens, and sum of odds
+(define (evens-only*&co l col) 
+  (cond ((null? l) 
+         (col '() 1 0)) 
+        ((atom? (car l)) 
+         (let ((head (car l))) 
+           (cond ((even? (car l)) 
+                  (evens-only*&co (cdr l) 
+                                  (lambda (newl prod sum) 
+                                    (col (cons head newl) 
+                                         (o* head prod) sum)))) 
+                 (else (evens-only*&co (cdr l) 
+                                       (lambda (newl prod sum) 
+                                         (col newl prod (o+ head sum)))))))) 
+        (else 
+         (let ((head (car l)) 
+               (tail (cdr l))) 
+           (evens-only*&co head 
+                           (lambda (al ap as) 
+                             (evens-only*&co tail 
+                                             (lambda (dl dp ds) 
+                                               (col (cons al dl) 
+                                                    (o* ap dp) 
+                                                    (o+ as ds))))))))))
+
+
+
+
+
+;; (listof Sexp) -> (listof (listof Sexp) Number Number)
+;; Do evens-only*&co by collecting result list with product and sum
+(define (evens-only*withEvenProdAndOddSum l) 
+  (evens-only*&co l 
+                  (lambda (newl p s) 
+                    (list newl p s))))
+
+
+
+
