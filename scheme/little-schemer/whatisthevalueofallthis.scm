@@ -4,9 +4,6 @@
 (define new-entry build)
 
 
-
-
-
 ;; Entry -> Sexp
 ;; Produce the value of an entry for name
 ;; Employ the helper lookup-in-entry-help
@@ -19,6 +16,7 @@
           (else (lookup-in-entry-help name (cdr names) 
                                       (cdr values) entry-f)))))
 
+
 (define lookup-in-entry 
   (lambda (name entry entry-f) 
     (lookup-in-entry-help name (first entry) 
@@ -30,9 +28,6 @@
 ;; Entry Table -> Table
 ;; Add a new Entry to the front of a Table
 (define extend-table cons)
-
-
-
 
 
 ;; Sexp Table -> Sexp
@@ -70,6 +65,7 @@
             ((eq? a 'number?) C) 
             (else I)))))
 
+
 (define list-to-action 
   (lambda (l) 
     (let ((Q *quote) 
@@ -84,6 +80,7 @@
                    (else A))) 
             (else A)))))
 
+
 (define expression-to-action 
   (lambda (e) 
     (cond ((atom? e) 
@@ -93,19 +90,20 @@
 
 
 
-
-
 ;; **********************
-;; Define the interpreter
+;; Define the Interpreter
 ;; **********************
+
 
 (define value 
   (lambda (e) 
     (meaning e '())))
 
+
 (define meaning 
   (lambda (e table) 
     ((expression-to-action e) e table)))
+
 
 (define *const 
   (lambda (e table) 
@@ -114,30 +112,39 @@
           ((eq? e #f) #f) 
           (else (build 'primitive e)))))
 
+
 (define *quote 
   (lambda (e table) 
     (text-of e)))
 
+
 (define text-of second)
+
 
 ;; An "always fail" function that represents bad state
 (define initial-table 
   (lambda (name) 
     (car '())))
 
+
 (define *identifier 
   (lambda (e table) 
     (lookup-in-table e table initial-table)))
+
 
 (define *lambda 
   (lambda (e table) 
     (build 'non-primitive (cons table (cdr e)))))
 
+
 (define table-of first)
+
 
 (define formals-of second)
 
+
 (define body-of third)
+
 
 (define evcon 
   (lambda (lines table) 
@@ -147,18 +154,108 @@
            (meaning (answer-of (car lines) table))) 
           (else (evcon (cdr lines) table)))))
 
+
 (define question-of first)
+
 
 (define answer-of second)
 
-(define else?
-  (lambda (x)
-    (cond ((atom? x) (eq? x 'else))
+
+(define else? 
+  (lambda (x) 
+    (cond ((atom? x) 
+           (eq? x 'else)) 
           (else #f))))
 
-(define *cond
-  (lambda (e table)
+
+(define *cond 
+  (lambda (e table) 
     (evcon (cond-lines-of e) table)))
 
+
 (define cond-lines-of cdr)
+
+
+(define evlis 
+  (lambda (args table) 
+    (cond ((null? args) 
+           '()) 
+          (else (cons (meaning (car args) table) 
+                      (evlis (cdr args) table))))))
+
+
+(define *application 
+  (lambda (e table) 
+    (apply (meaning (function-of e) table) 
+           (evlis (arguments-of e) table))))
+
+
+(define function-of car)
+
+
+(define arguments-of cdr)
+
+
+(define primitive? 
+  (lambda (l) 
+    (eq? (first l) 'primitive)))
+
+
+(define non-primitive? 
+  (lambda (l) 
+    (eq? (first l) 'non-primitive)))
+
+
+(define apply 
+  (lambda (fun vals) 
+    (cond ((primitive? fun) 
+           (apply-primitive (second fun) vals)) 
+          ((non-primitive? fun) 
+           (apply-closure (second fun) vals)))))
+
+
+(define :atom? (lambda (x) 
+                 (cond ((atom? x) #t) 
+                       ((null? x) #f) 
+                       ((eq? (car x) 'primitive) #t) 
+                       ((eq? (car x) 'non-primitive) #t) 
+                       (else #f))))
+
+
+(define apply-primitive 
+  (lambda (name vals) 
+    (let ((arg0 (first vals))) 
+      (cond? name 'null?) 
+             (null? arg0)) 
+            ((eq? name 'eq?) 
+             (eq? arg0 (second vals))) 
+            ((eq? name 'atom?) 
+             (:atom? arg0)) 
+            ((eq? name 'zero?) 
+             (zero? arg0)) 
+            ((eq? name 'add1) 
+             (add1 arg0)) 
+            ((eq? name 'sub1) 
+             (sub1 arg0)) 
+            ((eq? name 'number?) 
+             (number? arg0))))))
+
+
+(define apply-closure
+  (lambda (closure vals)
+    (meaning (body-of closure)
+             (extend-table
+              (new-entry
+               (formals-of closure)
+               vals)
+              (table-of closure)))))
+
+
+;; ******************
+;; End of Interpreter
+;; ******************
+
+
+
+
 
