@@ -134,8 +134,8 @@
 (define (tie-game? triples me) 
   (empty? (keep 
            (lambda (triple) 
-             (or (not (zero-freedom? triple)))
-                 (my-pair? triple me)) 
+             (or (not (zero-freedom? triple))
+                 (my-pair? triple me))) 
            triples)))
 
 (define (zero-freedom? triple) 
@@ -151,6 +151,7 @@
 (find-triples board3)
 (find-triples board2)
 (find-triples board)
+(find-triples '_________)
 (opponent 'o)
 (my-pair? 'oox 'o)
 (my-pair? 'oo3 'o)
@@ -173,7 +174,16 @@
 ;; Already a winner
 (ttt 'oooxxo_xx 'x)
 (my-win? 'ooo 'x)
-(tie-game? (find-triples 'oxooxxx__) 'x)
+(find-triples '_________)
+(tie-game? (find-triples '_________) 'x)
+(my-pair? '456 'x)
+(zero-freedom? '123)
+(define (good-moves triples me) 
+  (keep 
+   (lambda (triple) 
+     (or (not (zero-freedom? triple)))) 
+   triples))
+
 
 ;; File loaded?
 '(loaded ttt.scm)
