@@ -15,7 +15,21 @@
   (every 
    (lambda (comb) 
      (substitute-triple comb position))
-   ALL-WINS))y-pair? triple me))
+   ALL-WINS))
+
+(define (opponent letter) 
+  (if (equal? letter 'x) 
+      'o
+      'x))
+
+(define (my-pair? triple me) 
+  (and (= (appearances me triple) 2) 
+       (= (appearances (opponent me) triple) 0)))
+
+(define (i-can-win? triples me) 
+  (choose-win (keep 
+               (lambda (triple) 
+                 (my-pair? triple me))
                triples)))
 
 (define (opponent-can-win? triples me) 
@@ -160,3 +174,6 @@
 (ttt 'oooxxo_xx 'x)
 (my-win? 'ooo 'x)
 (tie-game? (find-triples 'oxooxxx__) 'x)
+
+;; File loaded?
+'(loaded ttt.scm)
