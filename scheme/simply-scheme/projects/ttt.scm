@@ -15,21 +15,7 @@
   (every 
    (lambda (comb) 
      (substitute-triple comb position))
-   ALL-WINS))
-
-(define (opponent letter) 
-  (if (equal? letter 'x) 
-      'o
-      'x))
-
-(define (my-pair? triple me) 
-  (and (= (appearances me triple) 2) 
-       (= (appearances (opponent me) triple) 0)))
-
-(define (i-can-win? triples me) 
-  (choose-win (keep 
-               (lambda (triple) 
-                 (my-pair? triple me))
+   ALL-WINS))y-pair? triple me))
                triples)))
 
 (define (opponent-can-win? triples me) 
@@ -143,7 +129,7 @@
         (appearances 'o triple)) 3))
 
 ;; TESTS
-(restart 1)
+
 (define board '_xo_x_o__)
 (define board2 'x_____oxo)
 (define board3 'xo__x___o)
