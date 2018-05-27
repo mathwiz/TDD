@@ -23,3 +23,13 @@ sub areaOfRectangle {
     print("The height is $height. The width is $width.
         The area is $area.\n\n");
 }
+
+# generic sub for looking at args
+sub viewargs {
+    for $arg  (@_) {
+        print "$arg\n";
+    }
+}
+
+print "Show args:\n";
+viewargs ("one", "two", "three", "four");
