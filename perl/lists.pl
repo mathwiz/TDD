@@ -1,18 +1,18 @@
-@nums = (1,2,3,4,5,6,7);
+@nums = (1,2,3,4,5,6);
 
-@nums = (0, @nums);
-
-print @nums[1] . "\n";
+@nums = (-1, @nums);
+my ($head, @tail) = @nums;
+print $head . "\n";
 
 showarray (@nums);
-showarray (double(@nums));
-print "Sum: " . sum (0,(1,2,3,4,5,6))  . "\n";
+showarray (double (@nums));
+print "Sum: " . sum (0,@nums)  . "\n";
+print "Sum: " . sum (0,())  . "\n";
 
 sub sum {
     my ($acc, @list) = @_;
-    if (! @list) { return $acc; }
     my ($head, @tail) = @list;
-    return sum ($acc + $head, @tail);  
+    return (! @list) ? $acc : sum ($acc + $head, @tail);  
 }
 
 sub double {
