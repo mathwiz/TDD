@@ -7,12 +7,19 @@ print $head . "\n";
 showarray (@nums);
 showarray (double (@nums));
 print "Sum: " . sum (0,@nums)  . "\n";
-print "Sum: " . sum (0,())  . "\n";
+print "Sum2: " . sum2 (0,@nums)  . "\n";
+print "Sum of empty: " . sum (0,())  . "\n";
 
 sub sum {
     my ($acc, @list) = @_;
     my ($head, @tail) = @list;
     return (! @list) ? $acc : sum ($acc + $head, @tail);  
+}
+
+sub sum2 {
+    my $acc = shift @_;
+    my ($head, @tail) = @_;
+    return (! @_) ? $acc : sum ($acc + $head, @tail);  
 }
 
 sub double {
