@@ -37,7 +37,6 @@
 (define (exhibit val)
   (show val)
   (show "Type RETURN to redraw screen")
-  (read-line)
   (read-line))
 
 
@@ -150,7 +149,7 @@
         ((letter? (car where))
          (put-all-cells-in-col formula (letter->number (car where))))
         (else
-         (error "Put it where?"))))
+         (error-msg "Put it where?"))))
 
 
 (define (put-all-cells-in-row formula row)
@@ -221,11 +220,17 @@
 
 
 (define (pin-down-cell args reference-id)
-  (cond ((null? args) (error "Bad cell specification: (cell)"))
+  (cond ((null? args) (error-msg "Bad cell specification: (cell)"))
         ((null? (cdr args))
-         'null-cdr-args)
+         (cond ((number? (car args)) (make-id (id-column reference-id) (car args)))
+               ((letter? (car args)) (make-id (letter->number (car args)) (id-row reference-id)))
+               (else (error-msg (string "Bad cell specification:")))))
         (else
-         'else)))
+         (let ((col (pin-down-col (car args) (id-column reference-id)))
+               (row (pin-down-row (cadr args) (id-row reference-id))))
+           (if (and (>= col 1) (<= col COLS) (>= row 1) (<= row ROWS))
+               (make-id col row)
+               'out-of-bounds)))))
 
 
 (define (pin-down-col new old)
@@ -234,7 +239,7 @@
         ((equal? (first new) '<) (- old (bf new)))
         ((letter? new) (letter->number new))
         (else
-         (error "What column?"))))
+         (error-msg "What column?"))))
 
 
 (define (pin-down-row new old)
@@ -243,11 +248,54 @@
         ((equal? (first new) '>) (+ old (bf new)))
         ((equal? (first new) '<) (- old (bf new)))
         (else
-         (error "What row?"))))
+         (error-msg "What row?"))))
 
 
 
 ;; Dependency management
+
+(define (put-expr expr-or-out-of-bounds id)
+  (let ((expr (if (equal? expr-or-out-of-bounds 'out-of-bounds) '() expr-or-out-of-bounds)))
+    (for-each (lambda (old-parent) 
+                (set-cell-children! old-parent (remove id (cell-children old-parent))))
+              (cell-parents id))
+    (display "put-expr: ")
+    (show expr)
+    (set-cell-expr! id expr)
+    (set-cell-parents! id (remdup (extract-ids expr)))
+    (for-each (lambda (new-parent)
+                (set-cell-children! new-parent (cons id (cell-children new-parent))))
+              (cell-parents id))
+    (figure id)))
+
+
+(define (extract-ids expr)
+  (cond ((id? expr) (list expr))
+        ((word? expr) '())
+        ((null? expr) '())
+        (else
+         (append (extract-ids (car expr))
+                 (extract-ids (cdr expr))))))
+
+
+(define (figure id)
+  (cond ((null? (cell-expr id)) (setvalue id '()))
+        ((all-evaluated? (cell-parents id)) (setvalue id (ss-eval (cell-expr id))))
+        (else (setvalue id '()))))
+
+
+(define (all-evaluated? ids)
+  (cond ((null? ids) #t)
+        ((not (number? (cell-value (car ids)))) #f)
+        (else (all-evaluated? (cdr ids)))))
+
+
+(define (setvalue id value)
+  (let ((old (cell-value id)))
+    (set-cell-value! id value)
+    (if (not (equal? old value))
+        (for-each figure (cell-children id))
+        'do-nothing)))
 
 
 
@@ -256,7 +304,7 @@
 (define (ss-eval expr)
   (cond ((number? expr) expr)
         (else
-         (error "Invalid expression: " expr))))
+         (error-msg "Invalid expression"))))
 
 
 (define (quoted? expr)
@@ -275,7 +323,7 @@
 (define (get-function name)
   (let ((result (assoc name *the-functions*)))
     (if (not result)
-        (error "No such function: " name)
+        (error-msg "No such function")
         (cadr result))))
 
 
@@ -299,8 +347,8 @@
 (define (print-screen)
   (newline)
   (newline)
-  (newline)
   (show-column-labels (id-column (screen-corner-cell-id)))
+  (newline)
   (show-rows SCR_ROWS
              (id-column (screen-corner-cell-id))
              (id-row (screen-corner-cell-id)))
