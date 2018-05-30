@@ -168,9 +168,9 @@
         (put-all-helper formula id-maker (+ this 1) max))))
 
 
-(define (try-putting forumula id)
+(define (try-putting formula id)
   (if (or (null? (cell-value id)) (null? formula))
-      (begin (show "in try-putting") (put-formula-in-cell formula id))
+      (put-formula-in-cell formula id)
       'do-nothing))
 
 
