@@ -170,7 +170,7 @@
 
 (define (try-putting forumula id)
   (if (or (null? (cell-value id)) (null? formula))
-      (put-formula-in-cell formula id)
+      (begin (show "in try-putting") (put-formula-in-cell formula id))
       'do-nothing))
 
 
@@ -259,8 +259,6 @@
     (for-each (lambda (old-parent) 
                 (set-cell-children! old-parent (remove id (cell-children old-parent))))
               (cell-parents id))
-    (display "put-expr: ")
-    (show expr)
     (set-cell-expr! id expr)
     (set-cell-parents! id (remdup (extract-ids expr)))
     (for-each (lambda (new-parent)
