@@ -210,7 +210,7 @@
         ((equal? (car formula) 'cell) (pin-down-cell (cdr formula) id))
         (else
          (bound-check
-          map (lambda (subformula) (pin-down subformula id)) formula))))
+          (map (lambda (subformula) (pin-down subformula id)) formula)))))
 
 
 (define (bound-check form)
@@ -301,6 +301,10 @@
 
 (define (ss-eval expr)
   (cond ((number? expr) expr)
+        ((quoted? expr) (quoted-value expr))
+        ((id? expr) (cell-value expr))
+        ((invocation? expr) (apply (get-function (car expr))
+                                   (map ss-eval (cdr expr))))
         (else
          (error-msg "Invalid expression"))))
 
@@ -325,17 +329,27 @@
         (cadr result))))
 
 
-(define *define-functions*
+(define *the-functions*
   (list (list '* *)
         (list '+ +)
         (list '- -)
         (list '/ /)
+        (list 'abs abs)
+        (list 'ceiling ceiling)
         (list 'count count)
         (list 'exp exp)
         (list 'expt expt)
+        (list 'floor floor)
+        (list 'gcd gcd)
+        (list 'lcm lcm)
+        (list 'log log)
         (list 'max max)
         (list 'min min)
+        (list 'modulo modulo)
+        (list 'quotient quotient)
+        (list 'remainder remainder)
         (list 'round round)
+        (list 'sqrt sqrt)
         (list 'truncate truncate)))
 
 
