@@ -93,15 +93,15 @@
     'display-record-field-done))
 
 
-(define display-record-loop 
-  (lambda (record) 
-    (letrec 
-        ((iterator 
-          (lambda (fields) 
-            (cond ((null? fields) 
-                   (begin (newline) 'display-record-loop-done)) 
-                  (else (begin (display-record-field (car fields) record) 
-                               (iterator (cdr fields)))))))) 
+(define display-record-loop
+  (lambda (record)
+    (letrec
+        ((iterator
+          (lambda (fields)
+            (cond ((null? fields)
+                   (begin (newline) 'display-record-loop-done))
+                  (else (begin (display-record-field (car fields) record)
+                               (iterator (cdr fields))))))))
       (iterator (current-fields)))))
 
 
@@ -117,12 +117,23 @@
 
 (define save-db
   (lambda ()
-    'save-db))
+    (let ((port (open-output-file (db-filename (current-db)))))
+      (write (current-db) port)
+      (close-output-port port)
+      'save-db-done)))
 
 
-(define load-db
-  (lambda (name)
-    'load-db))
+(define load-db 
+  (lambda (name) 
+    (let ((read-db 
+           (lambda (portref) 
+             (read portref))) 
+          (port (open-input-file name))) 
+      (begin 
+        (let ((db (read-db port))) 
+          (cond ((eof-object? db) 'load-db-no-db) 
+                (else (set-current-db! db))))
+        'load-db-done))))
 
 
 (define clear-current-db!
