@@ -1,7 +1,7 @@
 ;; Commands
 
 
-;; Usage: 
+;; Usage:
 ;; (new-db "albums" '(artist title year good?))
 (define new-db
   (lambda (filename fields)
@@ -23,9 +23,9 @@
     (db-set-records! db (cons record (db-records db)))))
 
 
-(define get-record 
-  (lambda () 
-    (get-record-loop 0 (make-vector (length (current-fields))) 
+(define get-record
+  (lambda ()
+    (get-record-loop 0 (make-vector (length (current-fields)))
                      (current-fields))))
 
 
@@ -53,12 +53,56 @@
 
 (define count-db
   (lambda ()
-    'count-db))
+    (length (current-records))))
 
 
 (define list-db
   (lambda ()
-    'list-db))
+    (letrec
+        ((display-records
+          (lambda (rec-fun recs)
+            (cond ((null? recs) 'listed)
+                  (else (display-records
+                         (begin
+                           ;; This line just for side effect
+                           (display-record (rec-fun)
+                                           (car recs))
+                           ;; The next function
+                           (lambda ()
+                             (+ (rec-fun) 1)))
+                         ;; Natural recursion
+                         (cdr recs)))))))
+      (display-records
+       (lambda ()
+         1)
+       (current-records)))))
+
+
+(define display-record
+  (lambda (num record)
+    (display "RECORD ")
+    (show num)
+    (display-record-loop record)))
+
+
+(define display-record-field
+  (lambda (fieldname record)
+    (display fieldname)
+    (display ": ")
+    (show (vector-ref record (field-index fieldname)))
+    'display-record-field-done))
+
+
+(define display-record-loop 
+  (lambda (record) 
+    (letrec 
+        ((iterator 
+          (lambda (fields) 
+            (cond ((null? fields) 
+                   (begin (newline) 'display-record-loop-done)) 
+                  (else (begin (display-record-field (car fields) record) 
+                               (iterator (cdr fields)))))))) 
+      (iterator (current-fields)))))
 
 
 (define sort-on
@@ -87,8 +131,8 @@
 
 
 (define get
-  (lambda (field record)
-    'get))
+  (lambda (fieldname record)
+    (vector-ref record (field-index fieldname))))
 
 
 (define sort
@@ -215,9 +259,14 @@
     (db-fields (current-db))))
 
 
+(define current-records
+  (lambda ()
+    (db-records (current-db))))
+
+
 (define blank-record
   (lambda ()
-    'blank-record))
+    (make-vector (length (current-fields))) #f))
 
 
 (define record-set!
@@ -233,3 +282,20 @@
 (define adjoin-field
   (lambda (new-field record)
     'adjoin-field))
+
+
+;; Utilities
+
+(define field-index
+  (lambda (fieldname)
+    (letrec
+        ((iterator
+          (lambda (index fields)
+            (cond ((null? fields)
+                   (error
+                    "No field: "
+                    fieldname))
+                  ((equal? (car fields) fieldname) index)
+                  (else (iterator (+ index 1)
+                                  (cdr fields)))))))
+      (iterator 0 (current-fields)))))
