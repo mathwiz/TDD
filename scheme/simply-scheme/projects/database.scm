@@ -62,26 +62,30 @@
         ((display-records
           (lambda (rec-fun recs)
             (cond ((null? recs) 'listed)
-                  (else (display-records
-                         (begin
-                           ;; This line just for side effect
-                           (display-record (rec-fun)
-                                           (car recs))
-                           ;; The next function
-                           (lambda ()
-                             (+ (rec-fun) 1)))
-                         ;; Natural recursion
-                         (cdr recs)))))))
+                  (else (display-records (begin
+                                           ;; This line just for side effect
+                                           (display-record-with-number (rec-fun)
+                                                                       (car recs))
+                                           ;; The next function
+                                           (lambda ()
+                                             (+ (rec-fun) 1)))
+                                         ;; Natural recursion
+                                         (cdr recs)))))))
       (display-records
        (lambda ()
          1)
        (current-records)))))
 
 
-(define display-record
+(define display-record-with-number
   (lambda (num record)
     (display "RECORD ")
     (show num)
+    (display-record-loop record)))
+
+
+(define display-record
+  (lambda (record)
     (display-record-loop record)))
 
 
@@ -299,13 +303,19 @@
 
 (define field-index
   (lambda (fieldname)
+    (let ((index (field-index-or-false fieldname)))
+      (cond ((eq? index #f)
+             (error "No field named " fieldname))
+            (else index)))))
+
+
+(define field-index-or-false
+  (lambda (fieldname)
     (letrec
         ((iterator
           (lambda (index fields)
             (cond ((null? fields)
-                   (error
-                    "No field: "
-                    fieldname))
+                   #f)
                   ((equal? (car fields) fieldname) index)
                   (else (iterator (+ index 1)
                                   (cdr fields)))))))
