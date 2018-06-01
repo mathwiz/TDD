@@ -116,7 +116,26 @@
 
 (define edit-record
   (lambda (index)
-    'edit-record))
+    (let ((record (retrieve-record-by-index index)))
+      (cond ((eq? record #f) 'no-record)
+            (else
+             (begin
+               (edit-record-loop record)
+               'edited))))))
+
+
+(define edit-record-loop 
+  (lambda (record) 
+    (begin (display-record record)
+           (display "Edit which field? ") 
+           (let ((field (read))) 
+             (let ((index (field-index-or-false field))) 
+               (cond ((eq? index #f) record) 
+                     (else (begin (display "New value for ") 
+                                  (display field) 
+                                  (display "--> ") 
+                                  (vector-set! record index (read))
+                                  (edit-record-loop record)))))))))
 
 
 (define save-db
@@ -124,20 +143,20 @@
     (let ((port (open-output-file (db-filename (current-db)))))
       (write (current-db) port)
       (close-output-port port)
-      'save-db-done)))
+      'saved)))
 
 
-(define load-db 
-  (lambda (name) 
-    (let ((read-db 
-           (lambda (portref) 
-             (read portref))) 
-          (port (open-input-file name))) 
-      (begin 
-        (let ((db (read-db port))) 
-          (cond ((eof-object? db) 'load-db-no-db) 
+(define load-db
+  (lambda (name)
+    (let ((read-db
+           (lambda (portref)
+             (read portref)))
+          (port (open-input-file name)))
+      (begin
+        (let ((db (read-db port)))
+          (cond ((eof-object? db) 'load-db-no-db)
                 (else (set-current-db! db))))
-        'load-db-done))))
+        'loaded))))
 
 
 (define clear-current-db!
@@ -285,8 +304,8 @@
 
 
 (define record-set!
-  (lambda ()
-    'record-set!))
+  (lambda (record field new-value)
+    (vector-set! record (field-index field) new-value)))
 
 
 (define get-with-these-fields
@@ -320,3 +339,15 @@
                   (else (iterator (+ index 1)
                                   (cdr fields)))))))
       (iterator 0 (current-fields)))))
+
+
+(define retrieve-record-by-index
+  (lambda (index)
+    (letrec ((iterator
+              (lambda (num recs)
+                (cond ((null? recs) #f)
+                      ((eq? num index) (car recs))
+                      (else (iterator
+                             (+ num 1)
+                             (cdr recs)))))))
+      (iterator 1 (current-records)))))
