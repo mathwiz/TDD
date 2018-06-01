@@ -1,12 +1,11 @@
-;; Commands
-
-
 ;; Usage:
 ;; (new-db "albums" '(artist title year good?))
 (define new-db
   (lambda (filename fields)
-    (set-current-db! (make-db filename fields '()))
-    'created))
+    (begin
+      (clear-current-db!)
+      (set-current-db! (make-db filename fields '()))
+      'created)))
 
 
 (define insert
@@ -124,16 +123,16 @@
                'edited))))))
 
 
-(define edit-record-loop 
-  (lambda (record) 
+(define edit-record-loop
+  (lambda (record)
     (begin (display-record record)
-           (display "Edit which field? ") 
-           (let ((field (read))) 
-             (let ((index (field-index-or-false field))) 
-               (cond ((eq? index #f) record) 
-                     (else (begin (display "New value for ") 
-                                  (display field) 
-                                  (display "--> ") 
+           (display "Edit which field? ")
+           (let ((field (read)))
+             (let ((index (field-index-or-false field)))
+               (cond ((eq? index #f) record)
+                     (else (begin (display "New value for ")
+                                  (display field)
+                                  (display "--> ")
                                   (vector-set! record index (read))
                                   (edit-record-loop record)))))))))
 
@@ -141,27 +140,29 @@
 (define save-db
   (lambda ()
     (let ((port (open-output-file (db-filename (current-db)))))
-      (write (current-db) port)
-      (close-output-port port)
-      'saved)))
+      (begin (write (current-db) port)
+             (close-output-port port) 'saved))))
 
 
-(define load-db
-  (lambda (name)
-    (let ((read-db
-           (lambda (portref)
-             (read portref)))
-          (port (open-input-file name)))
-      (begin
-        (let ((db (read-db port)))
-          (cond ((eof-object? db) 'load-db-no-db)
-                (else (set-current-db! db))))
-        'loaded))))
+(define load-db 
+  (lambda (name) 
+    (begin (clear-current-db!) 
+           (let ((read-db 
+                  (lambda (portref) 
+                    (read portref))) 
+                 (port (open-input-file name))) 
+             (begin 
+               (let ((db (read-db port))) 
+                 (cond ((eof-object? db) 'load-db-no-db) 
+                       (else (set-current-db! db))))
+               'loaded)))))
 
 
 (define clear-current-db!
   (lambda ()
-    'clear-current-db!))
+    (cond ((no-db?) #f)
+          ((ask "Save db? ") (save-db))
+          (else (set-current-db! #f)))))
 
 
 (define get
@@ -351,3 +352,9 @@
                              (+ num 1)
                              (cdr recs)))))))
       (iterator 1 (current-records)))))
+
+
+(define (mergesort xs)
+  (cond ((<= (count xs) 1) xs)
+        (else (merge (mergesort (one-half xs))
+                     (mergesort (other-half xs))))))
