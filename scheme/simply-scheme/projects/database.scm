@@ -211,22 +211,25 @@
            (if (null? default)
                #f
                default)))
-      (begin (db-set-fields! (cons name (current-fields)))
-             (db-set-records! (add-field-to-records (curren-records name val)))))))
+      (begin (db-set-records! (current-db)
+                              (add-field-to-records (current-records) val))
+             (db-set-fields! (current-db)
+                             (cons name (current-fields)))))))
 
 
 (define add-field-to-records
-  (lambda (records name val)
+  (lambda (records field-value)
     (cond ((null? records) '())
-          (else (cons (new-record-with-field (car records) name val)
-                      (add-field-to-records (cdr records) name val))))))
+          (else (cons (new-record-with-field (car records) field-value)
+                      (add-field-to-records (cdr records) field-value))))))
 
 
 (define new-record-with-field
-  (lambda (record name val)
-    (let ((new (blank-record))))))
-
-
+  (lambda (source val)
+    (let ((new (create-expanded-record source)))
+      (begin
+        (vector-set! new 0 val)
+        new))))
 
 
 (define select-by
@@ -354,16 +357,18 @@
 
 ;; Utilities
 
-(define copy-record! 
-  (lambda (source target) 
-    (letrec 
-        ((iterator 
-          (lambda (fields) 
-            (cond ((null? fields) target) 
-                  (else (begin (record-set! target (car fields) 
-                                            (get (car fields) source)) 
-                               (iterator (cdr fields)))))))) 
-      (iterator (current-fields)))))
+(define create-expanded-record 
+  (lambda (source) 
+    (let ((target (make-vector (+ (length (current-fields)) 1)))) 
+      (letrec 
+          ((iterator 
+            (lambda (fields) 
+              (cond ((null? fields) 
+                     (begin (vector-set! target 0 #f) target)) 
+                    (else (begin (vector-set! target (+ (field-index (car fields)) 1) 
+                                              (get (car fields) source)) 
+                                 (iterator (cdr fields)))))))) 
+        (iterator (current-fields))))))
 
 
 (define field-index
