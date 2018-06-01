@@ -187,16 +187,16 @@
 
 (define generic-before?
   (lambda (x y)
-    (cond ((number? x) 
-           (< x y)) 
-          ((list? x) 
-           (cond ((null? x) #t) 
-                 ((eq? (car x) 
-                       (car y)) 
-                  (generic-before? (cdr x) 
-                                   (cdr y))) 
-                 (else (generic-before? (car x) 
-                                        (car y))))) 
+    (cond ((number? x)
+           (< x y))
+          ((list? x)
+           (cond ((null? x) #t)
+                 ((eq? (car x)
+                       (car y))
+                  (generic-before? (cdr x)
+                                   (cdr y)))
+                 (else (generic-before? (car x)
+                                        (car y)))))
           (else (before? x y)))))
 
 
@@ -207,8 +207,26 @@
 
 (define add-field
   (lambda (name . default)
-    (cond ((null? default) #f)
-          (else #f))))
+    (let ((val
+           (if (null? default)
+               #f
+               default)))
+      (begin (db-set-fields! (cons name (current-fields)))
+             (db-set-records! (add-field-to-records (curren-records name val)))))))
+
+
+(define add-field-to-records
+  (lambda (records name val)
+    (cond ((null? records) '())
+          (else (cons (new-record-with-field (car records) name val)
+                      (add-field-to-records (cdr records) name val))))))
+
+
+(define new-record-with-field
+  (lambda (record name val)
+    (let ((new (blank-record))))))
+
+
 
 
 (define select-by
@@ -316,7 +334,7 @@
 
 (define blank-record
   (lambda ()
-    (make-vector (length (current-fields))) #f))
+    (make-vector (length (current-fields)) #f)))
 
 
 (define record-set!
@@ -335,6 +353,18 @@
 
 
 ;; Utilities
+
+(define copy-record! 
+  (lambda (source target) 
+    (letrec 
+        ((iterator 
+          (lambda (fields) 
+            (cond ((null? fields) target) 
+                  (else (begin (record-set! target (car fields) 
+                                            (get (car fields) source)) 
+                               (iterator (cdr fields)))))))) 
+      (iterator (current-fields)))))
+
 
 (define field-index
   (lambda (fieldname)
