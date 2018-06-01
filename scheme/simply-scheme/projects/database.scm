@@ -170,10 +170,10 @@
     (vector-ref record (field-index fieldname))))
 
 
-(define sort 
-  (lambda (before?) 
+(define sort
+  (lambda (before?)
     (begin
-      (db-set-records! (current-db) 
+      (db-set-records! (current-db)
                        (mergesort (current-records) before?))
       'sorted)))
 
@@ -187,12 +187,22 @@
 
 (define generic-before?
   (lambda (x y)
-    'generic-before?))
+    (cond ((number? x) 
+           (< x y)) 
+          ((list? x) 
+           (cond ((null? x) #t) 
+                 ((eq? (car x) 
+                       (car y)) 
+                  (generic-before? (cdr x) 
+                                   (cdr y))) 
+                 (else (generic-before? (car x) 
+                                        (car y))))) 
+          (else (before? x y)))))
 
 
 (define sort-on
   (lambda (field)
-    'sort-on))
+    (sort-on-by field generic-before?)))
 
 
 (define add-field
