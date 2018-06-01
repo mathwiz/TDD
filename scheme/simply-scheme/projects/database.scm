@@ -144,16 +144,16 @@
              (close-output-port port) 'saved))))
 
 
-(define load-db 
-  (lambda (name) 
-    (begin (clear-current-db!) 
-           (let ((read-db 
-                  (lambda (portref) 
-                    (read portref))) 
-                 (port (open-input-file name))) 
-             (begin 
-               (let ((db (read-db port))) 
-                 (cond ((eof-object? db) 'load-db-no-db) 
+(define load-db
+  (lambda (name)
+    (begin (clear-current-db!)
+           (let ((read-db
+                  (lambda (portref)
+                    (read portref)))
+                 (port (open-input-file name)))
+             (begin
+               (let ((db (read-db port)))
+                 (cond ((eof-object? db) 'load-db-no-db)
                        (else (set-current-db! db))))
                'loaded)))))
 
@@ -170,14 +170,19 @@
     (vector-ref record (field-index fieldname))))
 
 
-(define sort
-  (lambda (pred)
-    'sort))
+(define sort 
+  (lambda (before?) 
+    (begin
+      (db-set-records! (current-db) 
+                       (mergesort (current-records) before?))
+      'sorted)))
 
 
 (define sort-on-by
   (lambda (field pred)
-    'sort-on-by))
+    (sort (lambda (r1 r2)
+            (pred (get field r1)
+                  (get field r2))))))
 
 
 (define generic-before?
@@ -354,7 +359,30 @@
       (iterator 1 (current-records)))))
 
 
-(define (mergesort xs)
-  (cond ((<= (count xs) 1) xs)
-        (else (merge (mergesort (one-half xs))
-                     (mergesort (other-half xs))))))
+(define (mergesort xs before?)
+  (letrec
+      ((one-half
+        (lambda (xs)
+          (cond ((<= (count xs) 1) xs)
+                (else (cons (first xs)
+                            (one-half (bf (bf xs))))))))
+       (other-half
+        (lambda (xs)
+          (cond ((<= (count xs) 1)
+                 '())
+                (else (cons (first (bf xs))
+                            (other-half (bf (bf xs))))))))
+       (merge
+        (lambda (xs ys)
+          (cond ((empty? xs) ys)
+                ((empty? ys) xs)
+                ((before? (first xs)
+                          (first ys))
+                 (cons (first xs)
+                       (merge (bf xs) ys)))
+                (else (cons (first ys)
+                            (merge xs (bf ys))))))))
+    ;; do merge
+    (cond ((<= (count xs) 1) xs)
+          (else (merge (mergesort (one-half xs) before?)
+                       (mergesort (other-half xs) before?))))))
