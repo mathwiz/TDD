@@ -159,8 +159,8 @@
 (define clear-current-db!
   (lambda ()
     (cond ((no-db?) #f)
-          ((ask "Save db? ") (save-db))
-          (else (set-current-db! #f)))))
+          (else (begin (set-current-db! #f)
+                       (set-current-selector! #f))))))
 
 
 (define get
@@ -248,17 +248,20 @@
     (length (current-selected))))
 
 
-(define list-selected 
-  (lambda () 
-    (display-records 
-     (lambda () 
-       1) 
+(define list-selected
+  (lambda ()
+    (display-records
+     (lambda ()
+       1)
      (current-selected))))
 
 
-(define save-selection
-  (lambda (filename)
-    'save-selection))
+(define save-selection 
+  (lambda (filename) 
+    (let ((port (open-output-file filename))) 
+      (begin (write (make-db filename (current-fields) 
+                             (current-selected)) port) 
+             (close-output-port port) 'saved))))
 
 
 (define merge-db
@@ -358,7 +361,7 @@
 (define current-selected
   (lambda ()
     (let ((pred (if (eq? (current-selector) #f)
-                    (lambda (x) #t)
+                    (lambda (x) #f)
                     (current-selector))))
       (filter pred (db-records (current-db))))))
 
