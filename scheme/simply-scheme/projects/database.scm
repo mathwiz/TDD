@@ -187,7 +187,7 @@
   (lambda (x y)
     (cond ((number? x)
            (< x y))
-          ((list? x)
+          ((and (list? y) (list? x))
            (cond ((null? x) #t)
                  ((eq? (car x)
                        (car y))
@@ -195,7 +195,8 @@
                                    (cdr y)))
                  (else (generic-before? (car x)
                                         (car y)))))
-          (else (before? x y)))))
+          ((and (word? x) (word? y)) (before? x y))
+          (else #f))))
 
 
 (define sort-on
