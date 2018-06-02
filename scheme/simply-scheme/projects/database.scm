@@ -432,7 +432,7 @@
                       (else (iterator
                              (+ num 1)
                              (cdr recs)))))))
-      (iterator 1 (current-records)))))
+      (iterator 1 (current-selected)))))
 
 
 (define (mergesort xs before?)
