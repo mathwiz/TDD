@@ -57,23 +57,21 @@
 
 (define list-db
   (lambda ()
-    (letrec
-        ((display-records
-          (lambda (rec-fun recs)
-            (cond ((null? recs) 'listed)
-                  (else (display-records (begin
-                                           ;; This line just for side effect
-                                           (display-record-with-number (rec-fun)
-                                                                       (car recs))
-                                           ;; The next function
-                                           (lambda ()
-                                             (+ (rec-fun) 1)))
-                                         ;; Natural recursion
-                                         (cdr recs)))))))
-      (display-records
-       (lambda ()
-         1)
-       (current-records)))))
+    (display-records (lambda () 1) (current-records))))
+
+
+(define display-records
+  (lambda (rec-fun recs)
+    (cond ((null? recs) 'listed)
+          (else (display-records (begin
+                                   ;; This line just for side effect
+                                   (display-record-with-number (rec-fun)
+                                                               (car recs))
+                                   ;; The next function
+                                   (lambda ()
+                                     (+ (rec-fun) 1)))
+                                 ;; Natural recursion
+                                 (cdr recs))))))
 
 
 (define display-record-with-number
@@ -233,18 +231,28 @@
 
 
 (define select-by
-  (lambda (pred)
-    'select-by))
+  (lambda (arg)
+    (let ((selector (cond ((or (eq? arg #t) (eq? arg 'all))
+                           (lambda (x) #t))
+                          ((and (list? arg) (= (length arg) 2))
+                           (lambda (x) (eq? (get (car arg) x) (cadr arg))))
+                          (else
+                           arg))))
+      (begin (set-current-selector! selector)
+             'selector-added))))
 
 
 (define count-selected
   (lambda ()
-    'count-selected))
+    (length (current-selected))))
 
 
-(define list-selected
-  (lambda ()
-    'list-selected))
+(define list-selected 
+  (lambda () 
+    (display-records 
+     (lambda () 
+       1) 
+     (current-selected))))
 
 
 (define save-selection
@@ -304,8 +312,9 @@
 
 
 ;; Index 0: current db (initially #f)
+;; Index 1: selection predicate
 (define current-state
-  (vector #f))
+  (vector #f #f))
 
 
 (define no-db?
@@ -325,6 +334,16 @@
     (vector-set! current-state 0 db)))
 
 
+(define current-selector
+  (lambda ()
+    (vector-ref current-state 1)))
+
+
+(define set-current-selector!
+  (lambda (selector)
+    (vector-set! current-state 1 selector)))
+
+
 (define current-fields
   (lambda ()
     (db-fields (current-db))))
@@ -333,6 +352,14 @@
 (define current-records
   (lambda ()
     (db-records (current-db))))
+
+
+(define current-selected
+  (lambda ()
+    (let ((pred (if (eq? (current-selector) #f)
+                    (lambda (x) #t)
+                    (current-selector))))
+      (filter pred (db-records (current-db))))))
 
 
 (define blank-record
@@ -357,17 +384,17 @@
 
 ;; Utilities
 
-(define create-expanded-record 
-  (lambda (source) 
-    (let ((target (make-vector (+ (length (current-fields)) 1)))) 
-      (letrec 
-          ((iterator 
-            (lambda (fields) 
-              (cond ((null? fields) 
-                     (begin (vector-set! target 0 #f) target)) 
-                    (else (begin (vector-set! target (+ (field-index (car fields)) 1) 
-                                              (get (car fields) source)) 
-                                 (iterator (cdr fields)))))))) 
+(define create-expanded-record
+  (lambda (source)
+    (let ((target (make-vector (+ (length (current-fields)) 1))))
+      (letrec
+          ((iterator
+            (lambda (fields)
+              (cond ((null? fields)
+                     (begin (vector-set! target 0 #f) target))
+                    (else (begin (vector-set! target (+ (field-index (car fields)) 1)
+                                              (get (car fields) source))
+                                 (iterator (cdr fields))))))))
         (iterator (current-fields))))))
 
 
