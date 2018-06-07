@@ -31,9 +31,9 @@ while (
     $last_cmd = $ARG;
 }
 continue {
-    print "[End loop]\n";
+  print "[End loop]\n";
 }
 
 sub make_prompt {
-    return "$n up|down|zero|exit> ";
+  "$n up|down|zero|exit> ";
 }
