@@ -6,10 +6,11 @@ my $last_cmd = '';
 
 $OUTPUT_AUTOFLUSH = 1;
 
-print make_prompt();
-chomp ($ARG = <STDIN>);
-
-while () {
+while (
+       do {
+        print make_prompt();
+        chomp($ARG = <STDIN>);
+       }) {
     if ($ARG eq 'up') { ++$n; }
     elsif ($ARG eq 'down') { --$n; }
     elsif ($ARG eq 'zero') { $n = 0; }
@@ -27,13 +28,12 @@ while () {
         print "Unknown command <<$ARG>>\n";
         next;
     }
-    $last_cmd = $ARG;   
+    $last_cmd = $ARG;
 }
 continue {
-    print make_prompt();
-    chomp($ARG = <STDIN>);
+    print "Next loop coming...\n";
 }
 
 sub make_prompt {
-    return "$n\ncommand? ";
+    return "$n command? ";
 }
