@@ -17,7 +17,7 @@ sub sum {
 }
 
 sub sum2 {
-    my $acc = shift @_;
+    my $acc = shift;
     my ($head, @tail) = @_;
     return (! @_) ? $acc : sum ($acc + $head, @tail);  
 }
