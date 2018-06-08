@@ -20,7 +20,7 @@ sub showHash {
     @key_elems = split ('_',$it);
     if (@key_elems and $key_elems[0] eq 'array') {
         print $it, ": "; 
-        showArray (@hash{$it});
+        showArray (@h{$it});
     } else {
         print "$it : $h{$it}\n";
     }
