@@ -17,6 +17,8 @@ while (
     showHistory ();
   } elsif ($exp eq 'h') {
     showHistory ($GLOBALS{'h_limit'});
+  } elsif ($exp =~ /history\s+(\d+)\s*$/) {
+    showHistory ($1);
   } elsif ($exp eq '!') {
     history (0);
   } elsif ($exp =~ /!(\d+)/) {
