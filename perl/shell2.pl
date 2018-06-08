@@ -1,22 +1,26 @@
 use English;
 use feature qw(say);
 
+my %GLOBALS;
 my $prompt = "\nperl shell> ";
 my $exp = '';
 my @history = ();
+
+$GLOBALS{'h_limit'} = 5;
 
 while (
        do {
          print $prompt;
          chomp($exp = <STDIN>);
-         $exp;
         }) {
-  if ($exp eq 'history' or $exp eq 'h') {
-    showHistory();
+  if ($exp eq 'history') {
+    showHistory ();
+  } elsif ($exp eq 'h') {
+    showHistory ($GLOBALS{'h_limit'});
   } elsif ($exp eq '!') {
-    history(0);
+    history (0);
   } elsif ($exp =~ /!(\d+)/) {
-    history($1 - 1);
+    history ($1 - 1);
   } elsif ( $exp =~ /\s*load\s*\(\s*['"](\w+)['"]\s*\)/ ) {
     load ($1);
     push (@history, $exp);
@@ -31,10 +35,11 @@ while (
 
 
 sub showHistory {
-  my @h_list = @history;
-  my $index = @history;
-  for $it (@h_list) {
-    say $index--, " ",  $it;
+  my $limit = shift;
+  my $start = $limit ? @history - $limit : 0;
+  $start = $start < 0 ? 0 : $start;
+  for (my $it = $start; $it < @history; $it++) {
+    say @history - $it, " ",  $history[$it];
   }
 }
 
