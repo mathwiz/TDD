@@ -48,6 +48,7 @@ sub showHistory {
 sub history {
   my $offset = shift;
   my $index = @history - 1 - $offset;
+  $index = $index < 0 ? @history : $index;
   my $cmd = $history[$index];
   if (@history == 0) {
     say "History empty";
@@ -55,7 +56,7 @@ sub history {
     say $cmd;
     eval $cmd;
   } else {
-    say "Bad command: ", $index;
+    say "Bad command: !", $offset + 1;
   }
 }
 
