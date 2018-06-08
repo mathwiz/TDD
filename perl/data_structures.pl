@@ -1,25 +1,33 @@
 use feature qw(say);
 
 @arr1 = (0,1,2,3,4,5,6,7,8,9,10);
-show (@arr1);
+showArray (@arr1);
 
 @arr2 = split ('',"abcdefghijk");
-show (@arr2);
+showArray (@arr2);
 
 $hash{'name'} = "Yohan";
 $hash{'age'} = 49;
 $hash{'phone'} = '123-333-8987';
+@hash{'array_ltr'} = split ('',"kjfewoinnfwelk");
 
 showHash (%hash);
 
 sub showHash {
   my %h = @_;
+  my @key_elems;
   foreach $it (keys %h) {
-    print "$it : $h{$it}\n";
+    @key_elems = split ('_',$it);
+    if (@key_elems and $key_elems[0] eq 'array') {
+        print $it, ": "; 
+        showArray (@hash{$it});
+    } else {
+        print "$it : $h{$it}\n";
+    }
   }
 }
 
-sub show {
+sub showArray {
   foreach $it (@_) {
     print "$it ";
   }
