@@ -9,7 +9,6 @@ while (
          chomp($exp = <STDIN>)
         }) {
   if ( $exp =~ /\s*load\s*\(\s*['"](\w+)['"]\s*\)/ ) {
-    print "Loading\n ";
     load ($1);
   } elsif ($exp eq 'quit') {
     last;
@@ -26,4 +25,6 @@ sub load {
     chomp;
     eval;
   }
+  print "Loaded $file";
+  close FILE;
 }
