@@ -58,12 +58,12 @@ sub editAndRun {
     print "No substitution regex provided\n";
   } else {
     print "offset: $offset\n";
-    my $index = historyIndexFromList ($offset ? $offset : 1);
+    my $index = historyIndexFromList ($offset ? $offset - 1 : 0);
     print "index: $index  history: $history[$index]\n";
     my $cmd = $history[$index];
     $cmd =~ s/$pat/$sub/;
     print "command: $cmd\n";
-    #eval $cmd;
+    eval $cmd;
     push (@history, $cmd);
   }
 }
