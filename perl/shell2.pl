@@ -19,12 +19,15 @@ while (
     showHistory ($GLOBALS{'h_limit'});
   } elsif ($exp =~ /\s*history\s+(\d+)\s*$/) {
     showHistory ($1);
-  } elsif ($exp eq '!') {
-    history (0);
   } elsif ( $exp =~ /^\s*!(\d*)e\s*s\/(.*)\/(.*)\/\s*$/ ) {
-    editAndRun ($1, $2, $3);
+    $exp = edit ($1, $2, $3);
+    run ($exp);
+  } elsif ($exp eq '!') {
+    $exp = history (0);
+    run ($exp);
   } elsif ($exp =~ /!(\d+)\s*$/) {
-    history ($1 - 1);
+    $exp = history ($1 - 1);
+    run ($exp);
   } elsif ( $exp =~ /^\s*help\s*/ ) {
     showHelp ();
   } elsif ( $exp =~ /\s*load\s*\(\s*['"](\w+)['"]\s*\)/ ) {
@@ -33,12 +36,19 @@ while (
   } elsif ($exp eq 'quit' or $exp eq 'exit') {
     last;
   } else {
-    eval $exp;
-    push (@history, $exp);
+    run ($exp);
   }
   print $@; # any errors
 }
 
+
+sub run {
+  my $exp = shift;
+  if ($exp) {
+    eval $exp;
+    push (@history, $exp);
+  }
+}
 
 sub historyIndexFromList {
   my $offset = shift;
@@ -46,10 +56,11 @@ sub historyIndexFromList {
   $index < 0 ? @history : $index;
 }
 
-sub editAndRun {
+sub edit {
   my $offset = shift;
   my $pat = shift;
   my $sub = shift;
+  my $cmd = '';
   if (@history == 0) {
     print "Empty history\n";
   } elsif (not $pat) {
@@ -57,15 +68,12 @@ sub editAndRun {
   } elsif (not $sub) {
     print "No substitution regex provided\n";
   } else {
-    print "offset: $offset\n";
     my $index = historyIndexFromList ($offset ? $offset - 1 : 0);
-    print "index: $index  history: $history[$index]\n";
-    my $cmd = $history[$index];
+    $cmd = $history[$index];
     $cmd =~ s/$pat/$sub/;
-    print "command: $cmd\n";
-    eval $cmd;
-    push (@history, $cmd);
+    say $cmd;
   }
+  $cmd;
 }
 
 sub showHelp {
@@ -93,11 +101,10 @@ sub history {
     say "History empty";
   } elsif ($cmd) {
     say $cmd;
-    eval $cmd;
-    push (@history, $cmd);
   } else {
     say "Bad command: !", $offset + 1;
   }
+  $cmd;
 }
 
 sub load {
