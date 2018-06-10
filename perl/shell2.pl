@@ -30,7 +30,7 @@ while (
     run ($exp);
   } elsif ( $exp =~ /^\s*help\s*/ ) {
     showHelp ();
-  } elsif ( $exp =~ /\s*load\s*(\S+)\s*/ ) {
+  } elsif ( $exp =~ /\s*load\s+(\S+)\s*/ ) {
     load ($1);
     push (@history, $exp);
   } elsif ($exp eq 'quit' or $exp eq 'exit') {
