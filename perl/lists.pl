@@ -8,6 +8,7 @@ showarray (@nums);
 showarray (double (@nums));
 print "Sum: " . sum (0,@nums)  . "\n";
 print "Sum2: " . sum2 (0,@nums)  . "\n";
+print "Sum3: " . sum3 (0,@nums)  . "\n";
 print "Sum of empty: " . sum (0,())  . "\n";
 
 sub sum {
@@ -20,6 +21,11 @@ sub sum2 {
     my $acc = shift;
     my ($head, @tail) = @_;
     return (! @_) ? $acc : sum ($acc + $head, @tail);  
+}
+
+sub sum3 {
+    my ($acc, $head, @tail) = @_;
+    (! $head) ? $acc : sum ($acc + $head, @tail);  
 }
 
 sub double {
