@@ -1,12 +1,12 @@
 use English;
 use feature qw(say);
 
-my %GLOBALS;
+my %GLOBALS = ();
 my $prompt = "\nperl shell> ";
 my $exp = '';
 my @history = ();
 
-$GLOBALS{'h_limit'} = 5;
+$GLOBALS{'h_limit'} = 10;
 
 while (
        do {
@@ -30,7 +30,7 @@ while (
     run ($exp);
   } elsif ( $exp =~ /^\s*help\s*/ ) {
     showHelp ();
-  } elsif ( $exp =~ /\s*load\s*\(\s*['"](\w+)['"]\s*\)/ ) {
+  } elsif ( $exp =~ /\s*load\s*(\S+)\s*/ ) {
     load ($1);
     push (@history, $exp);
   } elsif ($exp eq 'quit' or $exp eq 'exit') {
@@ -81,7 +81,7 @@ sub showHelp {
   print "history {n} - n lines of history (empty == all)\n";
   print "h - history $GLOBALS{h_limit}\n";
   print "!{n} - repeat nth previous command (! == !1)\n";
-  print "!{n}e regexp - edit and run nth previous command using regexp\n";
+  print "!{n}e s/pat/sub/ - edit and run nth previous command by replacing pat with sub\n";
 }
 
 sub showHistory {

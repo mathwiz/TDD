@@ -6,5 +6,5 @@ print "ones: array\n";
 print "teens: array\n";
 %fruits = ("a"=>"apple","b"=>"banana","c"=>"cantaloupe","d"=>"durian");
 print "fruits: hash\n";
-%heroes = ("Supergirl"=>"Kara Danvers","Green Arrow"=>"Oliver Queen","Flash"=>"Barry Allen","Black Canary"=>"Dinah Drake","Atom"=>"Ray Palmer","White Canary"=>"Sara Lance","Superman"=>"Clark Kent");
+%heroes = ("Supergirl"=>"Kara Danvers","Green Arrow"=>"Oliver Queen","Flash"=>"Barry Allen","Black Canary"=>"Dinah Drake","Atom"=>"Ray Palmer","White Canary"=>"Sara Lance","Superman"=>"Clark Kent","Batman"=>"Bruce Wayne","Deathstroke"=>"Slade Wilson");
 print "heroes: hash\n";
