@@ -2,19 +2,13 @@ class Environment
 
 def initialize()
   @globals = {:h_limit=>10}
-  @prompt = "ruby  shell> "
   @hist = []
 end
 
-def run(exp)
+def addExp(exp)
   unless exp.to_s.strip.empty?
-    eval exp
     @hist.push exp
   end
-end
-
-def addExp(exp)
-  @hist.push exp
 end
 
 def historyIndexFromList(offset)
@@ -79,7 +73,7 @@ def loadFile(file)
   print "Loaded #{file}"
 end
 
-prompt = "ruby shell> "
+prompt = "\nruby shell> "
 e = Environment.new
 print prompt
 
@@ -93,13 +87,16 @@ while exp = gets.chomp
     e.showHistory $1.to_i
   when /^\s*!(\d*)e\s*s\/(.*)\/(.*)\/\s*$/
     exp = e.edit($1.to_i, $2, $3)
-    e.run exp
+    eval exp
+    e.addExp exp
   when '!'
     exp = e.history 0
-    e.run exp
+    eval exp
+    e.addExp exp
   when /!(\d+)\s*$/
     exp = e.history($1.to_i - 1)
-    e.run exp
+    eval exp
+    e.addExp exp
   when /^\s*help\s*/
     e.showHelp
   when /\s*load\s*\(\s*['"](\w+)['"]\s*\)/
@@ -110,7 +107,8 @@ while exp = gets.chomp
   when 'exit'
     break
   else
-    e.run exp
+    eval exp
+    e.addExp exp
   end
   print prompt
 end
