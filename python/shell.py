@@ -9,7 +9,6 @@ history = []
 
 def run(exp):
   if exp:
-      print(exp)
       eval(exp)
       history.append(exp)
 
