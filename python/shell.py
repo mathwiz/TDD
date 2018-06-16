@@ -1,8 +1,12 @@
 import re
 
 GLOBALS = {'h_limit': 10}
+regex_load = r'\s*load\s+(\S+)\s*'
+regex_repeat_digit = r'!(\d+)\s*$'
+regex_edit = r'^\s*!(\d*)e\s*s\/(.*)\/(.*)\/\s*$'
+regex_history_digit = r'\s*history\s+(\d+)\s*$'
 
-prompt = "python shell> "
+prompt = "\npython shell> "
 
 exp = ''
 history = []
@@ -74,29 +78,29 @@ def load(file):
 
 # Execute loop
 while True:
-    exp = input(prompt)
+    exp = input(prompt).strip()
     if re.search(r'^\s*history\s*$', exp):
         showHistory()
     elif exp == 'h':
         showHistory(GLOBALS['h_limit'])
-    elif re.match(r'\s*history\s+(\d+)\s*$', exp):
-        m = re.match(r'\s*history\s+(\d+)\s*$', exp)
-        showHistory(m.group(1))
-    elif re.match(r'^\s*!(\d*)e\s*s\/(.*)\/(.*)\/\s*$', exp):
-        m = re.match(r'^\s*!(\d*)e\s*s\/(.*)\/(.*)\/\s*$', exp)
-        exp = edit(m.group(1), m.group(2), m.group(3))
+    elif re.search(regex_history_digit, exp):
+        m = re.match(regex_history_digit, exp)
+        showHistory(int(m.group(1)))
+    elif re.search(regex_edit, exp):
+        m = re.match(regex_edit, exp)
+        exp = edit(int(m.group(1)), str(m.group(2)), str(m.group(3)))
         run(exp)
     elif exp == '!':
         exp = execHistory(0)
         run(exp)
-    elif re.match(r'!(\d+)\s*$', exp):
-        m = re.match(r'!(\d+)\s*$', exp)
+    elif re.search(regex_repeat_digit, exp):
+        m = re.match(regex_repeat_digit, exp)
         exp = execHistory(int(m.group(1)) - 1)
         run(exp)
     elif re.search(r'^\s*help\s*', exp):
         showHelp()
-    elif re.match(r'\s*load\s+(\S+)\s*', exp):
-        m = re.match(r'\s*load\s+(\S+)\s*', exp)
+    elif re.search(regex_load, exp):
+        m = re.match(regex_load, exp)
         load(m.group(1))
         history.append(exp)
     elif exp == 'quit' or exp == 'exit':
