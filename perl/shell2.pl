@@ -7,15 +7,13 @@ use File::Basename qw(dirname);
 use lib dirname abs_path $0;
 
 my %GLOBALS = ();
-my $prompt = "\nperl shell> ";
 my $exp = '';
 my @history = ();
-
 $GLOBALS{'h_limit'} = 10;
 
 while (
        do {
-         print $prompt;
+         print "\nperl> ";
          chomp($exp = <STDIN>);
         }) {
   if ($exp =~ /^\s*history\s*$/) {
@@ -38,6 +36,15 @@ while (
   } elsif ( $exp =~ /\s*load\s+(\S+)\s*/ ) {
     load ($1);
     push (@history, $exp);
+  } elsif ( $exp =~ /\s*cd\s+(\S+)\s*/ ) {
+    changeDir ($1);
+    push (@history, $exp);
+  } elsif ( $exp =~ /\s*cd\s*/ ) {
+    changeDir ();
+    push (@history, $exp);
+  } elsif ( $exp =~ /\s*ls\s*/ ) {
+    listDir ();
+    push (@history, $exp);
   } elsif ($exp eq 'quit' or $exp eq 'exit') {
     last;
   } else {
@@ -46,6 +53,21 @@ while (
   print $@; # any errors
 }
 
+
+sub listDir {
+    opendir (DIR, getcwd);
+    while (my $f = readdir(DIR)) { print "$f\n"; }
+    closedir (DIR);
+}
+
+sub changeDir  {
+    $dir = shift;
+    if ($dir) {
+        chdir $dir;
+    } else {
+        chdir dirname abs_path $0;
+    }
+}
 
 sub run {
   my $exp = shift;
