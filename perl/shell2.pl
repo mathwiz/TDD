@@ -2,7 +2,9 @@
 use warnings;
 use English;
 use feature qw(say);
-use Cwd;
+use Cwd qw(abs_path getcwd);
+use File::Basename qw(dirname);
+use lib dirname abs_path $0;
 
 my %GLOBALS = ();
 my $prompt = "\nperl shell> ";
