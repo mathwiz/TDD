@@ -1,3 +1,5 @@
+#!/usr/bin/perl
+use warnings;
 use English;
 use feature qw(say);
 use Cwd;
