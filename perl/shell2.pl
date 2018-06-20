@@ -72,7 +72,7 @@ sub changeDir  {
 sub run {
   my $exp = shift;
   if ($exp) {
-    eval $exp;
+    say (eval $exp);
     push (@history, $exp);
   }
 }
