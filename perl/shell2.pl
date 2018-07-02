@@ -9,6 +9,7 @@ use lib dirname abs_path $0;
 my %GLOBALS = ();
 my $exp = '';
 my @history = ();
+my $original_dir = getcwd;
 $GLOBALS{'h_limit'} = 10;
 
 while (
@@ -62,10 +63,12 @@ sub listDir {
 
 sub changeDir  {
     $dir = shift;
-    if ($dir) {
-        chdir $dir;
-    } else {
+    if ($dir and $dir eq '/') {
         chdir dirname abs_path $0;
+    } elsif ($dir) {
+      chdir $dir
+    } else {
+        chdir $original_dir;
     }
 }
 
