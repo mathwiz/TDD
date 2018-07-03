@@ -4,6 +4,7 @@ use English;
 use feature qw(say);
 use Cwd qw(abs_path getcwd);
 use File::Basename qw(dirname);
+use File::Slurp;
 use lib dirname abs_path $0;
 
 my %GLOBALS = ();
@@ -36,6 +37,9 @@ while (
     showHelp ();
   } elsif ( $exp =~ /\s*load\s+(\S+)\s*/ ) {
     load ($1);
+    push (@history, $exp);
+  } elsif ( $exp =~ /\s*cat\s+(\S+)\s*/ ) {
+    cat ($1);
     push (@history, $exp);
   } elsif ( $exp =~ /\s*cd\s+(\S+)\s*/ ) {
     changeDir ($1);
@@ -137,7 +141,7 @@ sub history {
   $cmd;
 }
 
-sub load {
+sub load_lines {
   my $file = shift;
   open FILE, $file or die "Couldn't open file $file ($OS_ERROR)]n";
   while (<FILE>) {
@@ -145,5 +149,22 @@ sub load {
     eval;
   }
   print "Loaded $file";
+  close FILE;
+}
+
+sub load {
+  my $file = shift;
+  my $code = read_file($file);
+  eval $code;
+  print "Loaded $file\n";
+}
+
+sub cat {
+  my $file = shift;
+  open FILE, $file or die "Couldn't open file $file ($OS_ERROR)]n";
+  while (<FILE>) {
+    chomp;
+    say;
+  }
   close FILE;
 }
