@@ -19,7 +19,7 @@ guess_limit = 7
 num_guesses = 0
 guessed_it = false
 
-while num_guesses < guess_limit && (not guessed_it)
+until num_guesses == guess_limit || guessed_it
 
 	puts "You've got #{guess_limit - num_guesses} gueses left."
 	print "Make a guess: "
