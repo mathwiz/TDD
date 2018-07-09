@@ -13,3 +13,6 @@
 __pycache__
 python/.idea/
 scala/.idea/
+# Language files #
+.RData
+.RHistory
