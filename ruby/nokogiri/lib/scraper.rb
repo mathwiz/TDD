@@ -2,7 +2,11 @@ require 'httparty'
 require 'nokogiri'
 
 class Scraper
-  attr_accessor :page, :parsed, :url
+  attr_reader :page, :parsed, :url
+
+  def initialize(url)
+    @url = url
+  end
 
   def get()
     @page = HTTParty.get(@url)
