@@ -1,9 +1,11 @@
 n= 105;
 
+xs= 0:n;
 Sx= zeros(1,n+1);
 lx= ones(1,n+1);
 mx= zeros(1,n+1);
-Rx = zeros(1,n+1);
+Rx= zeros(1,n+1);
+Vx= zeros(1,n+1);
 
 Sx(1) = 0.23;
 Sx(2) = 0.47;
@@ -31,12 +33,16 @@ mx(16:n+1) = 12;
 for x=1:n
   lx(x+1) = lx(x) * Sx(x);
   Rx(x) = exp(-x) * lx(x) * mx(x);
+  Vx(x) = sum( exp(-0.00036*xs(x:n+1)) .* lx(x:n+1) .* mx(x:n+1) );
 endfor
 
+erx= exp(-0.00036*xs);
+Cx= erx / sum(erx);
+VxV0= Vx ./ (erx .* lx);
 
-
-Sx(1:16)
-mx(1:16)
-lx(1:9)
-lx(100:n+1)
-Rx(1:16)
+#Sx(1:16)
+#mx(1:16)
+#lx(1:9)
+#lx(100:n+1)
+#Rx(1:16)
+erx(1:16)
