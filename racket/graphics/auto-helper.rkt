@@ -47,3 +47,30 @@
   (reverse (if (empty? pat)
                (row-of-cells 0 (create-row-random size) empty)
                (row-of-cells 0 (create-row-by-pattern size pat) empty))))
+
+(define (from l n)
+  (cond ((empty? l) empty)
+        ((= n 0) l)
+        (else (from (rest l) (sub1 n)))))
+
+(define (nth l n)
+  (cond ((empty? l) #f)
+        ((>= n (length l)) #f)
+        (else (first (from l n)))))
+
+(define (last l)
+  (nth l (sub1 (length l))))
+
+
+;;; Tests
+(check-expect (from '(1 2 3 4) 0) '(1 2 3 4))
+(check-expect (from '(1 2 3 4) 1) '(2 3 4))
+(check-expect (from '(1 2 3 4) 3) '(4))
+(check-expect (from '(1 2 3 4) 4) empty)
+(check-expect (from empty 0) empty)
+(check-expect (nth '(1 2 3 4) 0) 1)
+(check-expect (nth '(1 2 3 4) 1) 2)
+(check-expect (nth '(1 2 3 4) 3) 4)
+(check-expect (nth '(1 2 3 4) 4) #f)
+(check-expect (nth empty 0) #f)
+(check-expect (last '(1 2 3 4)) 4)
