@@ -99,6 +99,7 @@
   (let ([row (take lod CELL_NUM)])
     (append (evolve-row row) (tick-cells lod))))
 
+
 (define (evolve-row row)
   (letrec ([iter (lambda (n acc)
                    (cond ((< n 0) acc)
