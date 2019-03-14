@@ -3,8 +3,8 @@ logisticVec <- function(n, p0, r) {
     p = rep(0, n)
     p[1] = p0
     for (i in times) {
-        p[i+1] = r * p[i] * (1 - p[i])
-        p[i+1] = ifelse(p[i+1] < 0, 0, p[i+1])
+        n = r * p[i] * (1 - p[i])
+        p[i+1] = ifelse(n < 0, 0, n)
     }
     p
 }
