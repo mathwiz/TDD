@@ -1,6 +1,6 @@
 n = 30;
 p0 = 200;
-a = 1.4;
+a = 3.8;
 b = 0.0002;
 
 [years, pop] = logistic_difference(n, p0, a, b);
