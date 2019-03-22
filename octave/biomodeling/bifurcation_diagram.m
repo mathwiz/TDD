@@ -1,9 +1,9 @@
-x0 = 0.67
+x0 = 0.07
 bmin = 2.71
 bmax = 3.99
 iterations = 256
 spacing = 297
-plotpoints = 99
+plotpoints = 55
 
 hold on;
 
