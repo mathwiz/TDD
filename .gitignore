@@ -15,4 +15,6 @@ python/.idea/
 scala/.idea/
 # Language files #
 .RData
-.RHistory
+.R[Hh]istory
+.Rapp.history
+octave-workspace
