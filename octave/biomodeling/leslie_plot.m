@@ -8,5 +8,6 @@ plot(T, P(1,:), 'ko', T, P(2,:), 'k*', T, P(3,:), 'k.');
 hold on;
 plot(T, P(1,:), 'k', T, P(2,:), 'k', T, P(3,:), 'k');
 xlabel('Time');
-ylabel('Number of age class');
+ylabel('Number in age class');
+legend('Class 1', 'Class 2', 'Class 3');
 hold off;
