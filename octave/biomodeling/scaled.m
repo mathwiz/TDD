@@ -1,6 +1,6 @@
 n = 30;
 p0 = 0.2;
-lambda = 3.99;
+lambda = 2.99;
 
 
 [years, pop] = logistic_scaled(n, p0, lambda);
