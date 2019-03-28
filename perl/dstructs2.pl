@@ -10,13 +10,18 @@ $hash{'name'} = "Yohan";
 $hash{'age'} = 49;
 $hash{'phone'} = '123-333-8987';
 @letters = split ('',"kjfewoinnfwelk");
-@hash{'array_ltr'} = @letters;
+$hash{'array_ltr'} = \@letters;
+@alsoletters = $hash{'array_ltr'};
 
 showHash (%hash);
-showArray (@hash{'array_ltr'});
-showArray ($hash{'array_ltr'});
 showArray (@letters);
+say ($hash{'array_ltr'});
+say (@alsoletters);
 
+$frame = {'name'=>3, 'price'=>4};
+showHash (%frame);
+
+# todo: move helpers
 sub showHash {
   my %h = @_;
   my @key_elems;
