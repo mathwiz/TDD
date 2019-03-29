@@ -5,18 +5,18 @@
 "MIA",
 "BUF",
 "NYJ",
-"BAL",
+"rav",
 "PIT",
 "CLE",
 "CIN",
-"HOU",
-"IND",
-"TEN",
+"htx",
+"clt",
+"oti",
 "JAX",
 "KAN",
-"LAC",
+"sdg",
 "DEN",
-"OAK",
+"rai",
 "DAL",
 "PHI",
 "WAS",
@@ -29,11 +29,15 @@
 "CAR",
 "ATL",
 "TAM",
-"LAR",
+"ram",
 "SEA",
 "SFO",
-"ARI"
+"crd"
     );
 
 $t = int(rand(32));
-print $teams[$t];
+$s = int(rand(16)) + 2002;
+$domain = "www.pro-football-reference.com";
+
+$url  = "https://" . $domain . "/teams/" . lc($teams[$t]) . "/" . $s . ".htm";
+print $url;
