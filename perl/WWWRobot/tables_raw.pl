@@ -6,8 +6,7 @@ use HTML::TableExtract;
 #print $html_string; 
 
 my $in_table = 0;
-my $line = '';
-foreach $line (<>) {
+foreach my $line (<>) {
     if ($line =~ /<\/table/) { 
         print $line; 
         $in_table = 0; 
