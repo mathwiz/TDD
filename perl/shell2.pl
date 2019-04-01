@@ -12,6 +12,7 @@ my $exp = '';
 my @history = ();
 my $original_dir = getcwd;
 $GLOBALS{'h_limit'} = 10;
+$,=',';
 
 while (
        do {
