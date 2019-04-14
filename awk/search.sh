@@ -10,7 +10,8 @@ fi
 cmd='BEGIN { FS="\n"; RS="" } /'
 cmd+=$1
 cmd+='/ { print; print ""; }'
-#echo $"'$cmd'"
+
 echo "Searching for '$1' in $bib"
+echo ""
 awk $"$cmd" $bib
 
