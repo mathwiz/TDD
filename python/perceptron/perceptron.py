@@ -19,11 +19,28 @@ class P:
         pass
 
 
-def train(data, network):
-    pass
+def train(data, network, size):
+    for r in data:
+        print(r[0:size], r[size])
 
 
-p1 = P(4)
-print(p1)
+#p1 = P(4)
+#print(p1)
 
+data = np.array([
+    [1.0, 1.0, 1],
+    [9.4, 6.4, -1],
+    [2.5, 2.1,  1],
+    [8.0, 7.7, -1],
+    [0.5, 2.2, 1],
+    [7.9, 8.4, -1],
+    [7.0, 7.0, -1],
+    [2.8, 0.8, 1],
+    [1.2, 3.0, 1],
+    [7.8, 6.1, -1],
+    ])
+
+print(data)
+
+train(data, P(size=2), 2)
 
