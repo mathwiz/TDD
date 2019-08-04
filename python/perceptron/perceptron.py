@@ -24,10 +24,12 @@ def train(data, network, size):
         print(r[0:size], r[size])
 
 
-#p1 = P(4)
-#print(p1)
 
-data = np.array([
+bias = 1
+weights = [ random.random(), random.random(), random.random() ]
+#weights = [random.random(), random.random()]
+
+data = [
     [1.0, 1.0, 1],
     [9.4, 6.4, -1],
     [2.5, 2.1,  1],
@@ -38,9 +40,35 @@ data = np.array([
     [2.8, 0.8, 1],
     [1.2, 3.0, 1],
     [7.8, 6.1, -1],
-    ])
+    ]
 
-print(data)
+tests = [
+    [7, 5],
+    [1, 9],
+    [5, 4],
+    [5, 6],
+    [.4, 3],
+    [2, 1.1],
+    [2, 8.7],
+    [4, 2],
+    [4, 8],
+    [0, 0],
+    [10, 10]
+]
 
-train(data, P(size=2), 2)
+#print(data)
+#print(weights)
+#print(deltaweights(network, weights, 2, -1))
+#print([y for x, y in zip([1,2,3], [.1,.2,.3])])
+#print(sum([1,2,3]))
+#print(learningrule(data[0][0:2], weights, target=-1, rate=1, bias=1))
+
+newweights = train(data, weights, 2)
+print(newweights)
+print("tests")
+for test in tests:
+    f = sum([ x * w for x, w in zip(test + [1], newweights) ])
+    print(test, f, sign(f))
+
+#train(data, None, 2)
 

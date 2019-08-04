@@ -41,17 +41,18 @@ data = [
     ]
 
 tests = [
-    [7, 5],
-    [1, 9],
-    [5, 4],
-    [5, 6],
-    [.4, 3],
-    [2, 1.1],
-    [2, 8.7],
-    [4, 2],
-    [4, 8],
-    [0, 0],
-    [10, 10]
+    [7, 5, -1],
+    [1, 9.9, -1],
+    [1, 7, 1],
+    [5, 1, 1],
+    [5, 9, -1],
+    [.4, 3, 1],
+    [2, 0.1, 1],
+    [2, 9.8, -1],
+    [4, 2, 1],
+    [4, 8, -1],
+    [0, 0, 1],
+    [10, 10, -1]
 ]
 
 #print(data)
@@ -65,8 +66,8 @@ newweights = train(data, weights, 2)
 print(newweights)
 print("tests")
 for test in tests:
-    f = sum([ x * w for x, w in zip(test + [1], newweights) ])
-    print(test, f, sign(f))
+    f = sum([ x * w for x, w in zip(test[0:2] + [1], newweights) ])
+    print(test, f, test[2] == sign(f))
 
 #train(data, None, 2)
 
