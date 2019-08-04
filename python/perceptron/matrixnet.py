@@ -18,7 +18,7 @@ def train(data, network, size):
     for row in data:
         inputs = row[0:size]
         goal = row[size]
-        weights = deltaweights(inputs, weights, goal)
+        weights = deltaweights(inputs, weights, goal, rate=.5)
         print(inputs, goal, weights)
     return weights
 
