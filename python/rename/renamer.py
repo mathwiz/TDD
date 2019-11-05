@@ -12,7 +12,7 @@ def start():
     result = walk(path)
     print("Folders scanned: %s" %(result['folder_count']))
     print("Music files scanned: %s" %(result['file_count']))
-    print("Files to rename: %s" %(result['possible_renames']))
+    print("Potential renames: %s" %(result['possible_renames']))
     print("Files renamed: %s" %(result['rename_count']))
     return True
 
