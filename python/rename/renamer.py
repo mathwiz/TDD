@@ -16,24 +16,56 @@ def start():
     return True
 
 
+def inform(msg, state):
+    if state['verbose']:
+        print(msg)
+
+
+def prompt(filename, state):
+    print("Processing file: %s" %(filename))
+    response = input("- Rename file? [y / n  / (c)ontinue without prompting / (q)uit]: ").strip()
+    if response.lower() == 'y':
+        return True
+    elif response.lower() == 'c':
+        state['silent'] = True
+        return True
+    elif response.lower() == 'q':
+        state['exit'] = True
+        return False
+    else:
+        return False
+
+
 def walk(root):
-    state = {'folder_count':0, 'file_count':0, 'rename_count':0}
+    state = {'folder_count':0, 'file_count':0, 'rename_count':0, 'silent':False, 'exit':False, 'verbose':True}
+    silence = input("Silence verbose messages? [y / n]: ").strip()
+    if silence.lower() == 'y':
+        state['verbose'] = False
 
     for subdir, dirs, files in os.walk(root):
         subdirectoryPath = os.path.relpath(subdir, root) #get the path to your subdirectory
-        print("Processing folder: " + subdirectoryPath)
+        inform("Processing folder: " + subdirectoryPath, state)
         state['folder_count'] += 1
         for filename in files:
             if is_music(filename):
+                state['file_count'] += 1
+                proceed = True
                 newName = newname(filename, state)
                 if newName:
-                    rename(newName, filename, subdirectoryPath)
-                    print("Renamed to: " + newName)
+                    if not state['silent']:
+                        proceed = prompt(filename, state)
+                        if state['exit']:
+                            print("Goodbye!")
+                            return state
+                    if proceed:
+                        rename(newName, filename, subdirectoryPath)
+                        state['rename_count'] += 1
+                        inform("Renamed to: " + newName, state)
                 else:
-                    print("Already renamed: " + filename)
+                    inform("Already renamed: " + filename, state)
 
             else:
-                print("Skipping non-music file: " + filename)
+                inform("Skipping non-music file: " + filename, state)
 
     return state
 
@@ -52,10 +84,8 @@ def make_new_name(m):
 
 
 def newname(f, s):
-    s['file_count'] += 1
     match = filename_match(f)
     if match:
-        s['rename_count'] += 1
         return make_new_name(match)
 
 
