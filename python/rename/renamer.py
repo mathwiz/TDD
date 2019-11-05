@@ -11,8 +11,8 @@ def start():
     path = os.path.dirname(os.path.realpath(sys.argv[0]))
     result = walk(path)
     print("Folders scanned: %s" %(result['folder_count']))
-    print("Files scanned: %s" %(result['file_count']))
-    print("Files renamed: %s" %(result['rename_count']))
+    print("Music files scanned: %s" %(result['file_count']))
+    print("Music files renamed: %s" %(result['rename_count']))
     return True
 
 
@@ -30,7 +30,7 @@ def walk(root):
                     rename(newName, filename, subdirectoryPath)
                     print("Renamed to: " + newName)
                 else:
-                    print("Skipping music file: " + filename)
+                    print("Already renamed: " + filename)
 
             else:
                 print("Skipping non-music file: " + filename)
@@ -63,8 +63,6 @@ def rename(new, old, path):
     filePath = os.path.join(path, old) #get the path to your file
     newFilePath = os.path.join(path, new)
     os.rename(filePath, newFilePath) #rename your file
-
-
 
 
 # run
