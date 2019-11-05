@@ -12,7 +12,8 @@ def start():
     result = walk(path)
     print("Folders scanned: %s" %(result['folder_count']))
     print("Music files scanned: %s" %(result['file_count']))
-    print("Music files renamed: %s" %(result['rename_count']))
+    print("Files to rename: %s" %(result['possible_renames']))
+    print("Files renamed: %s" %(result['rename_count']))
     return True
 
 
@@ -37,7 +38,7 @@ def prompt(filename, state):
 
 
 def walk(root):
-    state = {'folder_count':0, 'file_count':0, 'rename_count':0, 'silent':False, 'exit':False, 'verbose':True}
+    state = {'folder_count':0, 'file_count':0, 'possible_renames':0, 'rename_count':0, 'silent':False, 'exit':False, 'verbose':True}
     silence = input("Silence verbose messages? [y / n]: ").strip()
     if silence.lower() == 'y':
         state['verbose'] = False
@@ -52,6 +53,7 @@ def walk(root):
                 proceed = True
                 newName = newname(filename, state)
                 if newName:
+                    state['possible_renames'] += 1
                     if not state['silent']:
                         proceed = prompt(filename, state)
                         if state['exit']:
