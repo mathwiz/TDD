@@ -11,7 +11,7 @@ def start():
     path = os.path.dirname(os.path.realpath(sys.argv[0]))
     result = walk(path)
     print("Folders scanned: %s" %(result['folder_count']))
-    print("Music files scanned: %s" %(result['file_count']))
+    print("%s files scanned: %s" %(extension, result['file_count']))
     print("Potential renames: %s" %(result['possible_renames']))
     print("Files renamed: %s" %(result['rename_count']))
     return True
@@ -24,7 +24,7 @@ def inform(msg, state):
 
 def prompt(filename, state):
     print("Processing file: %s" %(filename))
-    response = input("- Rename file? [y / n  / (c)ontinue without prompting / (q)uit]: ").strip()
+    response = input("- Rename file? [y / N  / (c)ontinue without prompting / (q)uit]: ").strip()
     if response.lower() == 'y':
         return True
     elif response.lower() == 'c':
@@ -39,7 +39,7 @@ def prompt(filename, state):
 
 def walk(root):
     state = {'folder_count':0, 'file_count':0, 'possible_renames':0, 'rename_count':0, 'silent':False, 'exit':False, 'verbose':True}
-    silence = input("Silence verbose messages? [y / n]: ").strip()
+    silence = input("Silence verbose messages? [y / N]: ").strip()
     if silence.lower() == 'y':
         state['verbose'] = False
 
@@ -67,7 +67,7 @@ def walk(root):
                     inform("Already renamed: " + filename, state)
 
             else:
-                inform("Skipping non-music file: " + filename, state)
+                inform("Skipping non %s file: %s" % (extension, filename), state)
 
     return state
 
