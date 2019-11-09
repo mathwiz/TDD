@@ -4,7 +4,8 @@ import re
 
 
 extension = '.wav'
-regex = r'(.+) - (.+) \((\d{2}) (.+)\)(\.wav)'
+std_regex = r'(.+) - (.+) \((\d{2}) (.+)\)(\.wav)'
+va_regex = r'(.+) - (.+) - (.+) \((\d{2}) (.+)\)(\.wav)'
 
 
 def start():
@@ -77,13 +78,25 @@ def is_music(f):
 
 
 def filename_match(f):
-    return re.match(regex, f)
+    m = re.match(va_regex, f)
+    if m:
+        return m
+    else:
+        return re.match(std_regex, f)
 
 
 def make_new_name(m):
-    return "%s - %s - %s %s%s" \
-        %(m.group(1), m.group(4), m.group(3), m.group(2), m.group(5))
+    newname = None
+    groups = len(m.groups())
+    if groups == 6:
+        newname = "%s - %s_%s - %s - %s%s" \
+            %(m.group(1), m.group(5), m.group(4), m.group(2), m.group(3), m.group(6))
+    else:
+        newname = "%s - %s_%s - %s%s" \
+            %(m.group(1), m.group(4), m.group(3), m.group(2), m.group(5))
 
+    print("Created new track name: %s" % (newname))
+    return newname
 
 def newname(f, s):
     match = filename_match(f)
