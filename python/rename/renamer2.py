@@ -4,6 +4,7 @@ import re
 
 
 extension = '.wav'
+va_pattern = r'VA -'
 std_regex = r'(.+) - (.+) \((\d{2}) (.+)\)(\.wav)'
 va_regex = r'(.+) - (.+) - (.+) \((\d{2}) (.+)\)(\.wav)'
 
@@ -24,7 +25,7 @@ def inform(msg, state):
 
 
 def prompt(filename, state):
-    print("Processing file: %s" %(filename))
+    print("Renaming: %s" %(filename))
     response = input("- Rename file? [y / N  / (c)ontinue without prompting / (q)uit]: ").strip()
     if response.lower() == 'y':
         return True
@@ -48,11 +49,12 @@ def walk(root):
         subdirectoryPath = os.path.relpath(subdir, root) #get the path to your subdirectory
         inform("Processing folder: " + subdirectoryPath, state)
         state['folder_count'] += 1
+        various_artists_album = is_various_artists(subdirectoryPath)
         for filename in files:
             if is_music(filename):
                 state['file_count'] += 1
                 proceed = True
-                newName = newname(filename, state)
+                newName = new_va_name(filename,state) if various_artists_album else newname(filename, state)
                 if newName:
                     state['possible_renames'] += 1
                     if not state['silent']:
@@ -77,6 +79,10 @@ def is_music(f):
     return f.endswith(extension)
 
 
+def is_various_artists(d):
+    return re.search(va_pattern, d)
+
+
 def filename_match(f):
     m = re.match(va_regex, f)
     if m:
@@ -85,23 +91,33 @@ def filename_match(f):
         return re.match(std_regex, f)
 
 
-def make_new_name(m):
+def make_new_name(m, state):
     newname = None
     groups = len(m.groups())
     if groups == 6:
         newname = "%s - %s_%s - %s - %s%s" \
             %(m.group(1), m.group(5), m.group(4), m.group(2), m.group(3), m.group(6))
+        inform("PROPOSED curated filename: %s" %(newname), state)
     else:
         newname = "%s - %s_%s - %s%s" \
             %(m.group(1), m.group(4), m.group(3), m.group(2), m.group(5))
+        inform("PROPOSED standard filename: %s" %(newname), state)
 
-    print("Created new track name: %s" % (newname))
     return newname
 
-def newname(f, s):
+
+def newname(f, state):
     match = filename_match(f)
     if match:
-        return make_new_name(match)
+        return make_new_name(match, state)
+
+
+def new_va_name(f, state):
+    m = filename_match(f)
+    newname = "%s_%s - %s - %s%s" \
+            %(m.group(4), m.group(3), m.group(1), m.group(2), m.group(5))
+    inform("PROPOSED various artists filename: %s" %(newname), state)
+    return newname
 
 
 def rename(new, old, path):
