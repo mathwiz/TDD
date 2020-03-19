@@ -9,6 +9,9 @@
 *.class
 *.lib
 *.fas
+*.cmi
+*.cmo
+
 # Paths #
 __pycache__
 python/.idea/
