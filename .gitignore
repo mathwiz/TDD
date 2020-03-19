@@ -1,6 +1,7 @@
 # Backups #
 *.bak
 *~
+
 # Compiled source #
 *.exe
 *.err
@@ -21,3 +22,4 @@ scala/.idea/
 .R[Hh]istory
 .Rapp.history
 octave-workspace
+.DS_Store
