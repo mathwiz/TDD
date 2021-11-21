@@ -3,7 +3,6 @@ import System.IO
 main = do
     discard <- putStrLn "Enter filename: "
     filename <- getLine
-    handle <- openFile filename ReadMode  
-    contents <- hGetContents handle  
-    putStr contents  
-    hClose handle
+    withFile filename ReadMode (\ handle -> do  
+        contents <- hGetContents handle     
+        putStr contents)
