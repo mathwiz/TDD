@@ -1,3 +1,5 @@
+--Usage: finiteRandoms 7 (mkStdGen 359353) 
+
 import System.Random
 
 
