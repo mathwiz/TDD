@@ -1,6 +1,6 @@
---Usage: threeCoins (mkStdGen 21)
+--Usage: threeCoins (mkStdGen 21) 
 
-Import System.Random
+import System.Random
 
 
 threeCoins :: StdGen -> (Bool, Bool, Bool)  
