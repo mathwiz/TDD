@@ -1,5 +1,7 @@
 (defun for-lines ()
   (let ((line (read)))
-      (format t "~S~%" line))
-)
-
+      (if line
+          (progn 
+            (format t "~S~%" line)
+            (for-lines))
+          (format t "~%"))))
