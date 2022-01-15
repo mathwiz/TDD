@@ -1,62 +1,82 @@
 Object subclass: Function [
-| params logic |
+| params useSymbols |
 
-value [ "to be implemented in subclass"
+value [ 
+    ^ nil
 ]
 
 value: aBlock [
     ^ aBlock value: (params at:1)
 ]
 
-at: key [
-    ^ params at: key
+at: pos [
+    ^ params at:pos ifAbsent:[ nil ]
+]
+
+get: symbol [
+    ^ useSymbols
+        ifTrue:[ (params at:1) at:symbol ifAbsent:[ nil ] ]
+        ifFalse:[ nil ] 
 ]
 
 Function class>>newFromDict: aDict [
     ^ self new
-        setDictionaryParams: aDict;
+        setDictionaryParams:aDict;
         yourself
 ]
 
 Function class>>newFromArray: anArray [
     ^ self new
-        setArrayParams: anArray;
+        setArrayParams:anArray;
         yourself
 ]
 
 Function>>setDictionaryParams: aDict [
+    useSymbols := true.
     params := Dictionary new.
-    params at: 1 put: aDict
+    params at:1 put:aDict.
+    ^ self
 ]
 
 Function>>setArrayParams: anArray [
+    useSymbols := false.
     params := Dictionary new.
     (1 to: anArray size) do: 
         [ :each |
-            params at: each put: (anArray at:each) ]
+            params at:each put:(anArray at:each) ].
+    ^ self
 ]
 
-] "Function"
+] 
 
 
 Function subclass: BiFunction [
 value: aBlock [
     ^ aBlock value: (params at:1) value: (params at:2)
 ]
-] "BiFunction"
+] 
 
 
 Function subclass: TriFunction [
 value: aBlock [
-    ^ aBlock value: (params at:1) value: (params at:2) value: (params at: 3)
+    ^ aBlock value: (params at:1) value: (params at:2) value: (params at:3)
 ]
-] "TriFunction"
+] 
 
 
 BiFunction subclass: Max [
 value [
     ^ (params at:1) < (params at:2)
-        ifTrue: [ (params at: 2) ]
-        ifFalse: [ (params at: 1) ]
+        ifTrue: [ params at:2 ]
+        ifFalse: [ params at:1 ]
 ]
-] "Max"
+] 
+
+
+BiFunction subclass: Min [
+value [
+    ^ (params at:1) > (params at:2)
+        ifTrue: [ params at:2 ]
+        ifFalse: [ params at:1 ]
+]
+] 
