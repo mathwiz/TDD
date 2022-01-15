@@ -51,3 +51,12 @@ value: aBlock [
     ^ aBlock value: (params at:1) value: (params at:2) value: (params at: 3)
 ]
 ] "TriFunction"
+
+
+BiFunction subclass: Max [
+value [
+    ^ (params at:1) < (params at:2)
+        ifTrue: [ (params at: 2) ]
+        ifFalse: [ (params at: 1) ]
+]
+] "Max"
