@@ -10,31 +10,31 @@ value: aBlock [
 ]
 
 at: pos [
-    ^ params at:pos ifAbsent:[ nil ]
+    ^ params at: pos ifAbsent: [ nil ]
 ]
 
 get: symbol [
     ^ useSymbols
-        ifTrue:[ (params at:1) at:symbol ifAbsent:[ nil ] ]
-        ifFalse:[ nil ] 
+        ifTrue:  [ (params at:1) at:symbol ifAbsent:[ nil ] ]
+        ifFalse: [ nil ] 
 ]
 
 Function class>>newFromDict: aDict [
     ^ self new
-        setDictionaryParams:aDict;
+        setDictionaryParams: aDict;
         yourself
 ]
 
 Function class>>newFromArray: anArray [
     ^ self new
-        setArrayParams:anArray;
+        setArrayParams: anArray;
         yourself
 ]
 
 Function>>setDictionaryParams: aDict [
     useSymbols := true.
     params := Dictionary new.
-    params at:1 put:aDict.
+    params at: 1 put: aDict.
     ^ self
 ]
 
@@ -43,7 +43,7 @@ Function>>setArrayParams: anArray [
     params := Dictionary new.
     (1 to: anArray size) do: 
         [ :each |
-            params at:each put:(anArray at:each) ].
+            params at: each put: (anArray at: each) ].
     ^ self
 ]
 
@@ -52,14 +52,14 @@ Function>>setArrayParams: anArray [
 
 Function subclass: BiFunction [
 value: aBlock [
-    ^ aBlock value: (params at:1) value: (params at:2)
+    ^ aBlock value: (params at: 1) value: (params at: 2)
 ]
 ] 
 
 
 Function subclass: TriFunction [
 value: aBlock [
-    ^ aBlock value: (params at:1) value: (params at:2) value: (params at:3)
+    ^ aBlock value: (params at: 1) value: (params at: 2) value: (params at: 3)
 ]
 ] 
 
