@@ -1,6 +1,9 @@
 Object subclass: Function [
 | params logic |
 
+value [ "to be implemented in subclass"
+]
+
 value: aBlock [
     ^ aBlock value: (params at:1)
 ]
@@ -47,4 +50,4 @@ Function subclass: TriFunction [
 value: aBlock [
     ^ aBlock value: (params at:1) value: (params at:2) value: (params at: 3)
 ]
-] "BiFunction"
+] "TriFunction"
