@@ -2,7 +2,7 @@ Object subclass: Function [
 | params useSymbols |
 
 value [ 
-    ^ nil
+    self error: 'value not implemented'
 ]
 
 value: aBlock [
@@ -17,6 +17,12 @@ get: symbol [
     ^ useSymbols
         ifTrue:  [ (params at:1) at:symbol ifAbsent:[ nil ] ]
         ifFalse: [ nil ] 
+]
+
+Function class>>newWithParam: anObject [
+    ^ self new
+        setArrayParams: (Array with: anObject);
+        yourself
 ]
 
 Function class>>newFromDict: aDict [
