@@ -1,6 +1,6 @@
 #lang racket/gui
 
-(define my-language 'French)
+(define my-language 'Thai)
 
 (define translations
   #hash([English . "Hello world"]
