@@ -1,0 +1,5 @@
+Write letter
+Call Joe
+Walk dog
+Wash dishes
+Read SICP
