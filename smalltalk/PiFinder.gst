@@ -11,8 +11,7 @@ initialize [
 ]
 
 value [
-    "bug prevents evaluating as Float"
-    ^ 4 * sum
+    ^ ((4 * sum) asString),'e'
 ]
 
 step [
@@ -42,7 +41,7 @@ testCase := [ :steps |
     (p value) displayNl.
 ]
 
-0 to: 6 do: [ :it |
+0 to: 16 do: [ :it |
     (testCase value: it) 
 ]
 
