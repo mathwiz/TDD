@@ -11,15 +11,14 @@ initialize [
 ]
 
 value [
-    ^ (4 * sum) asString , 'e'
+    ^ (4 * sum)
 ]
 
 step [
     | term |
-
     term :=
-        Fraction new setNumerator: (-1 raisedTo: n)
-                     setDenominator: (2 * n + 1).
+         (-1 raisedTo: n) / 
+         (2e * n + 1).
         
     sum := sum + term.
     n := n + 1.
@@ -41,7 +40,7 @@ testCase := [ :steps |
     (p value) displayNl.
 ]
 
-0 to: 16 do: [ :it |
+0 to: (2 raisedTo: 16) do: [ :it |
     (testCase value: it) 
 ]
 
