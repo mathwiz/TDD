@@ -11,7 +11,7 @@ initialize [
 ]
 
 value [
-    ^ ((4 * sum) asString),'e'
+    ^ (4 * (sum numerator)) asString , 'e' , '/', (sum denominator asString)
 ]
 
 step [
