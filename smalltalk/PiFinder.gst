@@ -12,13 +12,13 @@ initialize [
 ]
 
 value [
-    ^ (4 * sum)
+    ^ (4e * sum)
 ]
 
 step [
     | term |
     term :=
-         (adding ifTrue: [1] ifFalse:[-1]) / 
+         (adding ifTrue: [1e] ifFalse:[-1e]) / 
          denom.
         
     sum := sum + term.
@@ -37,8 +37,9 @@ testCase := [ :steps |
     p := PiFinder new.
     1 to: steps do: 
         [ :it | p step  ].
+    'Iteration ' display.
     steps display.
-    ': Value is ' display.
+    ':  ' display.
     (p value) displayNl.
 ]
 
