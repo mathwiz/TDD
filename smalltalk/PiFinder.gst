@@ -43,7 +43,7 @@ testCase := [ :steps |
     (p value) displayNl.
 ]
 
-0 to: (2 raisedTo: 18) do: [ :it |
+0 to: (2 raisedTo: 20) do: [ :it |
     (testCase value: it) 
 ]
 
