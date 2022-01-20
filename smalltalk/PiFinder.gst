@@ -1,13 +1,14 @@
 Object subclass: PiFinder [
-| sum n |
+| sum denom adding |
 
 PiFinder class >> new [
     ^ self basicNew initialize
 ]
 
 initialize [
-    sum := 0.
-    n := 0.
+    sum := 0e.
+    denom := 1e.
+    adding := true.
 ]
 
 value [
@@ -17,11 +18,12 @@ value [
 step [
     | term |
     term :=
-         (-1 raisedTo: n) / 
-         (2e * n + 1).
+         (adding ifTrue: [1] ifFalse:[-1]) / 
+         denom.
         
     sum := sum + term.
-    n := n + 1.
+    denom := denom + 2e.
+    adding := adding not.
     ^ term
 ]
 
