@@ -1,16 +1,21 @@
 Object subclass: Filter [
-| lineBlock in out |
+| in out selector processor |
 
-setBlock: aBlock [
-    lineBlock := aBlock
+selector: aBlock [
+    selector := aBlock
 ]
 
-setIn: inFilename out: outFilename [
-    in := inFilename.
-    out := outFilename.
+processor: aBlock [
+    processor := aBlock
 ]
 
+in: aString [
+    in := aString.
+]
 
+out: aString [
+    out := aString.
+]
 
 ]
 
