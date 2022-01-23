@@ -6,23 +6,27 @@ PiFinder class >> new [
 ]
 
 initialize [
-    sum := 0e.
-    denom := 1e.
+    sum := 0.
+    denom := 1.
     adding := true.
 ]
 
 value [
-    ^ (4e * sum)
+    ^ (4 * sum)
+]
+
+floatValue [
+    ^ 1.0e * (self value)
 ]
 
 step [
     | term |
     term :=
-         (adding ifTrue: [1e] ifFalse:[-1e]) / 
+         (adding ifTrue: [1] ifFalse:[-1]) / 
          denom.
         
     sum := sum + term.
-    denom := denom + 2e.
+    denom := denom + 2.
     adding := adding not.
     ^ term
 ]
@@ -40,6 +44,8 @@ testCase := [ :steps |
     'Iteration ' display.
     steps display.
     ':  ' display.
+    (p floatValue) display.
+    '  :  ' display.
     (p value) displayNl.
 ]
 
