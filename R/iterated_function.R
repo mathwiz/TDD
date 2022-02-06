@@ -10,7 +10,8 @@ log3_4 = function(xn) { logistic_difference(xn, 3.4) }
 log3_7 = function(xn) { logistic_difference(xn, 3.7) }
 log4_0 = function(xn) { logistic_difference(xn, 4.0) }
 
-# compare. Note 0.5 is critial point
+# compare. Note 0.5 is critial point since the derivative
+# of pn - pn^2 is 1 - 2pn, which is zero at pn = 0.5
 plot50(function(x) { logistic_difference(x, 4.0) }, .5)
 plot50(function(x) { logistic_difference(x, 4.0) }, .50001)
 
