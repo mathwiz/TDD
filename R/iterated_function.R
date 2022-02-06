@@ -2,6 +2,12 @@ sq = function(x) { x * x }
 f0 = function(x) { x + 1 }
 f1 = function(x) { x^2 + 1 }
 f2 = function(x) { x^(3/2) }
+# pn is population proportion, i.e. less than 1
+logistic_difference = function(pn, k) { k*pn * (1 - pn) }
+log2_5 = function(xn) { logistic_difference(xn, 2.5) }
+log3_2 = function(xn) { logistic_difference(xn, 3.2) }
+log3_4 = function(xn) { logistic_difference(xn, 3.4) }
+log3_7 = function(xn) { logistic_difference(xn, 3.7) }
 
 empty = function(list) { length(list) == 0 }
 
@@ -22,6 +28,10 @@ iterate = function(f, init, times) {
 }    
 
 
-doPlot = function(f, init, times) {
+doPlot = function(f, init, times=10) {
     plot(type="b", 0:times, iterate(f, init, times))
+}    
+
+plot50 = function(f, init) {
+    doPlot(f, init, times=50)
 }    
