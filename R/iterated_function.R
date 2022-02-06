@@ -8,6 +8,11 @@ log2_5 = function(xn) { logistic_difference(xn, 2.5) }
 log3_2 = function(xn) { logistic_difference(xn, 3.2) }
 log3_4 = function(xn) { logistic_difference(xn, 3.4) }
 log3_7 = function(xn) { logistic_difference(xn, 3.7) }
+log4_0 = function(xn) { logistic_difference(xn, 4.0) }
+
+# compare
+plot50(function(x) { logistic_difference(x, 4.0) }, .5)
+plot50(function(x) { logistic_difference(x, 4.0) }, .50001)
 
 empty = function(list) { length(list) == 0 }
 
