@@ -1,5 +1,5 @@
 sq = function(x) { x * x }
-f0 = function(x) { x + 1 }
+f0 = function(x) { x^2 - 1 }
 f1 = function(x) { x^2 + 1 }
 f2 = function(x) { x^(3/2) }
 # pn is population proportion, i.e. less than 1
@@ -10,7 +10,7 @@ log3_4 = function(xn) { logistic_difference(xn, 3.4) }
 log3_7 = function(xn) { logistic_difference(xn, 3.7) }
 log4_0 = function(xn) { logistic_difference(xn, 4.0) }
 
-# compare
+# compare. Note 0.5 is critial point
 plot50(function(x) { logistic_difference(x, 4.0) }, .5)
 plot50(function(x) { logistic_difference(x, 4.0) }, .50001)
 
