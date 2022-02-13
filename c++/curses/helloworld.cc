@@ -13,6 +13,7 @@ int main(int argc, const char * argv[])
 
   move(0, 0);
   printw("You pressed: %c\n[hit any key to end]", c);
+  refresh();
 
   getch();
 
