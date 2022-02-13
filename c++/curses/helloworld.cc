@@ -5,13 +5,13 @@ int main(int argc, const char * argv[])
 {
   initscr();
 
-  move(10, 0); //(y, x)
+  move(20, 40); //(y, x)
 
-  printw("Hello World!");
+  printw("Hello World! [hit any key]");
 
   int c = getch();
 
-  move(20, 40);
+  move(0, 0);
   printw("You pressed: %c\n[hit any key to end]", c);
 
   getch();
