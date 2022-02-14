@@ -47,7 +47,11 @@ int main(int argc, const char * argv[])
     refresh();
   }
 
+  mvaddstr(maxlines, 0, "Press any key to quit");
+  refresh();
+
   getch();
   endwin();
-  return 0;
+
+  exit(0);
 }
