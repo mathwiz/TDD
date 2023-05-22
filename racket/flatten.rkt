@@ -1,6 +1,8 @@
 ;; Run with
 ;; racket -f flatten.rkt -i
 
+(require racket/list)
+
 (define a (cons 1 (cons 2 empty)))
 (define b (cons 3 (cons 4 empty)))
 (define c (cons 5 (cons 6 empty)))
