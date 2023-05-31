@@ -9,18 +9,20 @@ era := e.
 ]
 ] "instance methods"
 
+
 Object subclass: NumberFunction [
 | n |
 setN: aNum [
     n := aNum.
 ]
-
+value [
+    self subclassResponsibility
+]
 NumberFunction class >> even: n [
     ^ (n rem: 2) == 0.
 ]
-
 NumberFunction class >> odd: n [
-    ^ (self even: n) not.
+    ^ self even: n not.
 ]
 ] "NumberFunction"
 
