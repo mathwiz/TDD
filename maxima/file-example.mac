@@ -1,0 +1,7 @@
+/* load with batchload("/path/to/example/file.txt") */
+
+for y:1 thru 12 do
+(s:"",
+for x:1 thru 12 do
+s:sconcat(s,printf(false,"~4d",x*y)),
+print(s));
