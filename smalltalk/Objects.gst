@@ -7,6 +7,9 @@ month := m.
 day := d.
 era := e.
 ]
+asString [
+    ^ y.
+]
 ] "instance methods"
 
 
@@ -22,10 +25,13 @@ NumberFunction class >> even: n [
     ^ (n rem: 2) == 0.
 ]
 NumberFunction class >> odd: n [
-    ^ self even: n not.
+    ^ (self even: n) not.
 ]
 ] "NumberFunction"
 
+NumberFunction subclass: SmallestDivisor [
+
+]
 
 | myDate myFun |
 YDate displayNl.
@@ -34,5 +40,9 @@ YDate selectors displayNl.
 NumberFunction displayNl.
 NumberFunction allInstVarNames displayNl.
 NumberFunction selectors displayNl.
+
+myDate := YDate new.
+myFun := SmallestDivisor new.
+
 'Done' displayNl.
 
