@@ -26,3 +26,104 @@ Legendre2(3, z);
 Legendre2(5, t);
 
 
+/* without recusion */
+LegendreN(n, x) :=
+block ( [p0, p1, pn, cnt],
+   if n = 0
+      then return (1)
+      else if n = 1
+              then return (x),
+   p0 : 1,
+   p1 : x,
+   cnt: 2,
+   while cnt <= n do
+    (  pn: expand(((2*cnt - 1)*x*p1
+                   - (cnt - 1)  *p0) / cnt),
+       p0: p1,
+       p1: pn,
+       cnt: cnt + 1
+    ),
+   pn      
+);
+
+
+LegendreN2(n, x) :=
+block ( [p0, p1, pn, cnt],
+   if n = 0
+      then return (1)
+      else if n = 1
+              then return (x),
+   p0 : 1,
+   p1 : x,
+   cnt: 2,
+   while block(pn: expand(((2*cnt - 1)*x*p1
+                           - (cnt - 1)  *p0) / cnt),
+               cnt: cnt + 1,
+               cnt <= n)
+   do
+    (  
+       p0: p1,
+       p1: pn
+    ),
+   pn      
+);
+
+
+LegendreN3(n, x) :=
+block ( [p0, p1, pn, cnt],
+     if n = 0
+        then return (1)
+        else if n = 1
+              then return (x),
+     p0 : 1,
+     p1 : x,
+     cnt: 2,
+   beginOfLoop,
+     pn: expand(((2*cnt - 1)*x*p1
+                 - (cnt - 1)  *p0) / cnt),
+     p0: p1,
+     p1: pn,
+     cnt: cnt + 1,
+     if cnt <= n then go(beginOfLoop),
+   pn      
+);
+
+
+LegendreNN(n, x) :=
+block ( [cnt, pn, coeffsP0, coeffsP1, coeffsPN, oldList ],
+   if n = 0
+      then return (1)
+      else if n = 1
+              then return (x),
+   coeffsP0: makelist (0, x, 0, n),
+   coeffsP1: makelist (0, x, 0, n),
+   coeffsPN: makelist (0, x, 0, n),
+   coeffsP0[1]: 1,
+   coeffsP1[2]: 1,
+   cnt: 2,
+   while cnt <= n do
+    (coeffsPN[1]: -coeffsP0[1]*(cnt - 1)/cnt,
+       for idx : 2 thru cnt + 1 do
+          coeffsPN[idx] :  ((2*cnt - 1)*coeffsP1[idx - 1]
+                             -(cnt - 1)*coeffsP0[idx])/ cnt,
+        
+       oldList: coeffsP0,
+       coeffsP0: coeffsP1,
+       coeffsP1: coeffsPN,
+       coeffsPN: oldList,
+       cnt: cnt + 1 
+    ),
+   pn: 0,
+   for idx:1 thru n + 1 do
+     pn: pn + coeffsP1[idx]*x^(idx - 1),
+   pn      
+);
+
+
+showtime:all;
+
+/* suppress output with $ */
+LegendreN  (200, x)$
+LegendreN2 (200, x)$
+LegendreN3 (200, x)$
+LegendreNN (200, x)$
