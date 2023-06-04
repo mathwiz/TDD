@@ -79,9 +79,9 @@ Animal subclass: Dog [
 
 | cat dog cardinal |
 
-('Animal default color is ' , (Animal new color)) printNl.
-cardinal := (Animal new: 'Cardinal' color: 'red').
-('Created ' , (cardinal type) , ' with color ' , (cardinal color)) printNl.
+Transcript show: ('Animal default color is ' , (Animal new color)); cr.
+cardinal := (Animal new: 'Cardinal' color: 'peach').
+Transcript show: ('Created ' , (cardinal type) , ' with color ' , (cardinal color)); cr.
 
 cat := Cat new: 'black'.
 cat talk.
