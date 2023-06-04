@@ -1,4 +1,5 @@
 /* load with batchload("/path/to/example/file.txt") */
+/* or run $ maxima -b file.txt */
 
 for y:1 thru 12 do
 (s:"",
