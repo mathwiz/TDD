@@ -28,6 +28,8 @@ Object subclass: Animal [
   color [
     ^ color
   ]
+
+  type [ ^ type ]
 ]
 
 Animal extend [
@@ -75,10 +77,11 @@ Animal subclass: Dog [
 ]
 
 
-| cat dog |
+| cat dog cardinal |
 
-(Animal new color) printNl.
-(Animal new: 'Cardinal' color: 'red') color printNl.
+('Animal default color is ' , (Animal new color)) printNl.
+cardinal := (Animal new: 'Cardinal' color: 'red').
+('Created ' , (cardinal type) , ' with color ' , (cardinal color)) printNl.
 
 cat := Cat new: 'black'.
 cat talk.
