@@ -84,6 +84,7 @@ cardinal := (Animal new: 'Cardinal' color: 'peach').
 Transcript show: ('Created ' , (cardinal type) , ' with color ' , (cardinal color)); cr.
 Transcript show: 'done with cardinal'; cr.
 
+Transcript show: 'Creating cat and dog and letting them talk'; cr.
 cat := Cat new: 'black'.
 cat talk.
 
