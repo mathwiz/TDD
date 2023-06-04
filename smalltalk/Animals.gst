@@ -82,6 +82,7 @@ Animal subclass: Dog [
 Transcript show: ('Animal default color is ' , (Animal new color)); cr.
 cardinal := (Animal new: 'Cardinal' color: 'peach').
 Transcript show: ('Created ' , (cardinal type) , ' with color ' , (cardinal color)); cr.
+Transcript show: 'done with cardinal'; cr.
 
 cat := Cat new: 'black'.
 cat talk.
