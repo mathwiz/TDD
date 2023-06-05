@@ -7,8 +7,9 @@ month := m.
 day := d.
 era := e.
 ]
+
 asString [
-    ^ y.
+    ^ year asString, '-', month asString, '-', day asString, ' ', era.
 ]
 ] "instance methods"
 
@@ -30,19 +31,21 @@ NumberFunction class >> odd: n [
 ] "NumberFunction"
 
 NumberFunction subclass: SmallestDivisor [
-
+value [
+    ^ n
 ]
+] "SmallestDivisor"
 
 | myDate myFun |
-YDate displayNl.
-YDate allInstVarNames displayNl.
-YDate selectors displayNl.
-NumberFunction displayNl.
-NumberFunction allInstVarNames displayNl.
-NumberFunction selectors displayNl.
+" YDate allInstVarNames displayNl. "
+" YDate selectors displayNl. "
+" NumberFunction displayNl. "
+" NumberFunction allInstVarNames displayNl. "
+" NumberFunction selectors displayNl. "
 
-myDate := YDate new.
-myFun := SmallestDivisor new.
-
+myDate := YDate new setYear: 2023 Month: 12 Day: 25 Era: 'AD'.
+Transcript show: myDate asString; cr.
+myFun := SmallestDivisor new setN: 2.
+Transcript show: myFun value asString; cr.
 'Done' displayNl.
 
