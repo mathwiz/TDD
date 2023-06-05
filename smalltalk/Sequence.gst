@@ -15,14 +15,14 @@ newFrom: from To: to [
 
 Sequence extend [
 from: from to: to by: by [
-    seq :=  (from to: to by: by) inject:(OrderedCollection new) into: [ :acc :each | acc add: each. acc ].
+    seq :=  (from to: to by: by) inject: (OrderedCollection new) into: [ :acc :each | acc add: each. acc ].
     ^ self
 ]
 
 asString [ 
     | str |
     str := ''.
-    seq do: [ :x | str := str , x asString , ',' ]. 
+    seq do: [ :x | str := str , (str size = 0 ifTrue: [ x asString ] ifFalse: [ ',' , x asString] ) ]. 
     ^ str
 ]
 ] "instance"
@@ -42,6 +42,7 @@ i > to ifFalse: [ seq add: i. tester value: (i + by) ]
 " seq do: [ :x | x printNl. ]. "
 
 seq := Sequence new from: from to: to by: by.
-Transcript show: seq asString; cr.
+tester := seq asString.
+Transcript show: tester; cr.
 
 Transcript show: 'done'; cr.
