@@ -10,6 +10,9 @@ newFrom: from To: to [
     ^ self newFrom: from To: to By: 1
 ]
 
+newFrom: from To: to By: by [
+    ^ self new from: from to: to by: by
+]
 
 ] "class"
 
@@ -45,7 +48,7 @@ i > to ifFalse: [ seq add: i. tester value: (i + by) ]
 " tester value: from. "
 " seq do: [ :x | x printNl. ]. "
 
-seq := Sequence new from: from to: to by: by.
+seq := Sequence newFrom: from To: to By: by.
 tester := seq asString.
 Transcript show: tester; cr.
 tester := seq asString2.
