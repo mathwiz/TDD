@@ -1,11 +1,16 @@
 Object subclass: #YDate.
 YDate instanceVariableNames: 'year month day era'.
+
+YDate class extend [
+newYear: yyyy Month: mm Day: dd [
+    ^ self basicNew setYear: yyyy Month: mm Day: dd
+]
+defaultEra [ ^ 'AD' ]
+] "class methods"
+
 YDate extend [
 setYear: y Month: m Day: d Era: e [
-    year := y.
-    month := m.
-    day := d.
-    era := e.
+    year := y. month := m. day := d. era := e.
 ]
 setYear: y Month: m Day: d [
     self setYear: y Month: m Day: d Era: (self class defaultEra)
@@ -16,9 +21,6 @@ asString [
 ]
 ] "instance methods"
 
-YDate class extend [
-defaultEra [ ^ 'AD' ]
-] "class methods"
 
 Object subclass: NumberFunction [
 | n |
