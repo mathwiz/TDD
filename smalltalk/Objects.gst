@@ -22,25 +22,36 @@ defaultEra [ ^ 'AD' ]
 
 Object subclass: NumberFunction [
 | n |
-setN: aNum [
+Num: aNum [
     n := aNum.
 ]
+Num [ ^ n ]
 value [
     self subclassResponsibility
 ]
-NumberFunction class >> newWithN: n [
-    ^ self basicNew setN: n
+NumberFunction class>> newNumber: n [
+    ^ self basicNew Num: n
 ]
-NumberFunction class >> even: n [
+NumberFunction class>> even: n [
     ^ (n rem: 2) == 0.
 ]
-NumberFunction class >> odd: n [
+NumberFunction class>> odd: n [
     ^ (self even: n) not.
+]
+NumberFunction class>> does: a divide: b [
+    ^ 0 == (b rem: a).
 ]
 ] "NumberFunction"
 
 NumberFunction subclass: SmallestDivisor [
-value [ ^ n / 2.0 ]
+value [ 
+    ^ self findDivisorForTest: 2.
+]
+findDivisorForTest: test [
+    (test * test > n) ifTrue: [ ^ n ].
+    (self class does: test divide: n) ifTrue: [ ^ test ].
+    ^ self findDivisorForTest: test+1
+]
 ] "SmallestDivisor"
 
 | myDate myFun |
@@ -54,7 +65,11 @@ myDate := YDate new setYear: 2023 Month: 12 Day: 25.
 Transcript show: myDate asString; cr.
 Transcript show: YDate defaultEra; cr.
 
-myFun := SmallestDivisor newWithN: 2.
+myFun := SmallestDivisor newNumber: 7.
+Transcript show: myFun Num asString; cr.
+Transcript show: ((myFun class does: 3 divide: 14) ifTrue: [ 'Nah' ] ifFalse: [ '3 does not divide 14' ]); cr.
+Transcript show: ((myFun class does: 7 divide: 14) ifTrue: [ '7 divides 14' ]); cr.
 Transcript show: myFun value asString; cr.
+Transcript show: (SmallestDivisor newNumber: 21) value asString; cr.
 'Done' displayNl.
 
