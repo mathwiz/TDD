@@ -23,12 +23,6 @@ from: from to: to by: by [
 ]
 
 asString [ 
-    | str |
-    str := ''.
-    seq do: [ :x | str := str , (str size = 0 ifTrue: [ x asString ] ifFalse: [ ',' , x asString] ) ]. 
-    ^ str
-]
-asString2 [ 
     ^ seq inject: '' into: [ :acc :x | acc , (acc size = 0 ifTrue: [ x asString ] ifFalse: [ ',' , x asString] ) ]. 
 ]
 
@@ -50,8 +44,6 @@ i > to ifFalse: [ seq add: i. tester value: (i + by) ]
 
 seq := Sequence newFrom: from To: to By: by.
 tester := seq asString.
-Transcript show: tester; cr.
-tester := seq asString2.
 Transcript show: tester; cr.
 
 Transcript show: 'done'; cr.
