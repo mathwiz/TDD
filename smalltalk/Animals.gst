@@ -90,3 +90,7 @@ cat talk.
 
 dog := Dog new: 'yellow'.
 dog talk.
+dog := Dog new: 'brown'.
+Transcript show: ('Created ' , (dog type) , ' with color ' , (dog color)); cr.
+
+Transcript show: 'Bye for now!'; cr.
