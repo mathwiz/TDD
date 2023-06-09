@@ -27,25 +27,33 @@ asString [
 
 Object subclass: NumberFunction [
 | n |
+
 Num: aNum [
     n := aNum.
 ]
+
 Num [ ^ n ]
+
 value [
     self subclassResponsibility
 ]
+
 NumberFunction class>> newNumber: n [
     ^ self basicNew Num: n
 ]
+
 NumberFunction class>> even: n [
     ^ (n rem: 2) == 0.
 ]
+
 NumberFunction class>> odd: n [
     ^ (self even: n) not.
 ]
+
 NumberFunction class>> does: a divide: b [
     ^ 0 == (b rem: a).
 ]
+
 ] "NumberFunction"
 
 NumberFunction subclass: SmallestDivisor [
