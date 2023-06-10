@@ -2,7 +2,8 @@ Object subclass: #YDate
 instanceVariableNames: 'year month day era'
 classVariableNames: ''
 poolDictionaries: ''
-category: 'Yohan'.
+category: 'Yohan'
+.
 
 YDate class extend [
 newYear: yyyy Month: mm Day: dd [
