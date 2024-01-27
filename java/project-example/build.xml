@@ -10,8 +10,12 @@
 	  <fileset dir="${lib.dir}" includes="**/*.jar" />
 	</path>
 
-        <target name="test">
+        <target name="name">
           <echo>${ant.project.name}</echo>
+        </target>
+
+        <target name="test">
+          <java dir="${bin.dir}" fork="true" classname="hello.World" />
         </target>
 
 	<target name="init">
