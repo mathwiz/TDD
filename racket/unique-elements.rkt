@@ -20,8 +20,6 @@
     (recur lst '()))
 )
 
-(member 33 lst)
-
 (get-unique-elements lst)
 (get-unique-elements ulst)
 (get-unique-elements '())
