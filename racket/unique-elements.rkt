@@ -1,0 +1,27 @@
+#lang racket
+(define lst '(1 2 3 4 4 5 6 6 7 8 8 8 8))
+(define ulst '(1 2 3))
+
+(define (has-only-unique-elements-p lst)
+  (or (null? lst)
+      (and (not (member (car lst) (cdr lst)))
+           (has-only-unique-elements-p (cdr lst)))))
+
+(has-only-unique-elements-p lst)
+(has-only-unique-elements-p ulst)
+
+(define (get-unique-elements lst)
+  (letrec ((recur (lambda (current acc)
+                    (cond ((null? current) acc)
+                          ((or (member (car current) (cdr current))
+                               (member (car current) acc))
+                           (recur (cdr current) acc))
+                          (else (recur (cdr current) (cons (car current) acc)))))))
+    (recur lst '()))
+)
+
+(member 33 lst)
+
+(get-unique-elements lst)
+(get-unique-elements ulst)
+(get-unique-elements '())
