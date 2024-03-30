@@ -11,13 +11,13 @@
 (has-only-unique-elements-p ulst)
 
 (define (get-unique-elements lst)
-  (letrec ((recur (lambda (current acc)
+  (letrec ((recur (lambda (current seen acc)
                     (cond ((null? current) acc)
                           ((or (member (car current) (cdr current))
-                               (member (car current) acc))
-                           (recur (cdr current) acc))
-                          (else (recur (cdr current) (cons (car current) acc)))))))
-    (recur lst '()))
+                               (member (car current) seen))
+                           (recur (cdr current) (cons (car current) seen) acc))
+                          (else (recur (cdr current) seen (cons (car current) acc)))))))
+    (recur lst '() '()))
 )
 
 (get-unique-elements lst)
