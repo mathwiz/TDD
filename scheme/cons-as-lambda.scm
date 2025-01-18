@@ -1,4 +1,4 @@
-(define (kcons x y) 
+(define (kons x y) 
   (lambda (arg) 
     (cond ((equal? arg 'car) x) 
           ((equal? arg 'cdr) y) 
