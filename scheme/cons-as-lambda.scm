@@ -4,7 +4,7 @@
           ((equal? arg 'cdr) y) 
           (else 
            (error 
-            "Bad message to CONS"
+            "Bad message to KONS"
             arg)))))
 
 (define (kar pair) 
